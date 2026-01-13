@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arcadia - Entertainment and gaming experiences. Play instantly, no downloads required.">
+    <title>Arcadia - Entertainment & Gaming</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --arcadia-dark: #4A4A4A;
+            --arcadia-blue: #0057B8;
+            --arcadia-purple: #8B5CF6;
+            --vtl-cyan: #00C8E8;
+            --black: #0A0A0A;
+            --grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border-bottom: 2px solid rgba(0,200,232,0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--arcadia-blue), var(--arcadia-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, white, var(--vtl-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--arcadia-blue);
+            border-color: white;
+        }
+
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, white, var(--vtl-cyan), var(--arcadia-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .category-tab {
+            padding: 0.875rem 1.75rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--arcadia-blue), var(--arcadia-purple));
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
+        }
+
+        .content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,200,232,0.3);
+            border-color: var(--vtl-cyan);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(0,87,184,0.3), rgba(139,92,246,0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .game-content {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-category {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .game-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--vtl-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .game-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--arcadia-blue), var(--arcadia-purple));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139,92,246,0.5);
+        }
+
+        .featured-section {
+            background: rgba(0,200,232,0.1);
+            border: 2px solid rgba(0,200,232,0.3);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--vtl-cyan);
+        }
+
+        .powered-by {
+            text-align: center;
+            padding: 3rem 2rem;
+            opacity: 0.7;
+        }
+
+        .powered-by a {
+            color: var(--vtl-cyan);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">⛰️</div>
+                <div class="logo-text">
+                    <h1>Arcadia</h1>
+                    <p>Entertainment & Gaming</p>
+                </div>
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn" onclick="alert('Back to AppWow')">← Back to AppWow</button>
+                <button class="btn" onclick="alert('Install Arcadia')">Install App</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Arcadia</h1>
+            <p class="hero-subtitle">Instant entertainment. Play now, no downloads required. Works offline.</p>
+        </div>
+    </section>
+
+    <div class="category-tabs">
+        <div class="category-tab active">🎮 All Games</div>
+        <div class="category-tab">🧩 Puzzle</div>
+        <div class="category-tab">🎯 Arcade</div>
+        <div class="category-tab">🧠 Brain Training</div>
+        <div class="category-tab">🎲 Casual</div>
+    </div>
+
+    <div class="content">
+        <div class="featured-section">
+            <h2 class="featured-title">🌟 Featured This Week</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Discover hand-picked games and experiences from the Arcadia community</p>
+        </div>
+
+        <div class="games-grid">
+            <!-- Game 1: Puzzle -->
+            <div class="game-card" onclick="alert('Launching Cosmic Puzzle...')">
+                <div class="game-image">
+                    🧩
+                    <div class="game-badge">🔥 Trending</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Cosmic Puzzle</h3>
+                    <p class="game-category">Puzzle • Single Player</p>
+                    <p class="game-description">
+                        Match stellar patterns in this relaxing space-themed puzzle game. 100+ levels of cosmic fun.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.8</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">50K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 2: Arcade -->
+            <div class="game-card" onclick="alert('Launching Speed Runner...')">
+                <div class="game-image">
+                    🏃
+                    <div class="game-badge">⭐ Featured</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Speed Runner</h3>
+                    <p class="game-category">Arcade • Fast-Paced</p>
+                    <p class="game-description">
+                        Race through dynamic obstacles at breakneck speed. How far can you go?
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.6</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">120K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 3: Brain Training -->
+            <div class="game-card" onclick="alert('Launching Memory Master...')">
+                <div class="game-image">
+                    🧠
+                    <div class="game-badge">💡 New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Memory Master</h3>
+                    <p class="game-category">Brain Training • Educational</p>
+                    <p class="game-description">
+                        Sharpen your memory with daily challenges. Track your progress and improve your mind.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.9</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">35K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 4: Word Game -->
+            <div class="game-card" onclick="alert('Launching Word Quest...')">
+                <div class="game-image">
+                    📝
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Word Quest</h3>
+                    <p class="game-category">Puzzle • Word Game</p>
+                    <p class="game-description">
+                        Find hidden words in a grid of letters. Thousands of puzzles to solve.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.7</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">85K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 5: Strategy -->
+            <div class="game-card" onclick="alert('Launching Tower Defense...')">
+                <div class="game-image">
+                    🏰
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Tower Defense</h3>
+                    <p class="game-category">Strategy • Tower Defense</p>
+                    <p class="game-description">
+                        Build towers, defend your realm. Strategic gameplay with 50+ unique levels.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.5</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">65K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 6: Match-3 -->
+            <div class="game-card" onclick="alert('Launching Gem Cascade...')">
+                <div class="game-image">
+                    💎
+                    <div class="game-badge">🔥 Popular</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Gem Cascade</h3>
+                    <p class="game-category">Puzzle • Match-3</p>
+                    <p class="game-description">
+                        Classic match-3 gameplay with stunning visuals. Hundreds of levels to master.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.8</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">200K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 7: Trivia -->
+            <div class="game-card" onclick="alert('Launching Quiz Champion...')">
+                <div class="game-image">
+                    🎓
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Quiz Champion</h3>
+                    <p class="game-category">Trivia • Multiplayer</p>
+                    <p class="game-description">
+                        Test your knowledge across dozens of categories. Play solo or challenge friends.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.6</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">95K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">🌐</div>
+                            <div class="stat-label">Online</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 8: Rhythm -->
+            <div class="game-card" onclick="alert('Launching Beat Master...')">
+                <div class="game-image">
+                    🎵
+                    <div class="game-badge">💡 New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Beat Master</h3>
+                    <p class="game-category">Rhythm • Music</p>
+                    <p class="game-description">
+                        Tap to the rhythm in this music-driven experience. Dozens of tracks to master.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.9</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">42K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 9: Chess -->
+            <div class="game-card" onclick="alert('Launching Chess Master...')">
+                <div class="game-image">
+                    ♟️
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Chess Master</h3>
+                    <p class="game-category">Strategy • Classic</p>
+                    <p class="game-description">
+                        Classic chess with multiple difficulty levels. Play against AI or friends online.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.7</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">110K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="powered-by">
+        Powered by <a href="#">Arcadia</a> • Part of the AppWow Evosystem
+        <br>
+        <span style="font-size: 0.85rem; opacity: 0.8;">Instant entertainment • No downloads • Works offline • Built for fun</span>
+    </div>
+</body>
+</html>

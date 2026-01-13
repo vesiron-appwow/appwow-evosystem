@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="mylynx - Your personal digital identity. Share your profile, connect, and showcase yourself.">
+    <title>mylynx - Personal Digital Identity</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --mylynx-purple: #8B5CF6;
+            --mylynx-pink: #DC3545;
+            --vtl-blue: #0057B8;
+            --vtl-cyan: #00C8E8;
+            --black: #0A0A0A;
+            --grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-grey);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+            padding: 1rem 2rem;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--mylynx-purple);
+        }
+
+        .profile-hero {
+            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .profile-hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .profile-bio {
+            font-size: 1.05rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--mylynx-purple);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            background: #e0e0e0;
+            transform: translateX(4px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .contact-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info p {
+            font-size: 0.9rem;
+            color: var(--grey);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--black);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-btn:hover {
+            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+        }
+
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .listing-card {
+            background: var(--light-grey);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(139,92,246,0.3);
+        }
+
+        .listing-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #e0e0e0, var(--light-grey));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .listing-content {
+            padding: 1.5rem;
+        }
+
+        .listing-type {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--mylynx-purple);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .listing-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .listing-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--mylynx-purple);
+            margin-bottom: 1rem;
+        }
+
+        .listing-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--mylynx-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .listing-btn:hover {
+            background: var(--mylynx-pink);
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            padding: 0.75rem 1.25rem;
+            background: var(--light-grey);
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .powered-by {
+            text-align: center;
+            padding: 2rem;
+            color: var(--grey);
+        }
+
+        .powered-by a {
+            color: var(--vtl-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .qr-section {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light-grey);
+            border-radius: 12px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 1rem auto;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .profile-hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-name {
+                font-size: 2rem;
+            }
+
+            .contact-grid,
+            .listings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span style="font-size: 2rem;">m</span>
+                <span>mylynx</span>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+                <button class="btn" onclick="alert('Back to AppWow')">← AppWow</button>
+                <button class="btn" onclick="alert('Share Profile')">📤 Share</button>
+                <button class="btn" onclick="alert('Install mylynx')">Install</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="profile-hero">
+        <div class="profile-hero-content">
+            <div class="profile-photo">👤</div>
+            <div class="profile-info">
+                <h1 class="profile-name">Sarah Thompson</h1>
+                <p class="profile-title">Freelance Graphic Designer & Photographer</p>
+                <p class="profile-bio">
+                    Based in Brighton, specializing in brand identity and creative photography. 
+                    Available for projects and collaborations.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="content">
+        <!-- Contact Section -->
+        <div class="section">
+            <h2 class="section-title">📞 Get in Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-item" onclick="window.location.href='tel:07700900123'">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-info">
+                        <h4>Phone</h4>
+                        <p>07700 900 123</p>
+                    </div>
+                </div>
+
+                <div class="contact-item" onclick="window.location.href='mailto:sarah@example.com'">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-info">
+                        <h4>Email</h4>
+                        <p>sarah@example.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item" onclick="alert('Opening location...')">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-info">
+                        <h4>Location</h4>
+                        <p>Brighton, UK</p>
+                    </div>
+                </div>
+
+                <div class="contact-item" onclick="alert('Opening website...')">
+                    <div class="contact-icon">🌐</div>
+                    <div class="contact-info">
+                        <h4>Website</h4>
+                        <p>sarahthompson.co.uk</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="section">
+            <h2 class="section-title">🔗 Connect With Me</h2>
+            <div class="social-links">
+                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening LinkedIn...')">
+                    <span class="social-icon">💼</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Instagram...')">
+                    <span class="social-icon">📸</span>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Portfolio...')">
+                    <span class="social-icon">🎨</span>
+                    <span>Portfolio</span>
+                </a>
+                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Twitter...')">
+                    <span class="social-icon">🐦</span>
+                    <span>Twitter</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="section">
+            <h2 class="section-title">👋 About Me</h2>
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--grey); margin-bottom: 1.5rem;">
+                I'm a creative professional with over 8 years of experience in graphic design and photography. 
+                I work with businesses and individuals to create compelling visual identities that tell their story. 
+                My approach combines clean, modern design with authentic storytelling through imagery.
+            </p>
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--grey);">
+                When I'm not behind the camera or computer, you'll find me exploring Brighton's vibrant arts scene, 
+                practicing yoga, or enjoying the South Downs.
+            </p>
+        </div>
+
+        <!-- Skills -->
+        <div class="section">
+            <h2 class="section-title">💡 Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-tag">Brand Identity</div>
+                <div class="skill-tag">Logo Design</div>
+                <div class="skill-tag">Portrait Photography</div>
+                <div class="skill-tag">Adobe Creative Suite</div>
+                <div class="skill-tag">Web Design</div>
+                <div class="skill-tag">Social Media Content</div>
+                <div class="skill-tag">Event Photography</div>
+                <div class="skill-tag">Product Photography</div>
+            </div>
+        </div>
+
+        <!-- My Listings (Optional) -->
+        <div class="section">
+            <h2 class="section-title">🔖 My Listings</h2>
+            <p style="color: var(--grey); margin-bottom: 1.5rem;">
+                Items and services I'm currently offering through AppWow
+            </p>
+            
+            <div class="listings-grid">
+                <!-- Vehicle via CarLinx -->
+                <div class="listing-card" onclick="alert('Opening CarLinx listing...')">
+                    <div class="listing-image">🚗</div>
+                    <div class="listing-content">
+                        <div class="listing-type">CarLinx • For Sale</div>
+                        <h3 class="listing-title">2019 Mini Cooper S</h3>
+                        <div class="listing-price">£18,500</div>
+                        <button class="listing-btn">View on CarLinx</button>
+                    </div>
+                </div>
+
+                <!-- Service via LinxLocal -->
+                <div class="listing-card" onclick="alert('Opening LinxLocal listing...')">
+                    <div class="listing-image">📸</div>
+                    <div class="listing-content">
+                        <div class="listing-type">LinxLocal • Service</div>
+                        <h3 class="listing-title">Photography Sessions</h3>
+                        <div class="listing-price">From £150</div>
+                        <button class="listing-btn">View on LinxLocal</button>
+                    </div>
+                </div>
+
+                <!-- Room via HomeLinx -->
+                <div class="listing-card" onclick="alert('Opening HomeLinx listing...')">
+                    <div class="listing-image">🏠</div>
+                    <div class="listing-content">
+                        <div class="listing-type">HomeLinx • To Let</div>
+                        <h3 class="listing-title">Spare Room Available</h3>
+                        <div class="listing-price">£650 pcm</div>
+                        <button class="listing-btn">View on HomeLinx</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Code -->
+        <div class="section">
+            <div class="qr-section">
+                <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;">Share My mylynx</h3>
+                <p style="color: var(--grey); margin-bottom: 1rem;">Scan to save my contact details</p>
+                <div class="qr-code">
+                    <div style="text-align: center;">
+                        <div style="font-size: 5rem;">📱</div>
+                        <div style="font-size: 0.9rem; color: var(--grey); margin-top: 0.5rem;">QR Code</div>
+                    </div>
+                </div>
+                <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">
+                    Or share: mylynx.app/sarah-thompson
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="powered-by">
+        Powered by <a href="#">mylynx</a> • Part of the AppWow Evosystem
+        <br>
+        <span style="font-size: 0.85rem; opacity: 0.8;">Your personal digital identity • Installable • Shareable • Always up to date</span>
+    </div>
+</body>
+</html>

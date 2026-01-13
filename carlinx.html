@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CarLinx - Discover vehicles with Link3 staged selling in Brighton & Sussex.">
+    <title>CarLinx - Vehicle Discovery with Link3</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --carlinx-orange: #FFC107;
+            --carlinx-red: #DC3545;
+            --vtl-blue: #0057B8;
+            --vtl-cyan: #00C8E8;
+            --black: #0A0A0A;
+            --grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+            --green: #28A745;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-grey);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--carlinx-orange), var(--carlinx-red));
+            padding: 1.5rem 2rem;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--carlinx-orange);
+        }
+
+        .link3-banner {
+            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .link3-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .link3-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 1.5rem auto 0;
+        }
+
+        .stage-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .stage-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stage-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-section {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-controls {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .results-count {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--grey);
+        }
+
+        .results-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 2rem;
+        }
+
+        .card-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .vehicle-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(255,193,7,0.3);
+        }
+
+        .vehicle-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .link3-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--vtl-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .stage-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+        }
+
+        .stage-1 { background: var(--carlinx-red); }
+        .stage-2 { background: var(--carlinx-orange); color: var(--black); }
+        .stage-3 { background: var(--green); }
+
+        .vehicle-content {
+            padding: 1.5rem;
+        }
+
+        .vehicle-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--carlinx-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .vehicle-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .vehicle-subtitle {
+            font-size: 0.95rem;
+            color: var(--grey);
+            margin-bottom: 1rem;
+        }
+
+        .vehicle-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 8px;
+        }
+
+        .spec-item {
+            font-size: 0.9rem;
+            color: var(--grey);
+        }
+
+        .link3-status {
+            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .link3-status-title {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .link3-status-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .vehicle-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.875rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .action-btn-primary {
+            background: var(--carlinx-orange);
+            color: var(--black);
+        }
+
+        .action-btn-primary:hover {
+            background: var(--carlinx-red);
+            color: white;
+        }
+
+        .action-btn-secondary {
+            background: var(--light-grey);
+            color: var(--grey);
+        }
+
+        .powered-by {
+            text-align: center;
+            padding: 2rem;
+            color: var(--grey);
+        }
+
+        .powered-by a {
+            color: var(--vtl-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .card-view {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">C</div>
+                <div class="logo-text">
+                    <h1>CarLinx</h1>
+                    <p>Vehicle Discovery with Link3</p>
+                </div>
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn" onclick="alert('Back to AppWow')">← Back to AppWow</button>
+                <button class="btn" onclick="alert('Install CarLinx')">Install App</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="link3-banner">
+        <h2>🔗 Powered by Link3 Staged Selling</h2>
+        <p>CarLinx uses Link3 to give sellers maximum exposure and buyers better opportunities</p>
+        
+        <div class="link3-stages">
+            <div class="stage-card">
+                <div class="stage-number">Stage 1</div>
+                <div class="stage-title">Trade Priority</div>
+                <p style="font-size: 0.95rem; opacity: 0.9;">3 days exclusive for registered commercial buyers. Silent bidding.</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Stage 2</div>
+                <div class="stage-title">Extended Buyers</div>
+                <p style="font-size: 0.95rem; opacity: 0.9;">3 days for registered enthusiasts and private buyers.</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Stage 3</div>
+                <div class="stage-title">Public Market</div>
+                <p style="font-size: 0.95rem; opacity: 0.9;">28 days general availability. Fixed price or best offer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="search-container">
+            <h2 class="search-title">Find Your Next Vehicle in Brighton & Sussex</h2>
+            
+            <form style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Make</label>
+                    <select style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>Any Make</option>
+                        <option>Audi</option>
+                        <option>BMW</option>
+                        <option>Ford</option>
+                        <option>Mercedes-Benz</option>
+                        <option>Toyota</option>
+                        <option>Volkswagen</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Model</label>
+                    <input type="text" placeholder="e.g., Golf, Corolla" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Min Price</label>
+                    <select style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>No Min</option>
+                        <option>£5,000</option>
+                        <option>£10,000</option>
+                        <option>£15,000</option>
+                        <option>£20,000</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Max Price</label>
+                    <select style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>No Max</option>
+                        <option>£15,000</option>
+                        <option>£20,000</option>
+                        <option>£30,000</option>
+                        <option>£50,000</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Location</label>
+                    <input type="text" value="Brighton" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <button type="button" onclick="alert('Searching vehicles...')" style="align-self: end; padding: 0.875rem; background: var(--carlinx-orange); color: var(--black); border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">Search</button>
+            </form>
+
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid var(--light-grey);">
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--grey);">Distance:</span>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--carlinx-orange); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">10 miles</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">25 miles</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">50 miles</button>
+                </div>
+                
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--grey);">Link3 Stage:</span>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--carlinx-orange); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">All Stages</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">Trade Only</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">Extended</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">Public</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="view-controls">
+        <div class="results-count"><span>9</span> vehicles found</div>
+    </div>
+
+    <div class="results-container">
+        <div class="card-view">
+            <!-- Vehicle 1: Stage 1 BMW -->
+            <div class="vehicle-card" onclick="alert('Opening BMW 3 Series...')">
+                <div class="vehicle-image">
+                    🚗
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-1">Stage 1: Trade</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£28,995</div>
+                    <h3 class="vehicle-name">2021 BMW 3 Series</h3>
+                    <p class="vehicle-subtitle">320d M Sport Saloon</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2021 (73 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 24,500 miles</div>
+                        <div class="spec-item">📍 7.2 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">⏰ Trade Priority (Day 2 of 3)</div>
+                        <div class="link3-status-desc">Available to registered commercial buyers only.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 2: Stage 2 Audi -->
+            <div class="vehicle-card" onclick="alert('Opening Audi A4...')">
+                <div class="vehicle-image">
+                    🚙
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-2">Stage 2: Extended</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£21,450</div>
+                    <h3 class="vehicle-name">2019 Audi A4</h3>
+                    <p class="vehicle-subtitle">35 TFSI S Line Avant</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2019 (69 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 38,200 miles</div>
+                        <div class="spec-item">📍 3.8 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">🎯 Extended Buyers (Day 1 of 3)</div>
+                        <div class="link3-status-desc">Available to registered buyers. Make your offer now.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Offer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 3: Stage 3 VW -->
+            <div class="vehicle-card" onclick="alert('Opening VW Golf...')">
+                <div class="vehicle-image">
+                    🚗
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£15,995</div>
+                    <h3 class="vehicle-name">2018 Volkswagen Golf</h3>
+                    <p class="vehicle-subtitle">1.5 TSI EVO GT Edition</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2018 (18 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 42,100 miles</div>
+                        <div class="spec-item">📍 8.5 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">✅ Public Sale - Fixed Price (Day 12 of 28)</div>
+                        <div class="link3-status-desc">Available to everyone at fixed price.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 4: Stage 3 Mercedes -->
+            <div class="vehicle-card" onclick="alert('Opening Mercedes C-Class...')">
+                <div class="vehicle-image">
+                    🚘
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£18,750 <span style="font-size: 0.6em; font-weight: 400;">or best offer</span></div>
+                    <h3 class="vehicle-name">2017 Mercedes C-Class</h3>
+                    <p class="vehicle-subtitle">C220d AMG Line Premium</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2017 (67 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 55,800 miles</div>
+                        <div class="spec-item">📍 5.2 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">💬 Public Sale - Best Offer (Day 7 of 28)</div>
+                        <div class="link3-status-desc">Accepting offers from all buyers.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Offer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 5: Stage 1 Porsche -->
+            <div class="vehicle-card" onclick="alert('Opening Porsche 718...')">
+                <div class="vehicle-image">
+                    🏎️
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-1">Stage 1: Trade</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£44,995</div>
+                    <h3 class="vehicle-name">2020 Porsche 718 Cayman</h3>
+                    <p class="vehicle-subtitle">2.0 T 300 PS PDK</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2020 (20 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 8,900 miles</div>
+                        <div class="spec-item">📍 12.3 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">⏰ Trade Priority (Day 1 of 3)</div>
+                        <div class="link3-status-desc">Exclusive to registered commercial buyers.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 6: Stage 2 Toyota -->
+            <div class="vehicle-card" onclick="alert('Opening Toyota RAV4...')">
+                <div class="vehicle-image">
+                    🚙
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-2">Stage 2: Extended</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£24,750</div>
+                    <h3 class="vehicle-name">2019 Toyota RAV4</h3>
+                    <p class="vehicle-subtitle">2.5 VVT-i Hybrid Excel</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2019 (69 plate)</div>
+                        <div class="spec-item">⚙️ Hybrid</div>
+                        <div class="spec-item">📏 31,200 miles</div>
+                        <div class="spec-item">📍 4.1 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">🎯 Extended Buyers (Day 2 of 3)</div>
+                        <div class="link3-status-desc">Multiple offers received. Final day tomorrow.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Offer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 7: Stage 3 Ford Transit -->
+            <div class="vehicle-card" onclick="alert('Opening Ford Transit...')">
+                <div class="vehicle-image">
+                    🚐
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£14,995</div>
+                    <h3 class="vehicle-name">2018 Ford Transit Custom</h3>
+                    <p class="vehicle-subtitle">2.0 TDCi 300 L1H1 Limited</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2018 (68 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 68,500 miles</div>
+                        <div class="spec-item">📍 9.7 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">✅ Public Sale - Fixed Price (Day 3 of 28)</div>
+                        <div class="link3-status-desc">Freshly listed at public stage.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 8: Stage 1 Range Rover -->
+            <div class="vehicle-card" onclick="alert('Opening Range Rover...')">
+                <div class="vehicle-image">
+                    🚙
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-1">Stage 1: Trade</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£35,950</div>
+                    <h3 class="vehicle-name">2021 Range Rover Evoque</h3>
+                    <p class="vehicle-subtitle">2.0 D180 R-Dynamic S Auto</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2021 (71 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 18,300 miles</div>
+                        <div class="spec-item">📍 6.8 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">⏰ Trade Priority (Day 3 of 3)</div>
+                        <div class="link3-status-desc">Final day for trade buyers. Moves to Extended tomorrow.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 9: Stage 3 Ford Fiesta -->
+            <div class="vehicle-card" onclick="alert('Opening Ford Fiesta...')">
+                <div class="vehicle-image">
+                    🚗
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£7,495</div>
+                    <h3 class="vehicle-name">2016 Ford Fiesta</h3>
+                    <p class="vehicle-subtitle">1.0 EcoBoost Zetec 5dr</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2016 (66 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 52,400 miles</div>
+                        <div class="spec-item">📍 3.2 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">✅ Public Sale - Fixed Price (Day 18 of 28)</div>
+                        <div class="link3-status-desc">Priced to sell. Full service history.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="powered-by">
+        Powered by <a href="#">AppWow</a> • Part of the VTL Evosystem • Using Link3 Staged Selling Protocol
+    </div>
+</body>
+</html>
