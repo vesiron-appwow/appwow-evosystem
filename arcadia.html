@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AppWow - Instant Apps that work immediately, install only if you want, and feel like real apps from the first tap.">
-    <title>AppWow - Instant Apps Marketplace</title>
-    <meta name="theme-color" content="#0057B8">
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
+    <meta name="description" content="Arcadia - Entertainment and gaming experiences. Play instantly, no downloads required.">
+    <title>Arcadia - Entertainment & Gaming</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
-            --vtl-blue: #0057B8;
+            --arcadia-dark: #4A4A4A;
+            --arcadia-blue: #0057B8;
+            --arcadia-purple: #8B5CF6;
             --vtl-cyan: #00C8E8;
-            --evosystem-black: #0A0A0A;
-            --technical-grey: #4A4A4A;
+            --black: #0A0A0A;
+            --grey: #4A4A4A;
             --light-grey: #F2F2F2;
-            --success-green: #28A745;
-            --warning-amber: #FFC107;
-            --error-red: #DC3545;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #fff;
-            color: var(--evosystem-black);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* Header Navigation */
         .header {
-            background: var(--evosystem-black);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border-bottom: 2px solid rgba(0,200,232,0.3);
         }
 
         .header-content {
@@ -56,115 +49,57 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
+            color: white;
             text-decoration: none;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #0057B8, #00C8E8, #28A745, #FFC107, #DC3545, #8B5CF6);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        .nav-link.cta {
-            background: var(--vtl-blue);
-            color: white;
-        }
-
-        .nav-link.cta:hover {
-            background: var(--vtl-cyan);
-        }
-
-        /* Linx Toolbar */
-        .linx-toolbar {
-            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
-            padding: 1rem 2rem;
-            overflow-x: auto;
-        }
-
-        .linx-toolbar-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .linx-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: white;
-            min-width: 100px;
-            border: 2px solid transparent;
-        }
-
-        .linx-item:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-2px);
-            border-color: rgba(255,255,255,0.3);
-        }
-
-        .linx-icon {
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--arcadia-blue), var(--arcadia-purple));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            background: white;
-            color: var(--vtl-blue);
+            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
         }
 
-        .linx-label {
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, white, var(--vtl-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
             font-size: 0.9rem;
-            font-weight: 600;
-            text-align: center;
+            opacity: 0.8;
         }
 
-        /* Hero Section */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--arcadia-blue);
+            border-color: white;
+        }
+
         .hero {
-            background: linear-gradient(135deg, var(--light-grey) 0%, #fff 100%);
             padding: 4rem 2rem;
             text-align: center;
         }
@@ -174,600 +109,534 @@
             margin: 0 auto;
         }
 
-        .hero-tagline {
-            color: var(--technical-grey);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
         .hero-title {
             font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: var(--evosystem-black);
-            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, white, var(--vtl-cyan), var(--arcadia-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .hero-description {
-            font-size: 1.25rem;
-            color: var(--technical-grey);
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
             margin-bottom: 2rem;
-            line-height: 1.8;
         }
 
-        .hero-buttons {
+        .category-tabs {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto 3rem;
         }
 
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
+        .category-tab {
+            padding: 0.875rem 1.75rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
             cursor: pointer;
-            border: none;
-            display: inline-block;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
         }
 
-        .btn-primary {
-            background: var(--vtl-blue);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--vtl-cyan);
+        .category-tab:hover,
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--arcadia-blue), var(--arcadia-purple));
+            border-color: transparent;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,87,184,0.3);
+            box-shadow: 0 4px 12px rgba(139,92,246,0.4);
         }
 
-        .btn-secondary {
-            background: var(--evosystem-black);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: var(--technical-grey);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--vtl-blue);
-            border: 2px solid var(--vtl-blue);
-        }
-
-        .btn-outline:hover {
-            background: var(--vtl-blue);
-            color: white;
-        }
-
-        /* Featured Apps Section */
-        .section {
-            padding: 4rem 2rem;
+        .content {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 0 2rem 4rem;
         }
 
-        .section-header {
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--evosystem-black);
-        }
-
-        .section-description {
-            font-size: 1.1rem;
-            color: var(--technical-grey);
-        }
-
-        /* App Grid */
-        .app-grid {
+        .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
 
-        .app-card {
-            background: white;
+        .game-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
             border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
             cursor: pointer;
-            border: 2px solid transparent;
         }
 
-        .app-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,87,184,0.15);
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,200,232,0.3);
             border-color: var(--vtl-cyan);
         }
 
-        .app-card-header {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            align-items: center;
-        }
-
-        .app-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 14px;
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(0,87,184,0.3), rgba(139,92,246,0.3));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            flex-shrink: 0;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .app-info {
-            flex: 1;
+        .game-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
         }
 
-        .app-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            color: var(--evosystem-black);
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
         }
 
-        .app-category {
-            font-size: 0.85rem;
-            color: var(--technical-grey);
-            font-weight: 500;
-        }
-
-        .app-description {
-            color: var(--technical-grey);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .app-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: var(--light-grey);
-            color: var(--technical-grey);
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .app-badge.featured {
-            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
-            color: white;
-        }
-
-        .app-actions {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .app-btn {
-            flex: 1;
-            padding: 0.75rem;
+        .game-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
             border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 1rem;
+            font-size: 0.85rem;
+            font-weight: 700;
         }
 
-        .app-btn-primary {
-            background: var(--vtl-blue);
-            color: white;
+        .game-content {
+            padding: 1.5rem;
         }
 
-        .app-btn-primary:hover {
-            background: var(--vtl-cyan);
-        }
-
-        /* Info Boxes */
-        .info-boxes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .info-box {
-            background: var(--light-grey);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .info-box-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .info-box-title {
+        .game-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--evosystem-black);
         }
 
-        .info-box-description {
-            color: var(--technical-grey);
+        .game-category {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--evosystem-black);
+        .game-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--vtl-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .game-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--arcadia-blue), var(--arcadia-purple));
             color: white;
-            padding: 3rem 2rem 1rem;
-            margin-top: 4rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+        .game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139,92,246,0.5);
         }
 
-        .footer-section h3 {
+        .featured-section {
+            background: rgba(0,200,232,0.1);
+            border: 2px solid rgba(0,200,232,0.3);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 1rem;
             color: var(--vtl-cyan);
         }
 
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--vtl-cyan);
-        }
-
-        .footer-bottom {
+        .powered-by {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
+            padding: 3rem 2rem;
+            opacity: 0.7;
         }
 
-        /* Responsive Design */
+        .powered-by a {
+            color: var(--vtl-cyan);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
             }
 
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .app-grid {
+            .games-grid {
                 grid-template-columns: 1fr;
             }
-
-            .linx-toolbar-content {
-                justify-content: flex-start;
-            }
-
-            .header-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links {
-                width: 100%;
-            }
-        }
-
-        /* Install Banner */
-        .install-banner {
-            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
-            color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-            display: none;
-        }
-
-        .install-banner.show {
-            display: block;
-        }
-
-        .install-banner button {
-            background: white;
-            color: var(--vtl-blue);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-left: 1rem;
         }
     </style>
 </head>
 <body>
-    <!-- Install Banner -->
-    <div id="installBanner" class="install-banner">
-        <span>Install AppWow for quick access to all Instant Apps</span>
-        <button onclick="installApp()">Install Now</button>
-        <button onclick="dismissBanner()" style="background: transparent; color: white; border: 1px solid white;">Not Now</button>
-    </div>
-
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <a href="#" class="logo">
-                <div class="logo-icon">A</div>
-                <span>AppWow</span>
+                <div class="logo-icon">⛰️</div>
+                <div class="logo-text">
+                    <h1>Arcadia</h1>
+                    <p>Entertainment & Gaming</p>
+                </div>
             </a>
-            <nav class="nav-links">
-                <a href="#browse" class="nav-link">Browse Apps</a>
-                <a href="#about" class="nav-link">What Is an Instant App?</a>
-                <a href="#developers" class="nav-link">Developer Challenge</a>
-                <a href="#" class="nav-link cta">Install AppWow</a>
-            </nav>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn" onclick="window.location.href='./index.html'">← Back to AppWow</button>
+                <button class="btn" onclick="alert('Install Arcadia')">Install App</button>
+            </div>
         </div>
     </header>
 
-    <!-- Linx Toolbar -->
-    <div class="linx-toolbar">
-        <div class="linx-toolbar-content">
-            <a href="./linxlocal.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #0057B8, #00C8E8);">L</div>
-                <span class="linx-label">LinxLocal</span>
-            </a>
-            <a href="./carlinx.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #FFC107, #DC3545); color: white;">C</div>
-                <span class="linx-label">CarLinx</span>
-            </a>
-            <a href="./homelinx.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #00C8E8, #28A745);">H</div>
-                <span class="linx-label">HomeLinx</span>
-            </a>
-            <a href="./mylynx.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #8B5CF6, #DC3545);">m</div>
-                <span class="linx-label">mylynx</span>
-            </a>
-            <a href="./arcadia.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #4A4A4A, #0057B8);">⛰</div>
-                <span class="linx-label">Arcadia</span>
-            </a>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Arcadia</h1>
+            <p class="hero-subtitle">Instant entertainment. Play now, no downloads required. Works offline.</p>
+        </div>
+    </section>
+
+    <div class="category-tabs">
+        <div class="category-tab active">🎮 All Games</div>
+        <div class="category-tab">🧩 Puzzle</div>
+        <div class="category-tab">🎯 Arcade</div>
+        <div class="category-tab">🧠 Brain Training</div>
+        <div class="category-tab">🎲 Casual</div>
+    </div>
+
+    <div class="content">
+        <div class="featured-section">
+            <h2 class="featured-title">🌟 Featured This Week</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Discover hand-picked games and experiences from the Arcadia community</p>
+        </div>
+
+        <div class="games-grid">
+            <!-- Game 1: Puzzle -->
+            <div class="game-card" onclick="alert('Launching Cosmic Puzzle...')">
+                <div class="game-image">
+                    🧩
+                    <div class="game-badge">🔥 Trending</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Cosmic Puzzle</h3>
+                    <p class="game-category">Puzzle • Single Player</p>
+                    <p class="game-description">
+                        Match stellar patterns in this relaxing space-themed puzzle game. 100+ levels of cosmic fun.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.8</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">50K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 2: Arcade -->
+            <div class="game-card" onclick="alert('Launching Speed Runner...')">
+                <div class="game-image">
+                    🏃
+                    <div class="game-badge">⭐ Featured</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Speed Runner</h3>
+                    <p class="game-category">Arcade • Fast-Paced</p>
+                    <p class="game-description">
+                        Race through dynamic obstacles at breakneck speed. How far can you go?
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.6</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">120K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 3: Brain Training -->
+            <div class="game-card" onclick="alert('Launching Memory Master...')">
+                <div class="game-image">
+                    🧠
+                    <div class="game-badge">💡 New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Memory Master</h3>
+                    <p class="game-category">Brain Training • Educational</p>
+                    <p class="game-description">
+                        Sharpen your memory with daily challenges. Track your progress and improve your mind.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.9</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">35K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 4: Word Game -->
+            <div class="game-card" onclick="alert('Launching Word Quest...')">
+                <div class="game-image">
+                    📝
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Word Quest</h3>
+                    <p class="game-category">Puzzle • Word Game</p>
+                    <p class="game-description">
+                        Find hidden words in a grid of letters. Thousands of puzzles to solve.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.7</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">85K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 5: Strategy -->
+            <div class="game-card" onclick="alert('Launching Tower Defense...')">
+                <div class="game-image">
+                    🏰
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Tower Defense</h3>
+                    <p class="game-category">Strategy • Tower Defense</p>
+                    <p class="game-description">
+                        Build towers, defend your realm. Strategic gameplay with 50+ unique levels.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.5</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">65K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 6: Match-3 -->
+            <div class="game-card" onclick="alert('Launching Gem Cascade...')">
+                <div class="game-image">
+                    💎
+                    <div class="game-badge">🔥 Popular</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Gem Cascade</h3>
+                    <p class="game-category">Puzzle • Match-3</p>
+                    <p class="game-description">
+                        Classic match-3 gameplay with stunning visuals. Hundreds of levels to master.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.8</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">200K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 7: Trivia -->
+            <div class="game-card" onclick="alert('Launching Quiz Champion...')">
+                <div class="game-image">
+                    🎓
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Quiz Champion</h3>
+                    <p class="game-category">Trivia • Multiplayer</p>
+                    <p class="game-description">
+                        Test your knowledge across dozens of categories. Play solo or challenge friends.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.6</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">95K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">🌐</div>
+                            <div class="stat-label">Online</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 8: Rhythm -->
+            <div class="game-card" onclick="alert('Launching Beat Master...')">
+                <div class="game-image">
+                    🎵
+                    <div class="game-badge">💡 New</div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Beat Master</h3>
+                    <p class="game-category">Rhythm • Music</p>
+                    <p class="game-description">
+                        Tap to the rhythm in this music-driven experience. Dozens of tracks to master.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.9</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">42K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
+
+            <!-- Game 9: Chess -->
+            <div class="game-card" onclick="alert('Launching Chess Master...')">
+                <div class="game-image">
+                    ♟️
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Chess Master</h3>
+                    <p class="game-category">Strategy • Classic</p>
+                    <p class="game-description">
+                        Classic chess with multiple difficulty levels. Play against AI or friends online.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">4.7</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">110K+</div>
+                            <div class="stat-label">Plays</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">✓</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </div>
+                    <button class="game-btn">▶ Play Now</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <p class="hero-tagline">Instant Apps. Simple, quick and easy — PDQ.</p>
-            <h1 class="hero-title">Welcome to AppWow</h1>
-            <p class="hero-description">
-                AppWow showcases Instant Apps that work immediately, install only if you want, 
-                and feel like real apps from the first tap.
-            </p>
-            <p class="hero-description">
-                No app store. No friction. Just apps that work — PDQ.
-            </p>
-            <div class="hero-buttons">
-                <a href="#browse" class="btn btn-primary">Browse App Directory</a>
-                <a href="#about" class="btn btn-secondary">What Is an Instant App?</a>
-                <a href="#developers" class="btn btn-outline">Developer Challenge</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Info Boxes -->
-    <section class="section">
-        <div class="info-boxes">
-            <div class="info-box">
-                <div class="info-box-icon">⚡</div>
-                <h3 class="info-box-title">Instant Access</h3>
-                <p class="info-box-description">No downloads required. Apps work immediately in your browser.</p>
-            </div>
-            <div class="info-box">
-                <div class="info-box-icon">📱</div>
-                <h3 class="info-box-title">Install If You Want</h3>
-                <p class="info-box-description">Like it? Add to home screen. It's that simple.</p>
-            </div>
-            <div class="info-box">
-                <div class="info-box-icon">🔌</div>
-                <h3 class="info-box-title">Works Offline</h3>
-                <p class="info-box-description">Many apps continue working even without internet.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Apps -->
-    <section id="browse" class="section">
-        <div class="section-header">
-            <h2 class="section-title">Featured Instant Apps</h2>
-            <p class="section-description">Discover apps across multiple categories in the AppWow Evosystem</p>
-        </div>
-
-        <div class="app-grid">
-            <!-- LinxLocal Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #28A745, #00C8E8);">☕</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Cafe Menu</h3>
-                        <p class="app-category">Local Business • Food & Drink</p>
-                    </div>
-                </div>
-                <span class="app-badge featured">Featured Instant App</span>
-                <p class="app-description">A simple menu app for local cafes. Browse offerings, see prices, and order ahead.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Cafe Menu')">Open</button>
-                </div>
-            </div>
-
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #0057B8, #00C8E8);">🔧</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Brighton Plumbing</h3>
-                        <p class="app-category">Local Business • Home Services</p>
-                    </div>
-                </div>
-                <span class="app-badge">LinxLocal Trader</span>
-                <p class="app-description">Emergency plumbing services in Brighton. View services, get quotes, book appointments.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Brighton Plumbing')">Open</button>
-                </div>
-            </div>
-
-            <!-- CarLinx Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #FFC107, #DC3545);">🚗</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Premium Motors</h3>
-                        <p class="app-category">Automotive • Vehicle Sales</p>
-                    </div>
-                </div>
-                <span class="app-badge">CarLinx Trader • Link3 Enabled</span>
-                <p class="app-description">Browse quality used vehicles with Link3 staged selling. Trade priority available.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Premium Motors')">Open</button>
-                </div>
-            </div>
-
-            <!-- HomeLinx Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #00C8E8, #28A745);">🏠</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Coastal Properties</h3>
-                        <p class="app-category">Property • Estate Agent</p>
-                    </div>
-                </div>
-                <span class="app-badge">HomeLinx Trader</span>
-                <p class="app-description">Discover seaside properties in Sussex. View listings, book viewings, get valuations.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Coastal Properties')">Open</button>
-                </div>
-            </div>
-
-            <!-- mylynx Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #8B5CF6, #DC3545);">👤</div>
-                    <div class="app-info">
-                        <h3 class="app-name">John's Digital Card</h3>
-                        <p class="app-category">Personal • Digital Identity</p>
-                    </div>
-                </div>
-                <span class="app-badge">mylynx Profile</span>
-                <p class="app-description">Personal digital identity with contact info, social links, and portfolio showcase.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Johns Card')">Open</button>
-                </div>
-            </div>
-
-            <!-- Arcadia Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #4A4A4A, #8B5CF6);">🎮</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Puzzle Quest</h3>
-                        <p class="app-category">Entertainment • Gaming</p>
-                    </div>
-                </div>
-                <span class="app-badge">Arcadia Experience</span>
-                <p class="app-description">Engaging puzzle game playable instantly. No install needed, works offline.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Puzzle Quest')">Open</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- What Is an Instant App -->
-    <section id="about" class="section" style="background: var(--light-grey); margin: 4rem 0; padding: 4rem 2rem; border-radius: 24px;">
-        <div class="section-header" style="text-align: center;">
-            <h2 class="section-title">What Is an Instant App?</h2>
-            <p class="section-description" style="max-width: 700px; margin: 1rem auto;">
-                Instant Apps are Progressive Web Apps (PWAs) that combine the best of web and mobile apps. 
-                They work instantly in your browser, can be installed to your device, and work offline.
-            </p>
-        </div>
-        <div class="info-boxes">
-            <div class="info-box" style="background: white;">
-                <div class="info-box-icon">🌐</div>
-                <h3 class="info-box-title">Web-Based</h3>
-                <p class="info-box-description">Access instantly through any modern browser. No app store needed.</p>
-            </div>
-            <div class="info-box" style="background: white;">
-                <div class="info-box-icon">⚙️</div>
-                <h3 class="info-box-title">App-Like Experience</h3>
-                <p class="info-box-description">Feels like a native app with smooth interactions and fast performance.</p>
-            </div>
-            <div class="info-box" style="background: white;">
-                <div class="info-box-icon">📲</div>
-                <h3 class="info-box-title">Installable</h3>
-                <p class="info-box-description">Add to home screen for quick access, just like traditional apps.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Developer Challenge -->
-    <section id="developers" class="section">
-        <div class="section-header" style="text-align: center;">
-            <h2 class="section-title">Developer Challenge</h2>
-            <p class="section-description" style="max-width: 700px; margin: 1rem auto;">
-                Build Instant Apps and publish them on AppWow. Join our growing community of developers 
-                creating the next generation of web applications.
-            </p>
-            <div class="hero-buttons" style="margin-top: 2rem;">
-                <a href="#" class="btn btn-primary">Learn More</a>
-                <a href="#" class="btn btn-outline">View Documentation</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>AppWow</h3>
-                <p style="color: rgba(255,255,255,0.8);">
-                    The home for Instant Apps. Discover, install, and use apps instantly.
-                </p>
-            </div>
-            <div class="footer-section">
-                <h3>Products</h3>
-                <ul class="footer-links">
-                    <li><a href="#linxlocal">LinxLocal</a></li>
-                    <li><a href="#carlinx">CarLinx</a></li>
-                    <li><a href="#homelinx">HomeLinx</a></li>
-                    <li><a href="#mylynx">mylynx</a></li>
-                    <li><a href="#arcadia">Arcadia</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Resources</h3>
-                <ul class="footer-links">
-                    <li><a href="#about">What is an Instant App?</a></li>
-                    <li><a href="#developers">Developer Challenge</a></li>
-                    <li>
+    <div class="powered-by">
+        Powered by <a href="#">Arcadia</a> • Part of the AppWow Evosystem
+        <br>
+        <span style="font-size: 0.85rem; opacity: 0.8;">Instant entertainment • No downloads • Works offline • Built for fun</span>
+    </div>
+</body>
+</html>
