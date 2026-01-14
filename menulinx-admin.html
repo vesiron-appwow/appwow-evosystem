@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MenuLinx Admin - Restaurant Dashboard</title>
+    <meta name="theme-color" content="#0057B8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0057B8;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --dark: #0A0A0A;
+            --grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-grey);
+            color: var(--dark);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), #00C8E8);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light-grey);
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--grey);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--grey);
+            font-size: 0.95rem;
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--warning);
+        }
+
+        .order-card.accepted {
+            border-left-color: var(--primary);
+        }
+
+        .order-card.ready {
+            border-left-color: var(--success);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .order-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .order-time {
+            color: var(--grey);
+            font-size: 0.9rem;
+        }
+
+        .order-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-new {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .badge-accepted {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-ready {
+            background: var(--success);
+            color: white;
+        }
+
+        .order-items {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 8px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .camera-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .camera-preview {
+            max-width: 100%;
+            margin: 1rem auto;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .camera-preview.show {
+            display: block;
+        }
+
+        video, canvas {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .menu-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .menu-item-row {
+            display: grid;
+            grid-template-columns: 60px 2fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .item-emoji {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .ocr-result {
+            background: var(--light-grey);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+
+        .sms-log {
+            background: var(--light-grey);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .sms-item {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .sms-time {
+            color: var(--grey);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-item-row {
+                grid-template-columns: 1fr;
+            }
+
+            .order-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🍽️ MenuLinx Admin</h1>
+        <p>The Cozy Corner Cafe - Restaurant Dashboard</p>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+            <button class="tab" onclick="switchTab('orders')">📋 Orders</button>
+            <button class="tab" onclick="switchTab('menu')">📝 Menu</button>
+            <button class="tab" onclick="switchTab('ocr')">📷 OCR Upload</button>
+            <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--primary);">12</div>
+                    <div class="stat-label">Orders Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--success);">£287.50</div>
+                    <div class="stat-label">Today's Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--warning);">3</div>
+                    <div class="stat-label">Pending Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--grey);">4.8 ⭐</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">Recent Orders</h2>
+                <div class="orders-list" id="dashboardOrders">
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">#10234</div>
+                                <div class="order-time">2 minutes ago</div>
+                            </div>
+                            <span class="order-badge badge-new">New Order</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="order-item">
+                                <span>2x Full English Breakfast</span>
+                                <span>£17.90</span>
+                            </div>
+                            <div class="order-item">
+                                <span>1x Cappuccino</span>
+                                <span>£3.50</span>
+                            </div>
+                        </div>
+                        <strong>Total: £23.90</strong> • 🚴 Delivery
+                        <div class="sms-log">
+                            <strong>📱 SMS Sent (Connect98):</strong>
+                            <div class="sms-item">
+                                ✓ Order notification sent to restaurant<br>
+                                <span class="sms-time">Just now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="orders" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">Active Orders</h2>
+                <div class="orders-list">
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">#10234</div>
+                                <div class="order-time">2 minutes ago • John Smith • 07700 900123</div>
+                            </div>
+                            <span class="order-badge badge-new">New Order</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="order-item"><span>2x Full English Breakfast</span><span>£17.90</span></div>
+                            <div class="order-item"><span>1x Cappuccino</span><span>£3.50</span></div>
+                        </div>
+                        <strong>Total: £23.90</strong> • 🚴 Delivery to BN1 4HJ
+                        <div class="order-actions">
+                            <button class="btn btn-success" onclick="acceptOrder(10234)">✓ Accept Order</button>
+                            <button class="btn btn-danger" onclick="rejectOrder(10234)">✗ Reject</button>
+                        </div>
+                        <div class="sms-log">
+                            <strong>📱 SMS Log:</strong>
+                            <div class="sms-item">✓ Order received - Sent to restaurant (Connect98)</div>
+                        </div>
+                    </div>
+
+                    <div class="order-card accepted">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">#10233</div>
+                                <div class="order-time">15 minutes ago • Sarah Jones • 07700 900456</div>
+                            </div>
+                            <span class="order-badge badge-accepted">Preparing</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="order-item"><span>1x Club Sandwich</span><span>£9.95</span></div>
+                            <div class="order-item"><span>1x Fresh Orange Juice</span><span>£3.95</span></div>
+                        </div>
+                        <strong>Total: £16.40</strong> • 🏃 Collection
+                        <div class="order-actions">
+                            <button class="btn btn-success" onclick="markReady(10233)">✓ Mark as Ready</button>
+                        </div>
+                        <div class="sms-log">
+                            <strong>📱 SMS Log:</strong>
+                            <div class="sms-item">✓ Order accepted - Sent to customer (Connect98)<br><span class="sms-time">14 mins ago</span></div>
+                        </div>
+                    </div>
+
+                    <div class="order-card ready">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">#10232</div>
+                                <div class="order-time">25 minutes ago • Mike Brown • 07700 900789</div>
+                            </div>
+                            <span class="order-badge badge-ready">Ready</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="order-item"><span>2x Avocado Toast</span><span>£15.00</span></div>
+                            <div class="order-item"><span>2x Cappuccino</span><span>£7.00</span></div>
+                        </div>
+                        <strong>Total: £24.50</strong> • 🚴 Delivery to BN3 2TP
+                        <div class="order-actions">
+                            <button class="btn btn-primary" onclick="markDelivered(10232)">✓ Mark as Delivered</button>
+                        </div>
+                        <div class="sms-log">
+                            <strong>📱 SMS Log:</strong>
+                            <div class="sms-item">✓ Order ready - Sent to customer (Connect98)<br><span class="sms-time">5 mins ago</span></div>
+                            <div class="sms-item">✓ Driver dispatched - Sent to customer (Connect98)<br><span class="sms-time">3 mins ago</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Tab -->
+        <div id="menu" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">Menu Management</h2>
+                <button class="btn btn-primary" onclick="addNewItem()" style="margin-bottom: 1.5rem;">+ Add New Item</button>
+                
+                <div class="menu-grid">
+                    <div class="menu-item-row">
+                        <div class="item-emoji">🍳</div>
+                        <div>Full English Breakfast</div>
+                        <div>Breakfast</div>
+                        <div><strong>£8.95</strong></div>
+                        <button class="btn btn-primary">Edit</button>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="item-emoji">🥑</div>
+                        <div>Avocado Toast</div>
+                        <div>Breakfast</div>
+                        <div><strong>£7.50</strong></div>
+                        <button class="btn btn-primary">Edit</button>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="item-emoji">🥪</div>
+                        <div>Club Sandwich</div>
+                        <div>Lunch</div>
+                        <div><strong>£9.95</strong></div>
+                        <button class="btn btn-primary">Edit</button>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="item-emoji">☕</div>
+                        <div>Cappuccino</div>
+                        <div>Drinks</div>
+                        <div><strong>£3.50</strong></div>
+                        <button class="btn btn-primary">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OCR Upload Tab -->
+        <div id="ocr" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">📷 OCR Menu Upload</h2>
+                <p style="color: var(--grey); margin-bottom: 2rem;">
+                    Take a photo of your menu and we'll automatically extract items and prices using OCR technology.
+                </p>
+
+                <div class="camera-section">
+                    <button class="btn btn-primary" onclick="startCamera()" id="startCameraBtn" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                        📷 Open Camera
+                    </button>
+                    
+                    <video id="camera" width="640" height="480" autoplay style="display: none; margin: 1rem auto;"></video>
+                    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+                    
+                    <div id="captureControls" style="display: none; margin-top: 1rem;">
+                        <button class="btn btn-success" onclick="capturePhoto()">📸 Capture Photo</button>
+                        <button class="btn btn-danger" onclick="stopCamera()">✗ Cancel</button>
+                    </div>
+
+                    <img id="preview" class="camera-preview" alt="Menu preview">
+                    
+                    <div id="processControls" style="display: none; margin-top: 1rem;">
+                        <button class="btn btn-primary" onclick="processOCR()">🔍 Process Menu</button>
+                        <button class="btn btn-danger" onclick="resetOCR()">↺ Retake</button>
+                    </div>
+
+                    <div id="ocrResult" style="display: none; margin-top: 2rem;">
+                        <h3>Extracted Menu Items:</h3>
+                        <div class="ocr-result" id="ocrText"></div>
+                        <p style="color: var(--grey); margin: 1rem 0;">
+                            Review the extracted text above. You can edit items manually in the Menu tab.
+                        </p>
+                        <button class="btn btn-success" onclick="saveOCRMenu()">✓ Save to Menu</button>
+                    </div>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                    <h4 style="margin-bottom: 0.75rem;">💡 Tips for Best Results:</h4>
+                    <ul style="margin-left: 1.5rem; color: var(--grey);">
+                        <li>Ensure good lighting</li>
+                        <li>Keep menu flat and in focus</li>
+                        <li>Include clear item names and prices</li>
+                        <li>OCR accuracy: ~70-85% (review before saving)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">Restaurant Settings</h2>
+                
+                <div class="form-group">
+                    <label>Restaurant Name</label>
+                    <input type="text" value="The Cozy Corner Cafe">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" value="01273 555 0789">
+                </div>
+
+                <div class="form-group">
+                    <label>Opening Hours</label>
+                    <input type="text" value="Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm">
+                </div>
+
+                <div class="form-group">
+                    <label>Minimum Order Value</label>
+                    <input type="number" value="10.00" step="0.50">
+                </div>
+
+                <div class="form-group">
+                    <label>Delivery Fee</label>
+                    <input type="number" value="2.50" step="0.50">
+                </div>
+
+                <div class="form-group">
+                    <label>Delivery Radius (miles)</label>
+                    <input type="number" value="3" step="0.5">
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem;">📱 Connect98 SMS Settings</h3>
+                
+                <div class="form-group">
+                    <label>Connect98 API Key</label>
+                    <input type="text" placeholder="Enter your Connect98 API key">
+                </div>
+
+                <div class="form-group">
+                    <label>Restaurant Phone (for SMS notifications)</label>
+                    <input type="tel" value="07700 900123">
+                </div>
+
+                <div style="background: var(--light-grey); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4 style="margin-bottom: 1rem;">SMS Notification Events:</h4>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <input type="checkbox" checked> New order received
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <input type="checkbox" checked> Order accepted (to customer)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <input type="checkbox" checked> Order ready (to customer)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" checked> Order delivered (to customer)
+                    </label>
+                </div>
+
+                <button class="btn btn-success" onclick="saveSettings()">💾 Save Settings</button>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #e3f2fd, #f3e5f5); border: none;">
+                <h3 style="margin-bottom: 1rem;">🌟 White Label Options</h3>
+                <p style="color: var(--grey); margin-bottom: 1.5rem;">
+                    Customize MenuLinx with your restaurant's branding
+                </p>
+                <div class="form-group">
+                    <label>Primary Color</label>
+                    <input type="color" value="#28A745" style="height: 50px;">
+                </div>
+                <div class="form-group">
+                    <label>Restaurant Logo URL</label>
+                    <input type="text" placeholder="https://yourrestaurant.com/logo.png">
+                </div>
+                <p style="font-size: 0.85rem; color: var(--grey); margin-top: 1rem;">
+                    ⚡ Powered by AppWow • Part of the VTL Evosystem
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stream = null;
+        let capturedImage = null;
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function acceptOrder(orderNum) {
+            alert(`Order #${orderNum} accepted!\n\n📱 SMS Sent via Connect98:\n"Your order has been accepted and is being prepared. Estimated time: 25-30 mins"`);
+        }
+
+        function rejectOrder(orderNum) {
+            if (confirm('Are you sure you want to reject this order?')) {
+                alert(`Order #${orderNum} rejected.\n\n📱 SMS Sent via Connect98:\n"Sorry, we cannot fulfill your order at this time. You will not be charged."`);
+            }
+        }
+
+        function markReady(orderNum) {
+            alert(`Order #${orderNum} marked as ready!\n\n📱 SMS Sent via Connect98:\n"Your order is ready! ${Math.random() > 0.5 ? 'Driver is on the way.' : 'Ready for collection.'}"`);
+        }
+
+        function markDelivered(orderNum) {
+            alert(`Order #${orderNum} marked as delivered!\n\n📱 SMS Sent via Connect98:\n"Your order has been delivered. Enjoy your meal!"`);
+        }
+
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                const video = document.getElementById('camera');
+                video.srcObject = stream;
+                video.style.display = 'block';
+                document.getElementById('startCameraBtn').style.display = 'none';
+                document.getElementById('captureControls').style.display = 'block';
+            } catch (err) {
+                alert('Camera access denied or not available');
+            }
+        }
+
+        function capturePhoto() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            capturedImage = canvas.toDataURL('image/jpeg');
+            
+            document.getElementById('preview').src = capturedImage;
+            document.getElementById('preview').classList.add('show');
+            document.getElementById('processControls').style.display = 'block';
+            
+            stopCamera();
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                document.getElementById('camera').style.display = 'none';
+                document.getElementById('captureControls').style.display = 'none';
+                document.getElementById('startCameraBtn').style.display = 'inline-block';
+            }
+        }
+
+        function processOCR() {
+            document.getElementById('processControls').style.display = 'none';
+            
+            // Simulate OCR processing
+            setTimeout(() => {
+                const sampleOCR = `BREAKFAST MENU
+                
+Full English Breakfast - £8.95
+Eggs, bacon, sausage, beans, toast
+
+Avocado Toast - £7.50
+Smashed avocado on sourdough
+
+Pancake Stack - £6.95
+With maple syrup and berries
+
+LUNCH MENU
+
+Club Sandwich - £9.95
+Triple-decker with chicken, bacon
+
+Caesar Salad - £8.50
+Crisp romaine, parmesan, croutons
+
+DRINKS
+
+Cappuccino - £3.50
+Latte - £3.50
+Fresh Orange Juice - £3.95`;
+                
+                document.getElementById('ocrText').textContent = sampleOCR;
+                document.getElementById('ocrResult').style.display = 'block';
+            }, 2000);
+        }
+
+        function resetOCR() {
+            document.getElementById('preview').classList.remove('show');
+            document.getElementById('processControls').style.display = 'none';
+            document.getElementById('ocrResult').style.display = 'none';
+            document.getElementById('startCameraBtn').style.display = 'inline-block';
+            capturedImage = null;
+        }
+
+        function saveOCRMenu() {
+            alert('Menu items extracted and saved!\n\nYou can now edit them in the Menu tab.');
+            resetOCR();
+            switchTab('menu');
+            document.querySelectorAll('.tab')[2].click();
+        }
+
+        function addNewItem() {
+            alert('Add New Item form would appear here');
+        }
+
+        function saveSettings() {
+            alert('Settings saved successfully!\n\n✓ Restaurant details updated\n✓ Connect98 SMS configured\n✓ White label settings applied');
+        }
+
+        // PWA Manifest
+        const manifest = {
+            name: "MenuLinx Admin - Restaurant Dashboard",
+            short_name: "MenuLinx Admin",
+            start_url: "./",
+            display: "standalone",
+            background_color: "#0057B8",
+            theme_color: "#0057B8",
+            icons: [{
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230057B8'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>🍽️</text></svg>",
+                sizes: "192x192",
+                type: "image/svg+xml"
+            }]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = manifestURL;
+        document.head.appendChild(manifestLink);
+    </script>
+</body>
+</html>
