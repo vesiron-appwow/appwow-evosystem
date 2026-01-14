@@ -3,272 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MenuLinx Admin - Restaurant Dashboard</title>
-    <meta name="theme-color" content="#0057B8">
+    <meta name="description" content="MenuLinx - Order food directly from your favorite local restaurant">
+    <title>The Cozy Corner Cafe - Order Online</title>
+    <meta name="theme-color" content="#28A745">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #0057B8;
-            --success: #28A745;
-            --warning: #FFC107;
-            --danger: #DC3545;
+            --primary: #28A745;
+            --primary-dark: #1e7e34;
+            --secondary: #FFC107;
             --dark: #0A0A0A;
             --grey: #4A4A4A;
             --light-grey: #F2F2F2;
+            --white: #ffffff;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--light-grey);
             color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 80px;
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary), #00C8E8);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .header h1 {
-            font-size: 1.8rem;
+        .restaurant-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 0.5rem;
         }
 
-        .header p {
+        .restaurant-logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .restaurant-name {
+            flex: 1;
+        }
+
+        .restaurant-name h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .restaurant-name p {
+            font-size: 0.9rem;
             opacity: 0.9;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .tabs {
+        .status-bar {
             display: flex;
             gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--light-grey);
-            overflow-x: auto;
+            font-size: 0.85rem;
+            opacity: 0.95;
         }
 
-        .tab {
-            padding: 1rem 1.5rem;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .delivery-toggle {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.625rem;
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: var(--primary);
+            border-color: white;
+        }
+
+        .search-bar {
+            padding: 1rem;
+            background: white;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .categories {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background: white;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .category-chip {
+            padding: 0.625rem 1.25rem;
+            background: var(--light-grey);
+            border-radius: 20px;
+            white-space: nowrap;
             cursor: pointer;
             font-weight: 600;
-            font-size: 1rem;
-            color: var(--grey);
             transition: all 0.3s;
-            white-space: nowrap;
+            border: 2px solid transparent;
         }
 
-        .tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
+        .category-chip.active {
+            background: var(--primary);
+            color: white;
         }
 
-        .tab-content {
-            display: none;
+        .menu-section {
+            padding: 1rem;
         }
 
-        .tab-content.active {
-            display: block;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-        }
-
-        .card-title {
+        .section-title {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
+        .menu-item {
             background: white;
             border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
         }
 
-        .stat-value {
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40,167,69,0.2);
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
             font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-description {
+            font-size: 0.9rem;
+            color: var(--grey);
             margin-bottom: 0.5rem;
         }
 
-        .stat-label {
-            color: var(--grey);
-            font-size: 0.95rem;
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .orders-list {
+        .item-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .cart-float {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: var(--dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cart-float:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        .cart-float.hidden {
+            display: none;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
             gap: 1rem;
         }
 
-        .order-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-left: 4px solid var(--warning);
-        }
-
-        .order-card.accepted {
-            border-left-color: var(--primary);
-        }
-
-        .order-card.ready {
-            border-left-color: var(--success);
-        }
-
-        .order-header {
+        .cart-count {
+            background: var(--primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
         }
 
-        .order-number {
+        .cart-total {
             font-size: 1.3rem;
             font-weight: 700;
         }
 
-        .order-time {
-            color: var(--grey);
-            font-size: 0.9rem;
-        }
-
-        .order-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .badge-new {
-            background: var(--warning);
-            color: var(--dark);
-        }
-
-        .badge-accepted {
-            background: var(--primary);
-            color: white;
-        }
-
-        .badge-ready {
-            background: var(--success);
-            color: white;
-        }
-
-        .order-items {
-            margin: 1rem 0;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
             padding: 1rem;
-            background: var(--light-grey);
-            border-radius: 8px;
         }
 
-        .order-item {
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--light-grey);
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            align-items: center;
         }
 
-        .order-actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
-        .btn {
-            padding: 0.75rem 1.5rem;
+        .close-btn {
+            background: none;
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--grey);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--grey);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-primary {
+        .qty-btn:hover {
             background: var(--primary);
             color: white;
         }
 
-        .btn-danger {
-            background: var(--danger);
-            color: white;
+        .cart-summary {
+            padding: 1.5rem;
+            border-top: 2px solid var(--light-grey);
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
         }
 
-        .camera-section {
-            text-align: center;
-            padding: 2rem;
+        .summary-row.total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--light-grey);
         }
 
-        .camera-preview {
-            max-width: 100%;
-            margin: 1rem auto;
-            border-radius: 12px;
-            display: none;
-        }
-
-        .camera-preview.show {
-            display: block;
-        }
-
-        video, canvas {
-            max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .menu-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .menu-item-row {
-            display: grid;
-            grid-template-columns: 60px 2fr 1fr 1fr auto;
-            gap: 1rem;
-            align-items: center;
+        .checkout-btn {
+            width: 100%;
             padding: 1rem;
-            background: white;
+            background: var(--primary);
+            color: white;
+            border: none;
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
         }
 
-        .item-emoji {
-            font-size: 2rem;
-            text-align: center;
+        .checkout-btn:hover {
+            background: var(--primary-dark);
         }
 
         .form-group {
@@ -282,8 +424,7 @@
         }
 
         .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group textarea {
             width: 100%;
             padding: 0.875rem;
             border: 2px solid var(--light-grey);
@@ -291,512 +432,494 @@
             font-size: 1rem;
         }
 
-        .ocr-result {
-            background: var(--light-grey);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            white-space: pre-wrap;
-            font-family: monospace;
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
         }
 
-        .sms-log {
-            background: var(--light-grey);
-            padding: 1rem;
-            border-radius: 8px;
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
             margin-top: 1rem;
         }
 
-        .sms-item {
-            padding: 0.75rem;
-            background: white;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+        .payment-method {
+            padding: 1rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .sms-time {
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: rgba(40,167,69,0.1);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .success-message {
+            text-align: center;
+            font-size: 1.2rem;
             color: var(--grey);
-            font-size: 0.8rem;
+        }
+
+        .order-number {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
         }
 
         @media (max-width: 768px) {
-            .menu-item-row {
-                grid-template-columns: 1fr;
+            .restaurant-info {
+                flex-direction: row;
             }
 
-            .order-header {
+            .menu-item {
                 flex-direction: column;
-                gap: 0.5rem;
+            }
+
+            .item-image {
+                width: 100%;
+                height: 150px;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🍽️ MenuLinx Admin</h1>
-        <p>The Cozy Corner Cafe - Restaurant Dashboard</p>
+        <button onclick="window.location.href='./linxlocal.html'" style="position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;">← LinxLocal</button>
+        <div class="restaurant-info">
+            <div class="restaurant-logo">☕</div>
+            <div class="restaurant-name">
+                <h1>The Cozy Corner Cafe</h1>
+                <p>Artisan Coffee & Homemade Food</p>
+            </div>
+        </div>
+        <div class="status-bar">
+            <div class="status-item">
+                <span>⏰</span>
+                <span>Open until 6:00 PM</span>
+            </div>
+            <div class="status-item">
+                <span>⭐</span>
+                <span>4.8 (234 reviews)</span>
+            </div>
+        </div>
+        <div class="delivery-toggle">
+            <button class="toggle-btn active" onclick="selectDeliveryType('delivery')">
+                🚴 Delivery
+            </button>
+            <button class="toggle-btn" onclick="selectDeliveryType('collection')">
+                🏃 Collection
+            </button>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
-            <button class="tab" onclick="switchTab('orders')">📋 Orders</button>
-            <button class="tab" onclick="switchTab('menu')">📝 Menu</button>
-            <button class="tab" onclick="switchTab('ocr')">📷 OCR Upload</button>
-            <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search menu..." onkeyup="searchMenu(this.value)">
+    </div>
+
+    <div class="categories">
+        <div class="category-chip active" onclick="filterCategory('all')">All</div>
+        <div class="category-chip" onclick="filterCategory('breakfast')">Breakfast</div>
+        <div class="category-chip" onclick="filterCategory('lunch')">Lunch</div>
+        <div class="category-chip" onclick="filterCategory('drinks')">Drinks</div>
+        <div class="category-chip" onclick="filterCategory('desserts')">Desserts</div>
+    </div>
+
+    <div id="menuContainer"></div>
+
+    <div id="cartFloat" class="cart-float hidden" onclick="showCart()">
+        <div class="cart-info">
+            <div class="cart-count" id="cartCount">0</div>
+            <span>View Cart</span>
         </div>
+        <div class="cart-total" id="cartTotal">£0.00</div>
+    </div>
 
-        <!-- Dashboard Tab -->
-        <div id="dashboard" class="tab-content active">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value" style="color: var(--primary);">12</div>
-                    <div class="stat-label">Orders Today</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="color: var(--success);">£287.50</div>
-                    <div class="stat-label">Today's Revenue</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="color: var(--warning);">3</div>
-                    <div class="stat-label">Pending Orders</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" style="color: var(--grey);">4.8 ⭐</div>
-                    <div class="stat-label">Average Rating</div>
-                </div>
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Your Order</h2>
+                <button class="close-btn" onclick="closeCart()">×</button>
             </div>
-
-            <div class="card">
-                <h2 class="card-title">Recent Orders</h2>
-                <div class="orders-list" id="dashboardOrders">
-                    <div class="order-card">
-                        <div class="order-header">
-                            <div>
-                                <div class="order-number">#10234</div>
-                                <div class="order-time">2 minutes ago</div>
-                            </div>
-                            <span class="order-badge badge-new">New Order</span>
-                        </div>
-                        <div class="order-items">
-                            <div class="order-item">
-                                <span>2x Full English Breakfast</span>
-                                <span>£17.90</span>
-                            </div>
-                            <div class="order-item">
-                                <span>1x Cappuccino</span>
-                                <span>£3.50</span>
-                            </div>
-                        </div>
-                        <strong>Total: £23.90</strong> • 🚴 Delivery
-                        <div class="sms-log">
-                            <strong>📱 SMS Sent (Connect98):</strong>
-                            <div class="sms-item">
-                                ✓ Order notification sent to restaurant<br>
-                                <span class="sms-time">Just now</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="modal-body" id="cartItems"></div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">£0.00</span>
                 </div>
+                <div class="summary-row">
+                    <span id="deliveryLabel">Delivery:</span>
+                    <span id="deliveryFee">£2.50</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="finalTotal">£0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
             </div>
         </div>
+    </div>
 
-        <!-- Orders Tab -->
-        <div id="orders" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">Active Orders</h2>
-                <div class="orders-list">
-                    <div class="order-card">
-                        <div class="order-header">
-                            <div>
-                                <div class="order-number">#10234</div>
-                                <div class="order-time">2 minutes ago • John Smith • 07700 900123</div>
-                            </div>
-                            <span class="order-badge badge-new">New Order</span>
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Checkout</h2>
+                <button class="close-btn" onclick="closeCheckout()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" id="customerName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="customerPhone" placeholder="07xxx xxxxxx">
+                </div>
+                <div id="deliveryAddress" class="form-group">
+                    <label>Delivery Address *</label>
+                    <input type="text" id="addressLine1" placeholder="Address Line 1">
+                    <input type="text" id="postcode" placeholder="Postcode" style="margin-top: 0.5rem;">
+                </div>
+                <div class="form-group">
+                    <label>Special Instructions</label>
+                    <textarea id="instructions" placeholder="Any special requests?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div class="payment-methods">
+                        <div class="payment-method selected" onclick="selectPayment('card')">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💳</div>
+                            <div>Card Payment</div>
                         </div>
-                        <div class="order-items">
-                            <div class="order-item"><span>2x Full English Breakfast</span><span>£17.90</span></div>
-                            <div class="order-item"><span>1x Cappuccino</span><span>£3.50</span></div>
-                        </div>
-                        <strong>Total: £23.90</strong> • 🚴 Delivery to BN1 4HJ
-                        <div class="order-actions">
-                            <button class="btn btn-success" onclick="acceptOrder(10234)">✓ Accept Order</button>
-                            <button class="btn btn-danger" onclick="rejectOrder(10234)">✗ Reject</button>
-                        </div>
-                        <div class="sms-log">
-                            <strong>📱 SMS Log:</strong>
-                            <div class="sms-item">✓ Order received - Sent to restaurant (Connect98)</div>
-                        </div>
-                    </div>
-
-                    <div class="order-card accepted">
-                        <div class="order-header">
-                            <div>
-                                <div class="order-number">#10233</div>
-                                <div class="order-time">15 minutes ago • Sarah Jones • 07700 900456</div>
-                            </div>
-                            <span class="order-badge badge-accepted">Preparing</span>
-                        </div>
-                        <div class="order-items">
-                            <div class="order-item"><span>1x Club Sandwich</span><span>£9.95</span></div>
-                            <div class="order-item"><span>1x Fresh Orange Juice</span><span>£3.95</span></div>
-                        </div>
-                        <strong>Total: £16.40</strong> • 🏃 Collection
-                        <div class="order-actions">
-                            <button class="btn btn-success" onclick="markReady(10233)">✓ Mark as Ready</button>
-                        </div>
-                        <div class="sms-log">
-                            <strong>📱 SMS Log:</strong>
-                            <div class="sms-item">✓ Order accepted - Sent to customer (Connect98)<br><span class="sms-time">14 mins ago</span></div>
-                        </div>
-                    </div>
-
-                    <div class="order-card ready">
-                        <div class="order-header">
-                            <div>
-                                <div class="order-number">#10232</div>
-                                <div class="order-time">25 minutes ago • Mike Brown • 07700 900789</div>
-                            </div>
-                            <span class="order-badge badge-ready">Ready</span>
-                        </div>
-                        <div class="order-items">
-                            <div class="order-item"><span>2x Avocado Toast</span><span>£15.00</span></div>
-                            <div class="order-item"><span>2x Cappuccino</span><span>£7.00</span></div>
-                        </div>
-                        <strong>Total: £24.50</strong> • 🚴 Delivery to BN3 2TP
-                        <div class="order-actions">
-                            <button class="btn btn-primary" onclick="markDelivered(10232)">✓ Mark as Delivered</button>
-                        </div>
-                        <div class="sms-log">
-                            <strong>📱 SMS Log:</strong>
-                            <div class="sms-item">✓ Order ready - Sent to customer (Connect98)<br><span class="sms-time">5 mins ago</span></div>
-                            <div class="sms-item">✓ Driver dispatched - Sent to customer (Connect98)<br><span class="sms-time">3 mins ago</span></div>
+                        <div class="payment-method" onclick="selectPayment('cash')">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💷</div>
+                            <div>Cash on Delivery</div>
                         </div>
                     </div>
                 </div>
+                <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
             </div>
         </div>
+    </div>
 
-        <!-- Menu Tab -->
-        <div id="menu" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">Menu Management</h2>
-                <button class="btn btn-primary" onclick="addNewItem()" style="margin-bottom: 1.5rem;">+ Add New Item</button>
-                
-                <div class="menu-grid">
-                    <div class="menu-item-row">
-                        <div class="item-emoji">🍳</div>
-                        <div>Full English Breakfast</div>
-                        <div>Breakfast</div>
-                        <div><strong>£8.95</strong></div>
-                        <button class="btn btn-primary">Edit</button>
-                    </div>
-                    <div class="menu-item-row">
-                        <div class="item-emoji">🥑</div>
-                        <div>Avocado Toast</div>
-                        <div>Breakfast</div>
-                        <div><strong>£7.50</strong></div>
-                        <button class="btn btn-primary">Edit</button>
-                    </div>
-                    <div class="menu-item-row">
-                        <div class="item-emoji">🥪</div>
-                        <div>Club Sandwich</div>
-                        <div>Lunch</div>
-                        <div><strong>£9.95</strong></div>
-                        <button class="btn btn-primary">Edit</button>
-                    </div>
-                    <div class="menu-item-row">
-                        <div class="item-emoji">☕</div>
-                        <div>Cappuccino</div>
-                        <div>Drinks</div>
-                        <div><strong>£3.50</strong></div>
-                        <button class="btn btn-primary">Edit</button>
-                    </div>
-                </div>
+    <!-- Order Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Order Confirmed!</h2>
             </div>
-        </div>
-
-        <!-- OCR Upload Tab -->
-        <div id="ocr" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">📷 OCR Menu Upload</h2>
-                <p style="color: var(--grey); margin-bottom: 2rem;">
-                    Take a photo of your menu and we'll automatically extract items and prices using OCR technology.
+            <div class="modal-body">
+                <div class="success-icon">✅</div>
+                <h3 style="text-align: center; margin-bottom: 1rem;">Thank you for your order!</h3>
+                <div class="order-number" id="orderNumber">#12345</div>
+                <p class="success-message">
+                    Your order has been received and the restaurant has been notified via SMS.
+                    You'll receive updates at each stage.
                 </p>
-
-                <div class="camera-section">
-                    <button class="btn btn-primary" onclick="startCamera()" id="startCameraBtn" style="font-size: 1.1rem; padding: 1rem 2rem;">
-                        📷 Open Camera
-                    </button>
-                    
-                    <video id="camera" width="640" height="480" autoplay style="display: none; margin: 1rem auto;"></video>
-                    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
-                    
-                    <div id="captureControls" style="display: none; margin-top: 1rem;">
-                        <button class="btn btn-success" onclick="capturePhoto()">📸 Capture Photo</button>
-                        <button class="btn btn-danger" onclick="stopCamera()">✗ Cancel</button>
-                    </div>
-
-                    <img id="preview" class="camera-preview" alt="Menu preview">
-                    
-                    <div id="processControls" style="display: none; margin-top: 1rem;">
-                        <button class="btn btn-primary" onclick="processOCR()">🔍 Process Menu</button>
-                        <button class="btn btn-danger" onclick="resetOCR()">↺ Retake</button>
-                    </div>
-
-                    <div id="ocrResult" style="display: none; margin-top: 2rem;">
-                        <h3>Extracted Menu Items:</h3>
-                        <div class="ocr-result" id="ocrText"></div>
-                        <p style="color: var(--grey); margin: 1rem 0;">
-                            Review the extracted text above. You can edit items manually in the Menu tab.
-                        </p>
-                        <button class="btn btn-success" onclick="saveOCRMenu()">✓ Save to Menu</button>
-                    </div>
-                </div>
-
-                <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
-                    <h4 style="margin-bottom: 0.75rem;">💡 Tips for Best Results:</h4>
-                    <ul style="margin-left: 1.5rem; color: var(--grey);">
-                        <li>Ensure good lighting</li>
-                        <li>Keep menu flat and in focus</li>
-                        <li>Include clear item names and prices</li>
-                        <li>OCR accuracy: ~70-85% (review before saving)</li>
+                <div style="background: var(--light-grey); padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4 style="margin-bottom: 0.75rem;">📱 SMS Notifications:</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;">✓ Order received - Sent to restaurant</li>
+                        <li style="margin-bottom: 0.5rem;">⏳ Order accepted - You'll be notified</li>
+                        <li style="margin-bottom: 0.5rem;">⏳ Order ready - You'll be notified</li>
+                        <li>⏳ On the way - You'll be notified</li>
                     </ul>
+                    <p style="font-size: 0.85rem; color: var(--grey); margin-top: 0.75rem;">
+                        Powered by Connect98 SMS
+                    </p>
                 </div>
-            </div>
-        </div>
-
-        <!-- Settings Tab -->
-        <div id="settings" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">Restaurant Settings</h2>
-                
-                <div class="form-group">
-                    <label>Restaurant Name</label>
-                    <input type="text" value="The Cozy Corner Cafe">
-                </div>
-
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" value="01273 555 0789">
-                </div>
-
-                <div class="form-group">
-                    <label>Opening Hours</label>
-                    <input type="text" value="Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm">
-                </div>
-
-                <div class="form-group">
-                    <label>Minimum Order Value</label>
-                    <input type="number" value="10.00" step="0.50">
-                </div>
-
-                <div class="form-group">
-                    <label>Delivery Fee</label>
-                    <input type="number" value="2.50" step="0.50">
-                </div>
-
-                <div class="form-group">
-                    <label>Delivery Radius (miles)</label>
-                    <input type="number" value="3" step="0.5">
-                </div>
-
-                <h3 style="margin: 2rem 0 1rem;">📱 Connect98 SMS Settings</h3>
-                
-                <div class="form-group">
-                    <label>Connect98 API Key</label>
-                    <input type="text" placeholder="Enter your Connect98 API key">
-                </div>
-
-                <div class="form-group">
-                    <label>Restaurant Phone (for SMS notifications)</label>
-                    <input type="tel" value="07700 900123">
-                </div>
-
-                <div style="background: var(--light-grey); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">SMS Notification Events:</h4>
-                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
-                        <input type="checkbox" checked> New order received
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
-                        <input type="checkbox" checked> Order accepted (to customer)
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
-                        <input type="checkbox" checked> Order ready (to customer)
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                        <input type="checkbox" checked> Order delivered (to customer)
-                    </label>
-                </div>
-
-                <button class="btn btn-success" onclick="saveSettings()">💾 Save Settings</button>
-            </div>
-
-            <div class="card" style="background: linear-gradient(135deg, #e3f2fd, #f3e5f5); border: none;">
-                <h3 style="margin-bottom: 1rem;">🌟 White Label Options</h3>
-                <p style="color: var(--grey); margin-bottom: 1.5rem;">
-                    Customize MenuLinx with your restaurant's branding
+                <p style="text-align: center; color: var(--grey);">
+                    Estimated time: <strong>25-30 minutes</strong>
                 </p>
-                <div class="form-group">
-                    <label>Primary Color</label>
-                    <input type="color" value="#28A745" style="height: 50px;">
-                </div>
-                <div class="form-group">
-                    <label>Restaurant Logo URL</label>
-                    <input type="text" placeholder="https://yourrestaurant.com/logo.png">
-                </div>
-                <p style="font-size: 0.85rem; color: var(--grey); margin-top: 1rem;">
-                    ⚡ Powered by AppWow • Part of the VTL Evosystem
-                </p>
+                <button class="checkout-btn" onclick="closeConfirmation()">Done</button>
             </div>
         </div>
     </div>
 
     <script>
-        let stream = null;
-        let capturedImage = null;
+        // Menu Data
+        const menuData = [
+            {
+                id: 1,
+                name: "Full English Breakfast",
+                description: "Eggs, bacon, sausage, beans, toast, tomato, mushrooms",
+                price: 8.95,
+                category: "breakfast",
+                emoji: "🍳"
+            },
+            {
+                id: 2,
+                name: "Avocado Toast",
+                description: "Smashed avocado on sourdough with poached eggs",
+                price: 7.50,
+                category: "breakfast",
+                emoji: "🥑"
+            },
+            {
+                id: 3,
+                name: "Club Sandwich",
+                description: "Triple-decker with chicken, bacon, lettuce, tomato",
+                price: 9.95,
+                category: "lunch",
+                emoji: "🥪"
+            },
+            {
+                id: 4,
+                name: "Caesar Salad",
+                description: "Crisp romaine, parmesan, croutons, caesar dressing",
+                price: 8.50,
+                category: "lunch",
+                emoji: "🥗"
+            },
+            {
+                id: 5,
+                name: "Cappuccino",
+                description: "Rich espresso with steamed milk and foam",
+                price: 3.50,
+                category: "drinks",
+                emoji: "☕"
+            },
+            {
+                id: 6,
+                name: "Fresh Orange Juice",
+                description: "Freshly squeezed oranges",
+                price: 3.95,
+                category: "drinks",
+                emoji: "🍊"
+            },
+            {
+                id: 7,
+                name: "Chocolate Brownie",
+                description: "Warm chocolate brownie with vanilla ice cream",
+                price: 5.95,
+                category: "desserts",
+                emoji: "🍫"
+            },
+            {
+                id: 8,
+                name: "Carrot Cake",
+                description: "Homemade carrot cake with cream cheese frosting",
+                price: 4.95,
+                category: "desserts",
+                emoji: "🥕"
+            }
+        ];
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        let cart = [];
+        let deliveryType = 'delivery';
+        let currentCategory = 'all';
+
+        // Initialize
+        renderMenu();
+
+        function renderMenu() {
+            const container = document.getElementById('menuContainer');
+            const categories = [...new Set(menuData.map(item => item.category))];
+            
+            let html = '';
+            categories.forEach(cat => {
+                if (currentCategory !== 'all' && cat !== currentCategory) return;
+                
+                const items = menuData.filter(item => item.category === cat);
+                html += `
+                    <div class="menu-section">
+                        <h2 class="section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h2>
+                        ${items.map(item => `
+                            <div class="menu-item">
+                                <div class="item-image">${item.emoji}</div>
+                                <div class="item-content">
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-description">${item.description}</div>
+                                    <div class="item-footer">
+                                        <div class="item-price">£${item.price.toFixed(2)}</div>
+                                        <button class="add-btn" onclick="addToCart(${item.id})">Add +</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function addToCart(itemId) {
+            const item = menuData.find(i => i.id === itemId);
+            const existingItem = cart.find(i => i.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartTotal').textContent = `£${total.toFixed(2)}`;
+            document.getElementById('cartFloat').classList.toggle('hidden', count === 0);
+        }
+
+        function showCart() {
+            const modal = document.getElementById('cartModal');
+            const container = document.getElementById('cartItems');
+            
+            if (cart.length === 0) return;
+            
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <div class="cart-item-price">£${item.price.toFixed(2)}</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">−</button>
+                        <span>${item.quantity}</span>
+                        <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateCartSummary();
+            modal.classList.add('show');
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('show');
+        }
+
+        function changeQuantity(itemId, delta) {
+            const item = cart.find(i => i.id === itemId);
+            if (!item) return;
+            
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== itemId);
+            }
+            
+            updateCart();
+            if (cart.length === 0) {
+                closeCart();
+            } else {
+                showCart();
+            }
+        }
+
+        function updateCartSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = deliveryType === 'delivery' ? 2.50 : 0;
+            const total = subtotal + deliveryFee;
+            
+            document.getElementById('subtotal').textContent = `£${subtotal.toFixed(2)}`;
+            document.getElementById('deliveryFee').textContent = deliveryType === 'delivery' ? '£2.50' : 'Free';
+            document.getElementById('deliveryLabel').textContent = deliveryType === 'delivery' ? 'Delivery:' : 'Collection:';
+            document.getElementById('finalTotal').textContent = `£${total.toFixed(2)}`;
+        }
+
+        function selectDeliveryType(type) {
+            deliveryType = type;
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
+            updateCartSummary();
         }
 
-        function acceptOrder(orderNum) {
-            alert(`Order #${orderNum} accepted!\n\n📱 SMS Sent via Connect98:\n"Your order has been accepted and is being prepared. Estimated time: 25-30 mins"`);
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-chip').forEach(chip => chip.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMenu();
         }
 
-        function rejectOrder(orderNum) {
-            if (confirm('Are you sure you want to reject this order?')) {
-                alert(`Order #${orderNum} rejected.\n\n📱 SMS Sent via Connect98:\n"Sorry, we cannot fulfill your order at this time. You will not be charged."`);
-            }
+        function searchMenu(query) {
+            // Simple search implementation
+            console.log('Searching for:', query);
         }
 
-        function markReady(orderNum) {
-            alert(`Order #${orderNum} marked as ready!\n\n📱 SMS Sent via Connect98:\n"Your order is ready! ${Math.random() > 0.5 ? 'Driver is on the way.' : 'Ready for collection.'}"`);
+        function proceedToCheckout() {
+            closeCart();
+            document.getElementById('checkoutModal').classList.add('show');
+            document.getElementById('deliveryAddress').style.display = deliveryType === 'delivery' ? 'block' : 'none';
         }
 
-        function markDelivered(orderNum) {
-            alert(`Order #${orderNum} marked as delivered!\n\n📱 SMS Sent via Connect98:\n"Your order has been delivered. Enjoy your meal!"`);
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('show');
         }
 
-        async function startCamera() {
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                const video = document.getElementById('camera');
-                video.srcObject = stream;
-                video.style.display = 'block';
-                document.getElementById('startCameraBtn').style.display = 'none';
-                document.getElementById('captureControls').style.display = 'block';
-            } catch (err) {
-                alert('Camera access denied or not available');
-            }
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            event.target.closest('.payment-method').classList.add('selected');
         }
 
-        function capturePhoto() {
-            const video = document.getElementById('camera');
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+        function placeOrder() {
+            const orderNumber = Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('orderNumber').textContent = `#${orderNumber}`;
             
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            capturedImage = canvas.toDataURL('image/jpeg');
+            closeCheckout();
+            document.getElementById('confirmationModal').classList.add('show');
             
-            document.getElementById('preview').src = capturedImage;
-            document.getElementById('preview').classList.add('show');
-            document.getElementById('processControls').style.display = 'block';
-            
-            stopCamera();
+            // Clear cart
+            cart = [];
+            updateCart();
         }
 
-        function stopCamera() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                document.getElementById('camera').style.display = 'none';
-                document.getElementById('captureControls').style.display = 'none';
-                document.getElementById('startCameraBtn').style.display = 'inline-block';
-            }
-        }
-
-        function processOCR() {
-            document.getElementById('processControls').style.display = 'none';
-            
-            // Simulate OCR processing
-            setTimeout(() => {
-                const sampleOCR = `BREAKFAST MENU
-                
-Full English Breakfast - £8.95
-Eggs, bacon, sausage, beans, toast
-
-Avocado Toast - £7.50
-Smashed avocado on sourdough
-
-Pancake Stack - £6.95
-With maple syrup and berries
-
-LUNCH MENU
-
-Club Sandwich - £9.95
-Triple-decker with chicken, bacon
-
-Caesar Salad - £8.50
-Crisp romaine, parmesan, croutons
-
-DRINKS
-
-Cappuccino - £3.50
-Latte - £3.50
-Fresh Orange Juice - £3.95`;
-                
-                document.getElementById('ocrText').textContent = sampleOCR;
-                document.getElementById('ocrResult').style.display = 'block';
-            }, 2000);
-        }
-
-        function resetOCR() {
-            document.getElementById('preview').classList.remove('show');
-            document.getElementById('processControls').style.display = 'none';
-            document.getElementById('ocrResult').style.display = 'none';
-            document.getElementById('startCameraBtn').style.display = 'inline-block';
-            capturedImage = null;
-        }
-
-        function saveOCRMenu() {
-            alert('Menu items extracted and saved!\n\nYou can now edit them in the Menu tab.');
-            resetOCR();
-            switchTab('menu');
-            document.querySelectorAll('.tab')[2].click();
-        }
-
-        function addNewItem() {
-            alert('Add New Item form would appear here');
-        }
-
-        function saveSettings() {
-            alert('Settings saved successfully!\n\n✓ Restaurant details updated\n✓ Connect98 SMS configured\n✓ White label settings applied');
+        function closeConfirmation() {
+            document.getElementById('confirmationModal').classList.remove('show');
         }
 
         // PWA Manifest
         const manifest = {
-            name: "MenuLinx Admin - Restaurant Dashboard",
-            short_name: "MenuLinx Admin",
+            name: "The Cozy Corner Cafe - Order Online",
+            short_name: "Cozy Corner",
+            description: "Order food directly from The Cozy Corner Cafe",
             start_url: "./",
             display: "standalone",
-            background_color: "#0057B8",
-            theme_color: "#0057B8",
+            background_color: "#28A745",
+            theme_color: "#28A745",
             icons: [{
-                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230057B8'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>🍽️</text></svg>",
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%2328A745'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>☕</text></svg>",
                 sizes: "192x192",
                 type: "image/svg+xml"
             }]
         };
+
         const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
         const manifestURL = URL.createObjectURL(manifestBlob);
         const manifestLink = document.createElement('link');
         manifestLink.rel = 'manifest';
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
+
+        // Service Worker
+        const swCode = `
+const CACHE_NAME = 'menulinx-v1';
+self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE_NAME)); self.skipWaiting(); });
+self.addEventListener('fetch', e => { e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))); });
+self.addEventListener('activate', e => { self.clients.claim(); });
+        `;
+        const swBlob = new Blob([swCode], { type: 'application/javascript' });
+        const swURL = URL.createObjectURL(swBlob);
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register(swURL);
+        }
     </script>
 </body>
 </html>
