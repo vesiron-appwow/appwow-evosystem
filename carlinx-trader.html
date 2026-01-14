@@ -546,6 +546,108 @@
       color: var(--bg-primary);
     }
 
+    .image-preview {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-tertiary);
+      border: 2px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    .image-preview:hover {
+      border-color: var(--border-accent);
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-preview-badge {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .image-preview-remove {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--danger);
+      color: white;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 1;
+      transition: var(--transition);
+      opacity: 0;
+    }
+
+    .image-preview:hover .image-preview-remove {
+      opacity: 1;
+    }
+
+    .image-preview-remove:hover {
+      background: #DC2626;
+      transform: scale(1.1);
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .image-placeholder-icon {
+      font-size: 2rem;
+      opacity: 0.5;
+    }
+
+    input[type="file"] {
+      cursor: pointer;
+    }
+
+    input[type="file"]::file-selector-button {
+      background: var(--bg-hover);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-right: 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+      border-color: var(--accent-primary);
+    }
+
     .hidden {
       display: none !important;
     }
@@ -1076,9 +1178,28 @@
             </section>
 
             <section style="margin-bottom: 2rem;">
-              <div style="width: 100%; height: 250px; background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 3rem;">
-                🚗
-              </div>
+              ${vehicle.images && vehicle.images.primary ? `
+                <img src="${vehicle.images.primary}" 
+                     alt="${vehicle.make} ${vehicle.model}" 
+                     style="width: 100%; height: 300px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+                
+                ${vehicle.images.gallery && vehicle.images.gallery.length > 1 ? `
+                  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.5rem;">
+                    ${vehicle.images.gallery.slice(1).map((img, idx) => `
+                      <img src="${img}" 
+                           alt="${vehicle.make} ${vehicle.model} - Image ${idx + 2}"
+                           style="width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius-md); cursor: pointer; border: 2px solid var(--border-color); transition: var(--transition);"
+                           onmouseover="this.style.borderColor='var(--border-accent)'"
+                           onmouseout="this.style.borderColor='var(--border-color)'"
+                           onclick="document.querySelector('section img').src = this.src">
+                    `).join('')}
+                  </div>
+                ` : ''}
+              ` : `
+                <div style="width: 100%; height: 250px; background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary)); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 3rem;">
+                  🚗
+                </div>
+              `}
             </section>
 
             <section style="margin-bottom: 2rem;">
@@ -1242,6 +1363,28 @@
               </section>
 
               <section style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1rem;">Vehicle Images</h2>
+                
+                <div class="form-group">
+                  <label class="form-label">Upload Images</label>
+                  <input type="file" 
+                         id="vehicle-images" 
+                         accept="image/*" 
+                         multiple 
+                         class="form-input"
+                         onchange="app.handleImageUpload(event)"
+                         style="padding: 0.5rem;">
+                  <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    Upload up to 5 images. First image will be the primary photo.
+                  </p>
+                </div>
+
+                <div id="image-preview-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                  ${vehicle && vehicle.images ? this.renderImagePreviews(vehicle.images) : ''}
+                </div>
+              </section>
+
+              <section style="margin-bottom: 2rem;">
                 <h2 style="margin-bottom: 1rem;">Lot Assignment</h2>
                 
                 <div class="form-group">
@@ -1367,7 +1510,14 @@
 
         return vehicles.map(vehicle => `
           <div class="vehicle-card" data-vehicle-id="${vehicle.id}">
-            <div class="vehicle-image">🚗</div>
+            ${vehicle.images && vehicle.images.primary ? `
+              <img src="${vehicle.images.primary}" 
+                   alt="${vehicle.make} ${vehicle.model}" 
+                   class="vehicle-image"
+                   style="object-fit: cover;">
+            ` : `
+              <div class="vehicle-image">🚗</div>
+            `}
             <div class="vehicle-content">
               <div class="vehicle-header">
                 <div>
@@ -1470,6 +1620,121 @@
         form.querySelector('[name="status"]').value = status;
       }
 
+      handleImageUpload(event) {
+        const files = Array.from(event.target.files);
+        
+        if (files.length === 0) return;
+        
+        // Limit to 5 images
+        if (files.length > 5) {
+          alert('Maximum 5 images allowed. Only first 5 will be used.');
+          files.splice(5);
+        }
+
+        // Store uploaded images temporarily
+        if (!this.uploadedImages) {
+          this.uploadedImages = [];
+        }
+
+        // Clear previous uploads
+        this.uploadedImages = [];
+
+        // Convert files to base64 data URLs
+        const promises = files.map(file => {
+          return new Promise((resolve, reject) => {
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+              reject(new Error('Only image files are allowed'));
+              return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+              reject(new Error('Image size must be less than 5MB'));
+              return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              resolve({
+                name: file.name,
+                dataUrl: e.target.result
+              });
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+        });
+
+        Promise.all(promises)
+          .then(images => {
+            this.uploadedImages = images;
+            this.renderImagePreviews(null, images);
+          })
+          .catch(error => {
+            alert('Error uploading images: ' + error.message);
+          });
+      }
+
+      renderImagePreviews(existingImages, uploadedImages) {
+        const container = document.getElementById('image-preview-container');
+        if (!container) return '';
+
+        let imagesToShow = [];
+        
+        if (uploadedImages && uploadedImages.length > 0) {
+          imagesToShow = uploadedImages.map((img, idx) => ({
+            src: img.dataUrl,
+            isPrimary: idx === 0,
+            isNew: true
+          }));
+        } else if (existingImages && existingImages.gallery && existingImages.gallery.length > 0) {
+          imagesToShow = existingImages.gallery.map((src, idx) => ({
+            src: src,
+            isPrimary: idx === 0,
+            isNew: false
+          }));
+        }
+
+        if (imagesToShow.length === 0) {
+          container.innerHTML = `
+            <div class="image-preview">
+              <div class="image-placeholder">
+                <span class="image-placeholder-icon">📷</span>
+                <span>No images</span>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = imagesToShow.map((img, idx) => `
+          <div class="image-preview">
+            <img src="${img.src}" alt="Vehicle image ${idx + 1}">
+            ${img.isPrimary ? '<span class="image-preview-badge">Primary</span>' : ''}
+            <button type="button" 
+                    class="image-preview-remove" 
+                    onclick="app.removeImage(${idx})"
+                    title="Remove image">
+              ×
+            </button>
+          </div>
+        `).join('');
+      }
+
+      removeImage(index) {
+        if (this.uploadedImages && this.uploadedImages.length > 0) {
+          this.uploadedImages.splice(index, 1);
+          this.renderImagePreviews(null, this.uploadedImages);
+          
+          // Update file input if all images removed
+          if (this.uploadedImages.length === 0) {
+            const fileInput = document.getElementById('vehicle-images');
+            if (fileInput) fileInput.value = '';
+          }
+        }
+      }
+
       saveVehicle(event, vehicleId) {
         event.preventDefault();
         
@@ -1490,12 +1755,30 @@
           description: formData.get('description')
         };
 
+        // Add images if uploaded
+        if (this.uploadedImages && this.uploadedImages.length > 0) {
+          vehicle.images = {
+            primary: this.uploadedImages[0].dataUrl,
+            gallery: this.uploadedImages.map(img => img.dataUrl)
+          };
+        } else if (vehicleId) {
+          // Keep existing images if updating and no new images
+          const existing = appData.vehicles.find(v => v.id === vehicleId);
+          if (existing && existing.images) {
+            vehicle.images = existing.images;
+          }
+        }
+
         if (vehicleId) {
           // Update existing
           const index = appData.vehicles.findIndex(v => v.id === vehicleId);
           if (index !== -1) {
-            appData.vehicles[index] = { ...appData.vehicles[index], ...vehicle };
+            appData.vehicles[index] = { 
+              ...appData.vehicles[index], 
+              ...vehicle 
+            };
             alert('Vehicle updated successfully');
+            this.uploadedImages = null; // Clear uploaded images
             this.navigateTo('vehicle-detail', { vehicleId });
           }
         } else {
@@ -1505,8 +1788,18 @@
             ...vehicle,
             offers: { enabled: false, count: 0, highest: null }
           };
+          
+          // Add placeholder image if no images uploaded
+          if (!newVehicle.images) {
+            newVehicle.images = {
+              primary: null,
+              gallery: []
+            };
+          }
+          
           appData.vehicles.push(newVehicle);
           alert('Vehicle added successfully');
+          this.uploadedImages = null; // Clear uploaded images
           this.navigateTo('vehicle-detail', { vehicleId: newVehicle.id });
         }
       }
