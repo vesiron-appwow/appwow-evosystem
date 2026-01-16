@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeLinx White-Label</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1f2937;
+      --bg-card: #1a1f2e;
+      --bg-hover: #252b3f;
+      --text-primary: #f9fafb;
+      --text-secondary: #d1d5db;
+      --text-muted: #9ca3af;
+      --accent-primary: #00d9ff;
+      --accent-secondary: #00a8ff;
+      --accent-glow: rgba(0, 217, 255, 0.1);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(0, 217, 255, 0.3);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 20px rgba(0, 217, 255, 0.15);
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --transition: all 0.2s ease;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.01em;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* MODE SELECTOR BANNER */
+    .mode-selector-banner {
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      backdrop-filter: blur(10px);
+      animation: slideIn 0.3s ease;
+    }
+
+    .mode-selector-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .mode-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .mode-toggle {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--bg-primary);
+      padding: 0.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .mode-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mode-btn:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .mode-btn.active {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: var(--bg-primary);
+      box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+    }
+
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 0;
+      position: sticky;
+      top: 48px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-image {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      background: var(--bg-tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .nav-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 0.5rem;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-bottom.hidden {
+      display: none;
+    }
+
+    .nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.5rem 1rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: var(--transition);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-hover);
+      color: var(--text-secondary);
+    }
+
+    .nav-item.active {
+      color: var(--accent-primary);
+      background: var(--accent-glow);
+    }
+
+    .nav-icon {
+      font-size: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: var(--bg-primary);
+      box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-accent);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+
+    .btn-ghost:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-info {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--info);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-secondary {
+      background: rgba(160, 174, 192, 0.15);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .badge-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .property-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .property-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .property-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--text-muted);
+    }
+
+    .property-content {
+      padding: 1.25rem;
+    }
+
+    .property-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .property-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .property-location {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .property-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .property-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .property-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .property-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-help {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .color-picker-wrapper {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .color-picker {
+      width: 60px;
+      height: 40px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .color-picker:hover {
+      border-color: var(--accent-primary);
+    }
+
+    .image-upload-area {
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      text-align: center;
+      background: var(--bg-secondary);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .image-upload-area:hover {
+      border-color: var(--accent-primary);
+      background: var(--accent-glow);
+    }
+
+    .image-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .image-preview {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-preview-remove {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      background: var(--danger);
+      color: white;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .settings-section h3 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .color-preview {
+      width: 100%;
+      height: 60px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+
+    @media (min-width: 768px) {
+      .property-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .property-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--bg-hover);
+    }
+
+    ::selection {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+    }
+  </style>
+</head>
+<body>
+  <!-- Mode Selector Banner -->
+  <div class="mode-selector-banner">
+    <div class="mode-selector-content">
+      <span class="mode-label">View Mode:</span>
+      <div class="mode-toggle">
+        <button class="mode-btn" data-mode="public" onclick="app.switchMode('public')">
+          <span>👥</span>
+          <span>Public</span>
+        </button>
+        <button class="mode-btn active" data-mode="admin" onclick="app.switchMode('admin')">
+          <span>⚙️</span>
+          <span>Agent Admin</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo" id="app-logo">
+        <div class="logo-image" id="logo-image">🏠</div>
+        <span id="logo-text">HomeLinx</span>
+      </div>
+      <div>
+        <button class="btn btn-ghost btn-sm" style="padding: 0.5rem;" title="Notifications">🔔</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="app-content" class="page">
+    <!-- Content will be dynamically loaded here -->
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="nav-bottom" id="admin-nav">
+    <div class="nav-items">
+      <button class="nav-item active" data-view="dashboard">
+        <span class="nav-icon">📊</span>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" data-view="properties">
+        <span class="nav-icon">🏠</span>
+        <span>Listings</span>
+      </button>
+      <button class="nav-item" data-view="enquiries">
+        <span class="nav-icon">📧</span>
+        <span>Enquiries</span>
+      </button>
+      <button class="nav-item" data-view="settings">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+      <button class="nav-item" data-view="consumer">
+        <span class="nav-icon">👥</span>
+        <span>Public</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    // ===== WHITE-LABEL SETTINGS =====
+    const defaultSettings = {
+      branding: {
+        agencyName: "Your Estate Agency",
+        tagline: "Quality Properties, Trusted Service",
+        logoUrl: "",
+        primaryColor: "#00d9ff",
+        secondaryColor: "#00a8ff"
+      },
+      contact: {
+        phone: "01234 567890",
+        email: "hello@youragency.co.uk",
+        address: "123 High Street",
+        town: "Your Town",
+        postcode: "AB1 2CD",
+        website: "www.youragency.co.uk"
+      },
+      features: {
+        showEPCRatings: true,
+        showFloorArea: true,
+        allowEnquiries: true,
+        showPropertyFeatures: true
+      }
+    };
+
+    // Load settings from localStorage or use defaults
+    let whitelabelSettings = { ...defaultSettings };
+    try {
+      const saved = localStorage.getItem('homelinx-whitelabel-settings');
+      if (saved) {
+        whitelabelSettings = { ...defaultSettings, ...JSON.parse(saved) };
+      }
+    } catch (e) {
+      console.log('Using default settings');
+    }
+
+    // ===== DATA =====
+    const appData = {
+      agent: {
+        id: "agent-001",
+        name: whitelabelSettings.branding.agencyName,
+        tagline: whitelabelSettings.branding.tagline,
+        location: { 
+          town: whitelabelSettings.contact.town, 
+          postcode: whitelabelSettings.contact.postcode 
+        },
+        phone: whitelabelSettings.contact.phone,
+        email: whitelabelSettings.contact.email,
+        address: whitelabelSettings.contact.address,
+        website: whitelabelSettings.contact.website
+      },
+      properties: [
+        {
+          id: "prop-001",
+          address: "45 Marine Parade",
+          location: { town: "Brighton", postcode: "BN2 1PE" },
+          propertyType: "Flat",
+          bedrooms: 2,
+          bathrooms: 1,
+          sqm: 65,
+          furnished: "Unfurnished",
+          saleType: "Sale",
+          price: 425000,
+          status: "live",
+          description: "Stunning seafront apartment with panoramic views over Brighton beach. Recently renovated with modern fixtures and fittings.",
+          epcRating: "B",
+          features: ["Sea View", "Balcony", "Parking"]
+        },
+        {
+          id: "prop-002",
+          address: "12 The Lanes",
+          location: { town: "Brighton", postcode: "BN1 1HG" },
+          propertyType: "House",
+          bedrooms: 3,
+          bathrooms: 2,
+          sqm: 120,
+          furnished: "Unfurnished",
+          saleType: "Sale",
+          price: 625000,
+          status: "live",
+          description: "Beautiful Victorian townhouse in the heart of The Lanes. Original features throughout with modern kitchen extension.",
+          epcRating: "C",
+          features: ["Garden", "Period Features", "Recently Renovated"]
+        },
+        {
+          id: "prop-003",
+          address: "Flat 7, Churchill Square",
+          location: { town: "Brighton", postcode: "BN1 2RG" },
+          propertyType: "Flat",
+          bedrooms: 1,
+          bathrooms: 1,
+          sqm: 45,
+          furnished: "Furnished",
+          saleType: "Rent",
+          price: 1250,
+          status: "live",
+          description: "Modern one-bedroom apartment in prime city centre location. Fully furnished and available immediately.",
+          epcRating: "B",
+          features: ["City Centre", "Furnished", "Available Now"]
+        }
+      ],
+      enquiries: [
+        {
+          id: "enq-001",
+          propertyId: "prop-001",
+          name: "Sarah Johnson",
+          email: "sarah.j@email.com",
+          phone: "07700 900123",
+          message: "I'm interested in viewing this property. Are weekends available?",
+          date: new Date(Date.now() - 86400000 * 2).toISOString(),
+          status: "new"
+        }
+      ],
+      savedProperties: []
+    };
+
+    // ===== APP LOGIC =====
+    class HomeLinxApp {
+      constructor() {
+        this.currentView = 'dashboard';
+        this.currentProperty = null;
+        this.editingProperty = null;
+        this.uploadedImages = null;
+        this.currentMode = 'admin';
+        this.settings = whitelabelSettings;
+        this.init();
+      }
+
+      init() {
+        this.applyBranding();
+        this.setupNavigation();
+        this.renderView('dashboard');
+      }
+
+      applyBranding() {
+        // Update logo text
+        const logoText = document.getElementById('logo-text');
+        if (logoText) {
+          logoText.textContent = this.settings.branding.agencyName;
+        }
+
+        // Update logo image if provided
+        const logoImage = document.getElementById('logo-image');
+        if (this.settings.branding.logoUrl && logoImage) {
+          logoImage.innerHTML = `<img src="${this.settings.branding.logoUrl}" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm);">`;
+        }
+
+        // Update CSS variables for colors
+        document.documentElement.style.setProperty('--accent-primary', this.settings.branding.primaryColor);
+        document.documentElement.style.setProperty('--accent-secondary', this.settings.branding.secondaryColor);
+        
+        // Update page title
+        document.title = this.settings.branding.agencyName;
+      }
+
+      setupNavigation() {
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.addEventListener('click', (e) => {
+            const view = e.currentTarget.dataset.view;
+            this.navigateTo(view);
+          });
+        });
+      }
+
+      switchMode(mode) {
+        this.currentMode = mode;
+        
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+
+        const adminNav = document.getElementById('admin-nav');
+        if (mode === 'public') {
+          adminNav.classList.add('hidden');
+          this.navigateTo('consumer');
+        } else {
+          adminNav.classList.remove('hidden');
+          this.navigateTo('dashboard');
+        }
+      }
+
+      navigateTo(view, data = {}) {
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.remove('active');
+          if (item.dataset.view === view) {
+            item.classList.add('active');
+          }
+        });
+
+        this.currentView = view;
+        if (data.propertyId) this.currentProperty = data.propertyId;
+        if (data.editPropertyId !== undefined) this.editingProperty = data.editPropertyId;
+
+        this.renderView(view, data);
+        window.scrollTo(0, 0);
+      }
+
+      renderView(view, data = {}) {
+        const content = document.getElementById('app-content');
+        
+        switch(view) {
+          case 'dashboard':
+            content.innerHTML = this.renderDashboard();
+            break;
+          case 'properties':
+            content.innerHTML = this.renderProperties();
+            this.attachPropertyHandlers();
+            break;
+          case 'property-detail':
+            content.innerHTML = this.renderPropertyDetail(this.currentProperty);
+            this.attachDetailHandlers();
+            break;
+          case 'property-edit':
+            content.innerHTML = this.renderPropertyEdit(this.editingProperty);
+            this.attachEditHandlers();
+            break;
+          case 'enquiries':
+            content.innerHTML = this.renderEnquiries();
+            this.attachEnquiryHandlers();
+            break;
+          case 'settings':
+            content.innerHTML = this.renderSettings();
+            this.attachSettingsHandlers();
+            break;
+          case 'consumer':
+            content.innerHTML = this.renderConsumerView();
+            this.attachConsumerHandlers();
+            break;
+        }
+      }
+
+      renderDashboard() {
+        const stats = this.getDashboardStats();
+        
+        return `
+          <div class="container">
+            <section style="margin: 2rem 0;">
+              <h1>${appData.agent.name}</h1>
+              <p style="color: var(--text-muted);">${appData.agent.tagline}</p>
+              <p style="color: var(--text-muted); font-size: 0.875rem;">${appData.agent.location.town}, ${appData.agent.location.postcode}</p>
+            </section>
+
+            <section>
+              <h2 style="margin-bottom: 1rem;">Overview</h2>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-label">Total Listings</div>
+                  <div class="stat-value">${stats.totalProperties}</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-label">Active</div>
+                  <div class="stat-value">${stats.liveListings}</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-label">Draft</div>
+                  <div class="stat-value">${stats.draftListings}</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-label">Enquiries</div>
+                  <div class="stat-value">${stats.totalEnquiries}</div>
+                </div>
+              </div>
+            </section>
+
+            <section style="margin-top: 2rem;">
+              <h2 style="margin-bottom: 1rem;">Listing Types</h2>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="card">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="font-weight: 600;">🏡 For Sale</span>
+                    <span class="mono" style="font-size: 1.25rem; color: var(--accent-primary);">${stats.forSale}</span>
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--text-muted);">Properties for purchase</p>
+                </div>
+                
+                <div class="card">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="font-weight: 600;">🔑 To Rent</span>
+                    <span class="mono" style="font-size: 1.25rem; color: var(--accent-primary);">${stats.toRent}</span>
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--text-muted);">Rental properties</p>
+                </div>
+              </div>
+            </section>
+
+            <section style="margin-top: 2rem;">
+              <h2 style="margin-bottom: 1rem;">Recent Enquiries</h2>
+              <div style="display: grid; gap: 1rem;">
+                ${appData.enquiries.length > 0 ? appData.enquiries.slice(0, 3).map(enq => {
+                  const property = appData.properties.find(p => p.id === enq.propertyId);
+                  return `
+                    <div class="card" onclick="app.navigateTo('enquiries')">
+                      <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                        <div>
+                          <div style="font-weight: 600;">${enq.name}</div>
+                          <div style="font-size: 0.875rem; color: var(--text-muted);">${property ? property.address : 'Unknown Property'}</div>
+                        </div>
+                        <span class="badge ${enq.status === 'new' ? 'badge-success' : 'badge-secondary'}">
+                          ${enq.status}
+                        </span>
+                      </div>
+                      <p style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.5rem;">${enq.message.substring(0, 80)}...</p>
+                    </div>
+                  `;
+                }).join('') : '<div class="card"><p style="color: var(--text-muted);">No enquiries yet</p></div>'}
+              </div>
+            </section>
+
+            <section style="margin-top: 2rem;">
+              <h2 style="margin-bottom: 1rem;">Quick Actions</h2>
+              <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                <button class="btn btn-primary" onclick="app.navigateTo('property-edit', {editPropertyId: null})">
+                  ➕ Add New Property
+                </button>
+                <button class="btn btn-secondary" onclick="app.navigateTo('properties')">
+                  🏠 View All Properties
+                </button>
+                <button class="btn btn-secondary" onclick="app.navigateTo('settings')">
+                  ⚙️ Customize Branding
+                </button>
+                <button class="btn btn-secondary" onclick="app.navigateTo('consumer')">
+                  👥 Preview Public View
+                </button>
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      renderProperties() {
+        const properties = appData.properties;
+        
+        if (properties.length === 0) {
+          return this.renderEmptyState('No properties found', 'Add your first property to get started');
+        }
+
+        const propertiesHtml = this.renderPropertyCards(properties, false);
+
+        return `
+          <div class="container">
+            <section style="margin: 2rem 0;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h1>My Listings</h1>
+                <button class="btn btn-primary btn-sm" onclick="app.navigateTo('property-edit', {editPropertyId: null})">
+                  ➕ Add Property
+                </button>
+              </div>
+              <p style="color: var(--text-muted);">Manage your property listings</p>
+            </section>
+
+            <section>
+              <div class="property-grid">
+                ${propertiesHtml}
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      renderPropertyDetail(propertyId) {
+        const property = appData.properties.find(p => p.id === propertyId);
+        
+        if (!property) {
+          return this.renderEmptyState('Property not found', 'This property may have been removed');
+        }
+
+        return `
+          <div class="container">
+            <section style="margin: 1.5rem 0;">
+              <button class="btn btn-ghost btn-sm" onclick="app.navigateTo('properties')">
+                ← Back to Listings
+              </button>
+            </section>
+
+            <section style="margin-bottom: 2rem;">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                  <h1>${property.address}</h1>
+                  <p style="color: var(--text-muted);">${property.location.town}, ${property.location.postcode}</p>
+                </div>
+                <div style="text-align: right;">
+                  <div class="property-price">£${property.price.toLocaleString()}</div>
+                  <span class="badge ${property.status === 'live' ? 'badge-success' : 'badge-warning'}">
+                    ${property.status}
+                  </span>
+                </div>
+              </div>
+
+              ${property.images && property.images.primary ? `
+                <img src="${property.images.primary}" alt="${property.address}" style="width: 100%; height: 400px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 1.5rem;">
+              ` : `
+                <div class="property-image" style="height: 400px; margin-bottom: 1.5rem;">
+                  🏠
+                </div>
+              `}
+
+              <div class="card">
+                <h3 style="margin-bottom: 1rem;">Property Details</h3>
+                <div class="property-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                  <div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Property Type</div>
+                    <div style="font-weight: 600;">${property.propertyType}</div>
+                  </div>
+                  <div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Sale Type</div>
+                    <div style="font-weight: 600;">${property.saleType}</div>
+                  </div>
+                  <div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Bedrooms</div>
+                    <div style="font-weight: 600;">${property.bedrooms}</div>
+                  </div>
+                  <div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Bathrooms</div>
+                    <div style="font-weight: 600;">${property.bathrooms}</div>
+                  </div>
+                  ${this.settings.features.showFloorArea ? `
+                    <div>
+                      <div style="color: var(--text-muted); font-size: 0.875rem;">Floor Area</div>
+                      <div style="font-weight: 600;">${property.sqm} m²</div>
+                    </div>
+                  ` : ''}
+                  <div>
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Furnished</div>
+                    <div style="font-weight: 600;">${property.furnished}</div>
+                  </div>
+                  ${this.settings.features.showEPCRatings ? `
+                    <div>
+                      <div style="color: var(--text-muted); font-size: 0.875rem;">EPC Rating</div>
+                      <div style="font-weight: 600;">${property.epcRating}</div>
+                    </div>
+                  ` : ''}
+                </div>
+
+                ${property.description ? `
+                  <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: 0.5rem;">Description</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">${property.description}</p>
+                  </div>
+                ` : ''}
+
+                ${this.settings.features.showPropertyFeatures && property.features && property.features.length > 0 ? `
+                  <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: 0.5rem;">Key Features</h4>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                      ${property.features.map(f => `<span class="badge badge-secondary">${f}</span>`).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <button class="btn btn-primary" onclick="app.navigateTo('property-edit', {editPropertyId: '${property.id}'})">
+                  ✏️ Edit Property
+                </button>
+                <button class="btn btn-secondary" onclick="app.deleteProperty('${property.id}')">
+                  🗑️ Delete Property
+                </button>
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      renderPropertyEdit(propertyId) {
+        const property = propertyId ? appData.properties.find(p => p.id === propertyId) : null;
+        const isNew = !property;
+        const pageTitle = isNew ? 'Add Property' : 'Edit Property';
+
+        const formData = property || {
+          address: '',
+          town: '',
+          postcode: '',
+          propertyType: '',
+          bedrooms: '',
+          bathrooms: '',
+          sqm: '',
+          furnished: '',
+          saleType: '',
+          price: '',
+          description: '',
+          epcRating: '',
+          status: 'draft'
+        };
+
+        return `
+          <div class="container">
+            <section style="margin: 1.5rem 0;">
+              <button class="btn btn-ghost btn-sm" onclick="app.navigateTo(app.currentProperty ? 'property-detail' : 'properties')">
+                ← Back
+              </button>
+            </section>
+
+            <section style="margin-bottom: 2rem;">
+              <h1>${pageTitle}</h1>
+              <p style="color: var(--text-muted);">Update property information and listing settings</p>
+            </section>
+
+            <form id="property-form" onsubmit="app.saveProperty(event, '${propertyId || ''}')">
+              <section style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1rem;">Property Information</h2>
+                
+                <div class="form-group">
+                  <label class="form-label">Address</label>
+                  <input type="text" name="address" class="form-input" value="${formData.address || ''}" required placeholder="e.g. 45 Marine Parade">
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Town/City</label>
+                    <input type="text" name="town" class="form-input" value="${formData.location ? formData.location.town : ''}" required placeholder="Brighton">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Postcode</label>
+                    <input type="text" name="postcode" class="form-input" value="${formData.location ? formData.location.postcode : ''}" required placeholder="BN2 1PE">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Property Type</label>
+                  <select name="propertyType" class="form-select" required>
+                    <option value="">Select property type</option>
+                    ${['House', 'Flat', 'Bungalow', 'Maisonette', 'Commercial'].map(type =>
+                      `<option value="${type}" ${formData.propertyType === type ? 'selected' : ''}>${type}</option>`
+                    ).join('')}
+                  </select>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Bedrooms</label>
+                    <input type="number" name="bedrooms" class="form-input" value="${formData.bedrooms || ''}" required placeholder="2" min="0">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Bathrooms</label>
+                    <input type="number" name="bathrooms" class="form-input" value="${formData.bathrooms || ''}" required placeholder="1" min="1">
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  ${this.settings.features.showFloorArea ? `
+                    <div class="form-group">
+                      <label class="form-label">Floor Area (m²)</label>
+                      <input type="number" name="sqm" class="form-input" value="${formData.sqm || ''}" placeholder="65" min="0">
+                    </div>
+                  ` : ''}
+                  ${this.settings.features.showEPCRatings ? `
+                    <div class="form-group">
+                      <label class="form-label">EPC Rating</label>
+                      <select name="epcRating" class="form-select">
+                        <option value="">Select rating</option>
+                        ${['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(rating =>
+                          `<option value="${rating}" ${formData.epcRating === rating ? 'selected' : ''}>${rating}</option>`
+                        ).join('')}
+                      </select>
+                    </div>
+                  ` : ''}
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Sale Type</label>
+                    <select name="saleType" class="form-select" required>
+                      <option value="">Select type</option>
+                      <option value="Sale" ${formData.saleType === 'Sale' ? 'selected' : ''}>For Sale</option>
+                      <option value="Rent" ${formData.saleType === 'Rent' ? 'selected' : ''}>To Rent</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Price (£)</label>
+                    <input type="number" name="price" class="form-input" value="${formData.price || ''}" required placeholder="425000" min="0" step="1">
+                    <div class="form-help">For rentals, enter monthly rent</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Furnished</label>
+                  <select name="furnished" class="form-select" required>
+                    <option value="">Select option</option>
+                    ${['Unfurnished', 'Furnished', 'Part-Furnished'].map(type =>
+                      `<option value="${type}" ${formData.furnished === type ? 'selected' : ''}>${type}</option>`
+                    ).join('')}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Description</label>
+                  <textarea name="description" class="form-textarea" placeholder="Enter property description...">${formData.description || ''}</textarea>
+                </div>
+              </section>
+
+              <section style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1rem;">Status</h2>
+                
+                <div class="form-group">
+                  <label class="form-label">Listing Status</label>
+                  <select name="status" class="form-select" required>
+                    <option value="draft" ${formData.status === 'draft' ? 'selected' : ''}>Draft</option>
+                    <option value="live" ${formData.status === 'live' ? 'selected' : ''}>Live</option>
+                  </select>
+                </div>
+              </section>
+
+              <section style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1rem;">Images</h2>
+                <div class="form-group">
+                  <div class="image-upload-area" onclick="document.getElementById('image-upload').click()">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📸</div>
+                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Upload Property Images</div>
+                    <div style="font-size: 0.875rem; color: var(--text-muted);">Click to select images</div>
+                  </div>
+                  <input type="file" id="image-upload" accept="image/*" multiple style="display: none;" onchange="app.handleImageUpload(event)">
+                  
+                  <div id="image-preview-container" class="image-preview-grid"></div>
+                </div>
+              </section>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <button type="button" class="btn btn-secondary" onclick="app.navigateTo(app.currentProperty ? 'property-detail' : 'properties')">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  💾 Save Property
+                </button>
+              </div>
+            </form>
+          </div>
+        `;
+      }
+
+      renderEnquiries() {
+        const enquiries = appData.enquiries;
+
+        if (enquiries.length === 0) {
+          return this.renderEmptyState('No enquiries yet', 'Enquiries from interested buyers will appear here');
+        }
+
+        return `
+          <div class="container">
+            <section style="margin: 2rem 0;">
+              <h1>Enquiries</h1>
+              <p style="color: var(--text-muted);">Manage property enquiries from potential buyers and renters</p>
+            </section>
+
+            <section>
+              <div style="display: grid; gap: 1rem;">
+                ${enquiries.map(enq => {
+                  const property = appData.properties.find(p => p.id === enq.propertyId);
+                  const date = new Date(enq.date);
+                  return `
+                    <div class="card">
+                      <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                        <div>
+                          <h3 style="margin-bottom: 0.25rem;">${enq.name}</h3>
+                          <div style="font-size: 0.875rem; color: var(--text-muted);">${property ? property.address : 'Unknown Property'}</div>
+                        </div>
+                        <span class="badge ${enq.status === 'new' ? 'badge-success' : 'badge-secondary'}">
+                          ${enq.status}
+                        </span>
+                      </div>
+
+                      <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem;">
+                        <p style="color: var(--text-secondary);">${enq.message}</p>
+                      </div>
+
+                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">
+                        <div>
+                          <div>📧 ${enq.email}</div>
+                          <div>📞 ${enq.phone}</div>
+                        </div>
+                        <div style="text-align: right;">
+                          <div>${date.toLocaleDateString()}</div>
+                          <div>${date.toLocaleTimeString()}</div>
+                        </div>
+                      </div>
+
+                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        ${property ? `
+                          <button class="btn btn-secondary btn-sm" onclick="app.navigateTo('property-detail', {propertyId: '${property.id}'})">
+                            View Property
+                          </button>
+                        ` : ''}
+                        <button class="btn btn-${enq.status === 'new' ? 'primary' : 'secondary'} btn-sm" onclick="app.markEnquiryContacted('${enq.id}')">
+                          ${enq.status === 'new' ? '✓ Mark as Contacted' : '↻ Mark as New'}
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      renderSettings() {
+        return `
+          <div class="container">
+            <section style="margin: 2rem 0;">
+              <h1>White-Label Settings</h1>
+              <p style="color: var(--text-muted);">Customize your estate agency branding and settings</p>
+            </section>
+
+            <form id="settings-form" onsubmit="app.saveSettings(event)">
+              <!-- Branding Section -->
+              <div class="settings-section">
+                <h3>🎨 Branding</h3>
+                
+                <div class="form-group">
+                  <label class="form-label">Agency Name</label>
+                  <input type="text" name="agencyName" class="form-input" value="${this.settings.branding.agencyName}" required>
+                  <div class="form-help">This will appear in the logo and throughout the site</div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Tagline</label>
+                  <input type="text" name="tagline" class="form-input" value="${this.settings.branding.tagline}">
+                  <div class="form-help">A short description of your agency</div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Logo URL (optional)</label>
+                  <input type="url" name="logoUrl" class="form-input" value="${this.settings.branding.logoUrl}" placeholder="https://example.com/logo.png">
+                  <div class="form-help">Leave empty to use default house emoji</div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Primary Brand Color</label>
+                  <div class="color-picker-wrapper">
+                    <input type="color" name="primaryColor" class="color-picker" value="${this.settings.branding.primaryColor}">
+                    <input type="text" name="primaryColorText" class="form-input" value="${this.settings.branding.primaryColor}" placeholder="#00d9ff" style="flex: 1;">
+                  </div>
+                  <div class="color-preview" id="primary-preview" style="background: ${this.settings.branding.primaryColor}; color: var(--bg-primary);">
+                    Primary Color Preview
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Secondary Brand Color</label>
+                  <div class="color-picker-wrapper">
+                    <input type="color" name="secondaryColor" class="color-picker" value="${this.settings.branding.secondaryColor}">
+                    <input type="text" name="secondaryColorText" class="form-input" value="${this.settings.branding.secondaryColor}" placeholder="#00a8ff" style="flex: 1;">
+                  </div>
+                  <div class="color-preview" id="secondary-preview" style="background: ${this.settings.branding.secondaryColor}; color: var(--bg-primary);">
+                    Secondary Color Preview
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact Information Section -->
+              <div class="settings-section">
+                <h3>📞 Contact Information</h3>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" name="phone" class="form-input" value="${this.settings.contact.phone}" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-input" value="${this.settings.contact.email}" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Office Address</label>
+                  <input type="text" name="address" class="form-input" value="${this.settings.contact.address}" required>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Town/City</label>
+                    <input type="text" name="town" class="form-input" value="${this.settings.contact.town}" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Postcode</label>
+                    <input type="text" name="postcode" class="form-input" value="${this.settings.contact.postcode}" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Website</label>
+                  <input type="text" name="website" class="form-input" value="${this.settings.contact.website}" placeholder="www.youragency.co.uk">
+                </div>
+              </div>
+
+              <!-- Features Section -->
+              <div class="settings-section">
+                <h3>⚙️ Feature Toggles</h3>
+                
+                <div class="form-group">
+                  <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                    <input type="checkbox" name="showEPCRatings" ${this.settings.features.showEPCRatings ? 'checked' : ''} style="width: 20px; height: 20px; cursor: pointer;">
+                    <div>
+                      <div style="font-weight: 600;">Show EPC Ratings</div>
+                      <div style="font-size: 0.875rem; color: var(--text-muted);">Display energy performance certificates on property listings</div>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                    <input type="checkbox" name="showFloorArea" ${this.settings.features.showFloorArea ? 'checked' : ''} style="width: 20px; height: 20px; cursor: pointer;">
+                    <div>
+                      <div style="font-weight: 600;">Show Floor Area</div>
+                      <div style="font-size: 0.875rem; color: var(--text-muted);">Display property floor area in square meters</div>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                    <input type="checkbox" name="allowEnquiries" ${this.settings.features.allowEnquiries ? 'checked' : ''} style="width: 20px; height: 20px; cursor: pointer;">
+                    <div>
+                      <div style="font-weight: 600;">Allow Enquiries</div>
+                      <div style="font-size: 0.875rem; color: var(--text-muted);">Enable contact forms for property enquiries</div>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                    <input type="checkbox" name="showPropertyFeatures" ${this.settings.features.showPropertyFeatures ? 'checked' : ''} style="width: 20px; height: 20px; cursor: pointer;">
+                    <div>
+                      <div style="font-weight: 600;">Show Property Features</div>
+                      <div style="font-size: 0.875rem; color: var(--text-muted);">Display key features badges on properties</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                <button type="button" class="btn btn-secondary" onclick="app.resetSettings()">
+                  🔄 Reset to Defaults
+                </button>
+                <button type="button" class="btn btn-ghost" onclick="app.exportSettings()">
+                  📥 Export Settings
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  💾 Save Settings
+                </button>
+              </div>
+            </form>
+
+            <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+              <h4 style="margin-bottom: 0.5rem;">📋 Import Settings</h4>
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Import previously exported settings from a JSON file
+              </p>
+              <input type="file" id="import-settings" accept=".json" style="display: none;" onchange="app.importSettings(event)">
+              <button class="btn btn-secondary btn-sm" onclick="document.getElementById('import-settings').click()">
+                📤 Choose File to Import
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      renderConsumerView() {
+        const liveProperties = appData.properties.filter(p => p.status === 'live');
+        const propertiesHtml = this.renderPropertyCards(liveProperties, true);
+
+        return `
+          <div class="container">
+            <section style="margin: 2rem 0; text-align: center;">
+              <h1>Find Your Perfect Property</h1>
+              <p style="color: var(--text-muted); margin-top: 0.5rem;">${appData.agent.tagline}</p>
+            </section>
+
+            <section style="margin-bottom: 2rem;">
+              <div class="card">
+                <h3 style="margin-bottom: 1rem;">Search Properties</h3>
+                <div style="display: grid; gap: 1rem;">
+                  <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <select class="form-select">
+                        <option value="">Buy or Rent</option>
+                        <option value="Sale">Buy</option>
+                        <option value="Rent">Rent</option>
+                      </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <select class="form-select">
+                        <option value="">Property Type</option>
+                        <option value="House">House</option>
+                        <option value="Flat">Flat</option>
+                        <option value="Bungalow">Bungalow</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <select class="form-select">
+                        <option value="">Min Bedrooms</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                      </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <select class="form-select">
+                        <option value="">Max Price</option>
+                        <option value="300000">£300,000</option>
+                        <option value="500000">£500,000</option>
+                        <option value="750000">£750,000</option>
+                        <option value="1000000">£1,000,000+</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" onclick="alert('Search functionality is a demo placeholder')">
+                    🔍 Search
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                <h2>${liveProperties.length} properties available</h2>
+              </div>
+
+              ${liveProperties.length > 0 ? `
+                <div class="property-grid">
+                  ${propertiesHtml}
+                </div>
+              ` : `
+                <div class="empty-state">
+                  <div class="empty-state-icon">🏠</div>
+                  <h3>No properties currently available</h3>
+                  <p>Check back soon for new listings</p>
+                </div>
+              `}
+            </section>
+
+            ${this.settings.features.allowEnquiries ? `
+              <section style="margin-top: 3rem; padding: 2rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+                <h2 style="margin-bottom: 1rem;">Contact ${appData.agent.name}</h2>
+                <div style="display: grid; gap: 1rem; margin-bottom: 1.5rem;">
+                  <div style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);">
+                    <span>📞</span>
+                    <span>${appData.agent.phone}</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);">
+                    <span>📧</span>
+                    <span>${appData.agent.email}</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);">
+                    <span>📍</span>
+                    <span>${appData.agent.address}, ${appData.agent.location.town}, ${appData.agent.location.postcode}</span>
+                  </div>
+                  ${appData.agent.website ? `
+                    <div style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-secondary);">
+                      <span>🌐</span>
+                      <span>${appData.agent.website}</span>
+                    </div>
+                  ` : ''}
+                </div>
+                <button class="btn btn-primary" onclick="alert('Contact form is a demo placeholder')">
+                  Get in Touch
+                </button>
+              </section>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      renderPropertyCards(properties, isConsumerView = false) {
+        if (properties.length === 0) {
+          return '<div class="empty-state"><div class="empty-state-icon">🏠</div><p>No properties to display</p></div>';
+        }
+
+        return properties.map(property => {
+          return `
+            <div class="property-card" onclick="app.${isConsumerView ? 'viewPropertyAsConsumer' : 'navigateTo'}('property-detail', {propertyId: '${property.id}'})">
+              ${property.images && property.images.primary ? `
+                <img src="${property.images.primary}" alt="${property.address}" class="property-image">
+              ` : `
+                <div class="property-image">🏠</div>
+              `}
+              
+              <div class="property-content">
+                <div class="property-header">
+                  <div>
+                    <div class="property-title">${property.address}</div>
+                    <div class="property-location">${property.location.town}</div>
+                  </div>
+                  <div class="property-price">£${property.price.toLocaleString()}</div>
+                </div>
+
+                <div class="property-details">
+                  <div class="property-detail-item">🛏️ ${property.bedrooms} bed</div>
+                  <div class="property-detail-item">🚿 ${property.bathrooms} bath</div>
+                  <div class="property-detail-item">📐 ${property.propertyType}</div>
+                </div>
+
+                <div class="property-badges">
+                  ${!isConsumerView ? `
+                    <span class="badge ${property.status === 'live' ? 'badge-success' : 'badge-warning'}">
+                      ${property.status}
+                    </span>
+                  ` : ''}
+                  
+                  <span class="badge ${property.saleType === 'Sale' ? 'badge-success' : 'badge-info'}">
+                    ${property.saleType === 'Sale' ? 'For Sale' : 'To Rent'}
+                  </span>
+
+                  <span class="badge badge-secondary">
+                    ${property.furnished}
+                  </span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      renderEmptyState(title, message) {
+        return `
+          <div class="container">
+            <div class="empty-state">
+              <div class="empty-state-icon">🏠</div>
+              <h3>${title}</h3>
+              <p>${message}</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Event Handlers
+      attachPropertyHandlers() {}
+      attachDetailHandlers() {}
+      attachEditHandlers() {}
+      attachEnquiryHandlers() {}
+      attachConsumerHandlers() {}
+      
+      attachSettingsHandlers() {
+        // Sync color inputs
+        const primaryColorPicker = document.querySelector('input[name="primaryColor"]');
+        const primaryColorText = document.querySelector('input[name="primaryColorText"]');
+        const secondaryColorPicker = document.querySelector('input[name="secondaryColor"]');
+        const secondaryColorText = document.querySelector('input[name="secondaryColorText"]');
+
+        if (primaryColorPicker && primaryColorText) {
+          primaryColorPicker.addEventListener('input', (e) => {
+            primaryColorText.value = e.target.value;
+            document.getElementById('primary-preview').style.background = e.target.value;
+          });
+          primaryColorText.addEventListener('input', (e) => {
+            if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+              primaryColorPicker.value = e.target.value;
+              document.getElementById('primary-preview').style.background = e.target.value;
+            }
+          });
+        }
+
+        if (secondaryColorPicker && secondaryColorText) {
+          secondaryColorPicker.addEventListener('input', (e) => {
+            secondaryColorText.value = e.target.value;
+            document.getElementById('secondary-preview').style.background = e.target.value;
+          });
+          secondaryColorText.addEventListener('input', (e) => {
+            if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+              secondaryColorPicker.value = e.target.value;
+              document.getElementById('secondary-preview').style.background = e.target.value;
+            }
+          });
+        }
+      }
+
+      viewPropertyAsConsumer(view, data) {
+        if (this.currentMode === 'public') {
+          alert('Enquiry form would open here (demo placeholder)');
+        } else {
+          this.navigateTo(view, data);
+        }
+      }
+
+      handleImageUpload(event) {
+        const files = Array.from(event.target.files);
+        this.uploadedImages = [];
+
+        files.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.uploadedImages.push({
+              name: file.name,
+              dataUrl: e.target.result
+            });
+            this.renderImagePreviews();
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      renderImagePreviews() {
+        const container = document.getElementById('image-preview-container');
+        if (!container || !this.uploadedImages) return;
+
+        container.innerHTML = this.uploadedImages.map((img, index) => `
+          <div class="image-preview">
+            <img src="${img.dataUrl}" alt="${img.name}">
+            <button type="button" class="image-preview-remove" onclick="app.removeImage(${index})">✕</button>
+          </div>
+        `).join('');
+      }
+
+      removeImage(index) {
+        if (this.uploadedImages) {
+          this.uploadedImages.splice(index, 1);
+          this.renderImagePreviews();
+        }
+      }
+
+      saveProperty(event, propertyId) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        const property = {
+          address: formData.get('address'),
+          location: {
+            town: formData.get('town'),
+            postcode: formData.get('postcode')
+          },
+          propertyType: formData.get('propertyType'),
+          bedrooms: parseInt(formData.get('bedrooms')),
+          bathrooms: parseInt(formData.get('bathrooms')),
+          sqm: parseInt(formData.get('sqm')) || 0,
+          furnished: formData.get('furnished'),
+          saleType: formData.get('saleType'),
+          price: parseFloat(formData.get('price')),
+          status: formData.get('status'),
+          description: formData.get('description'),
+          epcRating: formData.get('epcRating'),
+          features: []
+        };
+
+        if (this.uploadedImages && this.uploadedImages.length > 0) {
+          property.images = {
+            primary: this.uploadedImages[0].dataUrl,
+            gallery: this.uploadedImages.map(img => img.dataUrl)
+          };
+        } else if (propertyId) {
+          const existing = appData.properties.find(p => p.id === propertyId);
+          if (existing && existing.images) {
+            property.images = existing.images;
+          }
+        }
+
+        if (propertyId) {
+          const index = appData.properties.findIndex(p => p.id === propertyId);
+          if (index !== -1) {
+            appData.properties[index] = {
+              ...appData.properties[index],
+              ...property
+            };
+            alert('Property updated successfully');
+            this.uploadedImages = null;
+            this.navigateTo('property-detail', { propertyId });
+          }
+        } else {
+          const newProperty = {
+            id: `prop-${Date.now()}`,
+            ...property
+          };
+          
+          appData.properties.push(newProperty);
+          alert('Property added successfully');
+          this.uploadedImages = null;
+          this.navigateTo('property-detail', { propertyId: newProperty.id });
+        }
+      }
+
+      deleteProperty(propertyId) {
+        if (confirm('Are you sure you want to delete this property?')) {
+          const index = appData.properties.findIndex(p => p.id === propertyId);
+          if (index !== -1) {
+            appData.properties.splice(index, 1);
+            alert('Property deleted successfully');
+            this.navigateTo('properties');
+          }
+        }
+      }
+
+      markEnquiryContacted(enquiryId) {
+        const enquiry = appData.enquiries.find(e => e.id === enquiryId);
+        if (enquiry) {
+          enquiry.status = enquiry.status === 'new' ? 'contacted' : 'new';
+          this.renderView('enquiries');
+        }
+      }
+
+      saveSettings(event) {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        this.settings = {
+          branding: {
+            agencyName: formData.get('agencyName'),
+            tagline: formData.get('tagline'),
+            logoUrl: formData.get('logoUrl'),
+            primaryColor: formData.get('primaryColor'),
+            secondaryColor: formData.get('secondaryColor')
+          },
+          contact: {
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            address: formData.get('address'),
+            town: formData.get('town'),
+            postcode: formData.get('postcode'),
+            website: formData.get('website')
+          },
+          features: {
+            showEPCRatings: formData.get('showEPCRatings') === 'on',
+            showFloorArea: formData.get('showFloorArea') === 'on',
+            allowEnquiries: formData.get('allowEnquiries') === 'on',
+            showPropertyFeatures: formData.get('showPropertyFeatures') === 'on'
+          }
+        };
+
+        // Save to localStorage
+        try {
+          localStorage.setItem('homelinx-whitelabel-settings', JSON.stringify(this.settings));
+        } catch (e) {
+          console.error('Could not save settings:', e);
+        }
+
+        // Update app data
+        appData.agent.name = this.settings.branding.agencyName;
+        appData.agent.tagline = this.settings.branding.tagline;
+        appData.agent.location.town = this.settings.contact.town;
+        appData.agent.location.postcode = this.settings.contact.postcode;
+        appData.agent.phone = this.settings.contact.phone;
+        appData.agent.email = this.settings.contact.email;
+        appData.agent.address = this.settings.contact.address;
+        appData.agent.website = this.settings.contact.website;
+
+        // Apply branding
+        this.applyBranding();
+
+        alert('Settings saved successfully! ✅');
+        this.navigateTo('dashboard');
+      }
+
+      resetSettings() {
+        if (confirm('Are you sure you want to reset all settings to defaults?')) {
+          this.settings = { ...defaultSettings };
+          
+          try {
+            localStorage.removeItem('homelinx-whitelabel-settings');
+          } catch (e) {
+            console.error('Could not clear settings:', e);
+          }
+
+          this.applyBranding();
+          this.renderView('settings');
+          alert('Settings reset to defaults');
+        }
+      }
+
+      exportSettings() {
+        const dataStr = JSON.stringify(this.settings, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'homelinx-settings.json';
+        link.click();
+        URL.revokeObjectURL(url);
+        alert('Settings exported successfully! 📥');
+      }
+
+      importSettings(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const imported = JSON.parse(e.target.result);
+            this.settings = { ...defaultSettings, ...imported };
+            
+            localStorage.setItem('homelinx-whitelabel-settings', JSON.stringify(this.settings));
+            
+            this.applyBranding();
+            this.renderView('settings');
+            alert('Settings imported successfully! ✅');
+          } catch (err) {
+            alert('Error importing settings: Invalid JSON file');
+            console.error(err);
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      getDashboardStats() {
+        const properties = appData.properties;
+        const enquiries = appData.enquiries;
+        
+        return {
+          totalProperties: properties.length,
+          liveListings: properties.filter(p => p.status === 'live').length,
+          draftListings: properties.filter(p => p.status === 'draft').length,
+          totalEnquiries: enquiries.length,
+          forSale: properties.filter(p => p.saleType === 'Sale' && p.status === 'live').length,
+          toRent: properties.filter(p => p.saleType === 'Rent' && p.status === 'live').length
+        };
+      }
+    }
+
+    // Initialize app
+    const app = new HomeLinxApp();
+
+    // PWA Manifest
+    const manifest = {
+      name: whitelabelSettings.branding.agencyName,
+      short_name: whitelabelSettings.branding.agencyName,
+      start_url: "./",
+      display: "standalone",
+      background_color: "#0a0e1a",
+      theme_color: whitelabelSettings.branding.primaryColor,
+      icons: [{
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230a0e1a'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='" + encodeURIComponent(whitelabelSettings.branding.primaryColor) + "'>🏠</text></svg>",
+        sizes: "192x192",
+        type: "image/svg+xml"
+      }]
+    };
+
+    const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const manifestLink = document.createElement('link');
+    manifestLink.rel = 'manifest';
+    manifestLink.href = manifestURL;
+    document.head.appendChild(manifestLink);
+  </script>
+</body>
+</html>
