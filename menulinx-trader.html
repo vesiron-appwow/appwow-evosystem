@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="MenuLinx - Complete restaurant ordering system">
+    <title>MenuLinx - Restaurant Ordering System</title>
+    <meta name="theme-color" content="#28A745">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #28A745;
+            --primary-dark: #1e7e34;
+            --admin-primary: #0057B8;
+            --admin-secondary: #00C8E8;
+            --secondary: #FFC107;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --dark: #0A0A0A;
+            --grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-grey);
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        /* View Switcher */
+        .view-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.75rem 1.25rem;
+            border: 2px solid var(--light-grey);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .view-btn.admin.active {
+            background: var(--admin-primary);
+            border-color: var(--admin-primary);
+        }
+
+        /* Main Views */
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* CUSTOMER VIEW STYLES */
+        .customer-view .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .restaurant-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .restaurant-logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .restaurant-name {
+            flex: 1;
+        }
+
+        .restaurant-name h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .restaurant-name p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.95;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .delivery-toggle {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.625rem;
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: var(--primary);
+            border-color: white;
+        }
+
+        .search-bar {
+            padding: 1rem;
+            background: white;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .categories {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background: white;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .category-chip {
+            padding: 0.625rem 1.25rem;
+            background: var(--light-grey);
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-chip.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .menu-section {
+            padding: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40,167,69,0.2);
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-description {
+            font-size: 0.9rem;
+            color: var(--grey);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .cart-float {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: var(--dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cart-float:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        .cart-float.hidden {
+            display: none;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-count {
+            background: var(--primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        /* ADMIN VIEW STYLES */
+        .admin-view .header {
+            background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .admin-view .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-view .header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light-grey);
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--grey);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab.active {
+            color: var(--admin-primary);
+            border-bottom-color: var(--admin-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--grey);
+            font-size: 0.95rem;
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--warning);
+        }
+
+        .order-card.accepted {
+            border-left-color: var(--admin-primary);
+        }
+
+        .order-card.ready {
+            border-left-color: var(--success);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .order-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .order-time {
+            color: var(--grey);
+            font-size: 0.9rem;
+        }
+
+        .order-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-new {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .badge-accepted {
+            background: var(--admin-primary);
+            color: white;
+        }
+
+        .badge-ready {
+            background: var(--success);
+            color: white;
+        }
+
+        .order-items {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 8px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--admin-primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .menu-item-row {
+            display: grid;
+            grid-template-columns: 60px 2fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .item-emoji {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .sms-log {
+            background: var(--light-grey);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .sms-item {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .sms-time {
+            color: var(--grey);
+            font-size: 0.8rem;
+        }
+
+        /* MODAL STYLES */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--light-grey);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--grey);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--grey);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .qty-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cart-summary {
+            padding: 1.5rem;
+            border-top: 2px solid var(--light-grey);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .summary-row.total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--light-grey);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .payment-method {
+            padding: 1rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: rgba(40,167,69,0.1);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .success-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--grey);
+        }
+
+        .order-number-display {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .view-switcher {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                padding: 0.35rem;
+            }
+
+            .view-btn {
+                padding: 0.6rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .menu-item-row {
+                grid-template-columns: 1fr;
+            }
+
+            .order-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- View Switcher -->
+    <div class="view-switcher">
+        <button class="view-btn active" onclick="switchView('customer')">
+            🛒 Customer
+        </button>
+        <button class="view-btn admin" onclick="switchView('admin')">
+            🍽️ Admin
+        </button>
+    </div>
+
+    <!-- CUSTOMER VIEW -->
+    <div id="customerView" class="view customer-view active">
+        <div class="header">
+            <div class="restaurant-info">
+                <div class="restaurant-logo">☕</div>
+                <div class="restaurant-name">
+                    <h1>The Cozy Corner Cafe</h1>
+                    <p>Artisan Coffee & Homemade Food</p>
+                </div>
+            </div>
+            <div class="status-bar">
+                <div class="status-item">
+                    <span>⏰</span>
+                    <span>Open until 6:00 PM</span>
+                </div>
+                <div class="status-item">
+                    <span>⭐</span>
+                    <span>4.8 (234 reviews)</span>
+                </div>
+            </div>
+            <div class="delivery-toggle">
+                <button class="toggle-btn active" onclick="selectDeliveryType('delivery')">
+                    🚴 Delivery
+                </button>
+                <button class="toggle-btn" onclick="selectDeliveryType('collection')">
+                    🏃 Collection
+                </button>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search menu..." onkeyup="searchMenu(this.value)">
+        </div>
+
+        <div class="categories">
+            <div class="category-chip active" onclick="filterCategory('all')">All</div>
+            <div class="category-chip" onclick="filterCategory('breakfast')">Breakfast</div>
+            <div class="category-chip" onclick="filterCategory('lunch')">Lunch</div>
+            <div class="category-chip" onclick="filterCategory('drinks')">Drinks</div>
+            <div class="category-chip" onclick="filterCategory('desserts')">Desserts</div>
+        </div>
+
+        <div id="menuContainer"></div>
+
+        <div id="cartFloat" class="cart-float hidden" onclick="showCart()">
+            <div class="cart-info">
+                <div class="cart-count" id="cartCount">0</div>
+                <span>View Cart</span>
+            </div>
+            <div class="cart-total" id="cartTotal">£0.00</div>
+        </div>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="adminView" class="view admin-view">
+        <div class="header">
+            <h1>🍽️ MenuLinx Admin</h1>
+            <p>The Cozy Corner Cafe - Restaurant Dashboard</p>
+        </div>
+
+        <div class="container">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+                <button class="tab" onclick="switchTab('orders')">📋 Orders</button>
+                <button class="tab" onclick="switchTab('menu')">📝 Menu</button>
+                <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--admin-primary);" id="ordersToday">0</div>
+                        <div class="stat-label">Orders Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--success);" id="revenueToday">£0.00</div>
+                        <div class="stat-label">Today's Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--warning);" id="pendingOrders">0</div>
+                        <div class="stat-label">Pending Orders</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--grey);">4.8 ⭐</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">Recent Orders</h2>
+                    <div class="orders-list" id="dashboardOrders">
+                        <p style="color: var(--grey); text-align: center; padding: 2rem;">
+                            No orders yet. Orders will appear here when customers place them.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Tab -->
+            <div id="orders" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Active Orders</h2>
+                    <div class="orders-list" id="activeOrders">
+                        <p style="color: var(--grey); text-align: center; padding: 2rem;">
+                            No active orders. Orders will appear here when customers place them.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Tab -->
+            <div id="menu" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Menu Management</h2>
+                    <button class="btn btn-primary" onclick="addNewItem()" style="margin-bottom: 1.5rem;">+ Add New Item</button>
+                    
+                    <div class="menu-grid">
+                        <div class="menu-item-row">
+                            <div class="item-emoji">🍳</div>
+                            <div>Full English Breakfast</div>
+                            <div>Breakfast</div>
+                            <div><strong>£8.95</strong></div>
+                            <button class="btn btn-primary">Edit</button>
+                        </div>
+                        <div class="menu-item-row">
+                            <div class="item-emoji">🥑</div>
+                            <div>Avocado Toast</div>
+                            <div>Breakfast</div>
+                            <div><strong>£7.50</strong></div>
+                            <button class="btn btn-primary">Edit</button>
+                        </div>
+                        <div class="menu-item-row">
+                            <div class="item-emoji">🥪</div>
+                            <div>Club Sandwich</div>
+                            <div>Lunch</div>
+                            <div><strong>£9.95</strong></div>
+                            <button class="btn btn-primary">Edit</button>
+                        </div>
+                        <div class="menu-item-row">
+                            <div class="item-emoji">☕</div>
+                            <div>Cappuccino</div>
+                            <div>Drinks</div>
+                            <div><strong>£3.50</strong></div>
+                            <button class="btn btn-primary">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-content">
+                <div class="card">
+                    <h2 class="card-title">Restaurant Settings</h2>
+                    
+                    <div class="form-group">
+                        <label>Restaurant Name</label>
+                        <input type="text" value="The Cozy Corner Cafe">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" value="01273 555 0789">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Opening Hours</label>
+                        <input type="text" value="Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Minimum Order Value</label>
+                        <input type="number" value="10.00" step="0.50">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Delivery Fee</label>
+                        <input type="number" value="2.50" step="0.50">
+                    </div>
+
+                    <h3 style="margin: 2rem 0 1rem;">📱 Connect98 SMS Settings</h3>
+                    
+                    <div class="form-group">
+                        <label>Connect98 API Key</label>
+                        <input type="text" placeholder="Enter your Connect98 API key">
+                    </div>
+
+                    <div style="background: var(--light-grey); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                        <h4 style="margin-bottom: 1rem;">SMS Notification Events:</h4>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                            <input type="checkbox" checked> New order received
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                            <input type="checkbox" checked> Order accepted (to customer)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                            <input type="checkbox" checked> Order ready (to customer)
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" checked> Order delivered (to customer)
+                        </label>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveSettings()">💾 Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Your Order</h2>
+                <button class="close-btn" onclick="closeCart()">×</button>
+            </div>
+            <div class="modal-body" id="cartItems"></div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">£0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span id="deliveryLabel">Delivery:</span>
+                    <span id="deliveryFee">£2.50</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="finalTotal">£0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Checkout</h2>
+                <button class="close-btn" onclick="closeCheckout()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" id="customerName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="customerPhone" placeholder="07xxx xxxxxx">
+                </div>
+                <div id="deliveryAddress" class="form-group">
+                    <label>Delivery Address *</label>
+                    <input type="text" id="addressLine1" placeholder="Address Line 1">
+                    <input type="text" id="postcode" placeholder="Postcode" style="margin-top: 0.5rem;">
+                </div>
+                <div class="form-group">
+                    <label>Special Instructions</label>
+                    <textarea id="instructions" placeholder="Any special requests?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div class="payment-methods">
+                        <div class="payment-method selected" onclick="selectPayment('card')">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💳</div>
+                            <div>Card Payment</div>
+                        </div>
+                        <div class="payment-method" onclick="selectPayment('cash')">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💷</div>
+                            <div>Cash on Delivery</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="checkout-btn" onclick="placeOrder()">Place Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Order Confirmed!</h2>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">✅</div>
+                <h3 style="text-align: center; margin-bottom: 1rem;">Thank you for your order!</h3>
+                <div class="order-number-display" id="orderNumberDisplay">#12345</div>
+                <p class="success-message">
+                    Your order has been received and the restaurant has been notified via SMS.
+                    You'll receive updates at each stage.
+                </p>
+                <div style="background: var(--light-grey); padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
+                    <h4 style="margin-bottom: 0.75rem;">📱 SMS Notifications:</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;">✓ Order received - Sent to restaurant</li>
+                        <li style="margin-bottom: 0.5rem;">⏳ Order accepted - You'll be notified</li>
+                        <li style="margin-bottom: 0.5rem;">⏳ Order ready - You'll be notified</li>
+                        <li>⏳ On the way - You'll be notified</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: var(--grey); margin-top: 0.75rem;">
+                        Powered by Connect98 SMS
+                    </p>
+                </div>
+                <p style="text-align: center; color: var(--grey);">
+                    Estimated time: <strong>25-30 minutes</strong>
+                </p>
+                <button class="checkout-btn" onclick="closeConfirmation()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Data
+        const menuData = [
+            {
+                id: 1,
+                name: "Full English Breakfast",
+                description: "Eggs, bacon, sausage, beans, toast, tomato, mushrooms",
+                price: 8.95,
+                category: "breakfast",
+                emoji: "🍳"
+            },
+            {
+                id: 2,
+                name: "Avocado Toast",
+                description: "Smashed avocado on sourdough with poached eggs",
+                price: 7.50,
+                category: "breakfast",
+                emoji: "🥑"
+            },
+            {
+                id: 3,
+                name: "Club Sandwich",
+                description: "Triple-decker with chicken, bacon, lettuce, tomato",
+                price: 9.95,
+                category: "lunch",
+                emoji: "🥪"
+            },
+            {
+                id: 4,
+                name: "Caesar Salad",
+                description: "Crisp romaine, parmesan, croutons, caesar dressing",
+                price: 8.50,
+                category: "lunch",
+                emoji: "🥗"
+            },
+            {
+                id: 5,
+                name: "Cappuccino",
+                description: "Rich espresso with steamed milk and foam",
+                price: 3.50,
+                category: "drinks",
+                emoji: "☕"
+            },
+            {
+                id: 6,
+                name: "Fresh Orange Juice",
+                description: "Freshly squeezed oranges",
+                price: 3.95,
+                category: "drinks",
+                emoji: "🍊"
+            },
+            {
+                id: 7,
+                name: "Chocolate Brownie",
+                description: "Warm chocolate brownie with vanilla ice cream",
+                price: 5.95,
+                category: "desserts",
+                emoji: "🍫"
+            },
+            {
+                id: 8,
+                name: "Carrot Cake",
+                description: "Homemade carrot cake with cream cheese frosting",
+                price: 4.95,
+                category: "desserts",
+                emoji: "🥕"
+            }
+        ];
+
+        let cart = [];
+        let deliveryType = 'delivery';
+        let currentCategory = 'all';
+        let adminOrders = [];
+        let orderCounter = 10234;
+
+        // Initialize
+        renderMenu();
+        updateAdminStats();
+
+        // View Switching
+        function switchView(view) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            
+            if (view === 'customer') {
+                document.getElementById('customerView').classList.add('active');
+                document.querySelectorAll('.view-btn')[0].classList.add('active');
+            } else {
+                document.getElementById('adminView').classList.add('active');
+                document.querySelectorAll('.view-btn')[1].classList.add('active');
+            }
+        }
+
+        // Customer View Functions
+        function renderMenu() {
+            const container = document.getElementById('menuContainer');
+            const categories = [...new Set(menuData.map(item => item.category))];
+            
+            let html = '';
+            categories.forEach(cat => {
+                if (currentCategory !== 'all' && cat !== currentCategory) return;
+                
+                const items = menuData.filter(item => item.category === cat);
+                html += `
+                    <div class="menu-section">
+                        <h2 class="section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h2>
+                        ${items.map(item => `
+                            <div class="menu-item">
+                                <div class="item-image">${item.emoji}</div>
+                                <div class="item-content">
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-description">${item.description}</div>
+                                    <div class="item-footer">
+                                        <div class="item-price">£${item.price.toFixed(2)}</div>
+                                        <button class="add-btn" onclick="addToCart(${item.id})">Add +</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function addToCart(itemId) {
+            const item = menuData.find(i => i.id === itemId);
+            const existingItem = cart.find(i => i.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartTotal').textContent = `£${total.toFixed(2)}`;
+            document.getElementById('cartFloat').classList.toggle('hidden', count === 0);
+        }
+
+        function showCart() {
+            const modal = document.getElementById('cartModal');
+            const container = document.getElementById('cartItems');
+            
+            if (cart.length === 0) return;
+            
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <div class="cart-item-price">£${item.price.toFixed(2)}</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">−</button>
+                        <span>${item.quantity}</span>
+                        <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateCartSummary();
+            modal.classList.add('show');
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('show');
+        }
+
+        function changeQuantity(itemId, delta) {
+            const item = cart.find(i => i.id === itemId);
+            if (!item) return;
+            
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== itemId);
+            }
+            
+            updateCart();
+            if (cart.length === 0) {
+                closeCart();
+            } else {
+                showCart();
+            }
+        }
+
+        function updateCartSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = deliveryType === 'delivery' ? 2.50 : 0;
+            const total = subtotal + deliveryFee;
+            
+            document.getElementById('subtotal').textContent = `£${subtotal.toFixed(2)}`;
+            document.getElementById('deliveryFee').textContent = deliveryType === 'delivery' ? '£2.50' : 'Free';
+            document.getElementById('deliveryLabel').textContent = deliveryType === 'delivery' ? 'Delivery:' : 'Collection:';
+            document.getElementById('finalTotal').textContent = `£${total.toFixed(2)}`;
+        }
+
+        function selectDeliveryType(type) {
+            deliveryType = type;
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            updateCartSummary();
+        }
+
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-chip').forEach(chip => chip.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMenu();
+        }
+
+        function searchMenu(query) {
+            console.log('Searching for:', query);
+        }
+
+        function proceedToCheckout() {
+            closeCart();
+            document.getElementById('checkoutModal').classList.add('show');
+            document.getElementById('deliveryAddress').style.display = deliveryType === 'delivery' ? 'block' : 'none';
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('show');
+        }
+
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            event.target.closest('.payment-method').classList.add('selected');
+        }
+
+        function placeOrder() {
+            const orderNumber = orderCounter++;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = deliveryType === 'delivery' ? 2.50 : 0;
+            const total = subtotal + deliveryFee;
+            
+            const order = {
+                orderNumber,
+                items: [...cart],
+                total,
+                deliveryType,
+                status: 'new',
+                time: new Date(),
+                customerName: document.getElementById('customerName').value || 'Customer',
+                customerPhone: document.getElementById('customerPhone').value || '07700 900000'
+            };
+            
+            adminOrders.unshift(order);
+            updateAdminOrders();
+            updateAdminStats();
+            
+            document.getElementById('orderNumberDisplay').textContent = `#${orderNumber}`;
+            
+            closeCheckout();
+            document.getElementById('confirmationModal').classList.add('show');
+            
+            cart = [];
+            updateCart();
+        }
+
+        function closeConfirmation() {
+            document.getElementById('confirmationModal').classList.remove('show');
+        }
+
+        // Admin View Functions
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function updateAdminStats() {
+            const todayOrders = adminOrders.length;
+            const todayRevenue = adminOrders.reduce((sum, order) => sum + order.total, 0);
+            const pending = adminOrders.filter(o => o.status === 'new').length;
+            
+            document.getElementById('ordersToday').textContent = todayOrders;
+            document.getElementById('revenueToday').textContent = `£${todayRevenue.toFixed(2)}`;
+            document.getElementById('pendingOrders').textContent = pending;
+        }
+
+        function updateAdminOrders() {
+            const dashboardContainer = document.getElementById('dashboardOrders');
+            const activeContainer = document.getElementById('activeOrders');
+            
+            if (adminOrders.length === 0) {
+                const emptyMsg = '<p style="color: var(--grey); text-align: center; padding: 2rem;">No orders yet. Orders will appear here when customers place them.</p>';
+                dashboardContainer.innerHTML = emptyMsg;
+                activeContainer.innerHTML = emptyMsg;
+                return;
+            }
+            
+            const orderHtml = adminOrders.map(order => {
+                const timeAgo = Math.floor((new Date() - order.time) / 60000);
+                const statusClass = order.status === 'new' ? '' : order.status === 'accepted' ? 'accepted' : 'ready';
+                const badgeClass = order.status === 'new' ? 'badge-new' : order.status === 'accepted' ? 'badge-accepted' : 'badge-ready';
+                const badgeText = order.status === 'new' ? 'New Order' : order.status === 'accepted' ? 'Preparing' : 'Ready';
+                
+                return `
+                    <div class="order-card ${statusClass}">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">#${order.orderNumber}</div>
+                                <div class="order-time">${timeAgo} minutes ago • ${order.customerName} • ${order.customerPhone}</div>
+                            </div>
+                            <span class="order-badge ${badgeClass}">${badgeText}</span>
+                        </div>
+                        <div class="order-items">
+                            ${order.items.map(item => `
+                                <div class="order-item">
+                                    <span>${item.quantity}x ${item.name}</span>
+                                    <span>£${(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <strong>Total: £${order.total.toFixed(2)}</strong> • ${order.deliveryType === 'delivery' ? '🚴 Delivery' : '🏃 Collection'}
+                        ${order.status === 'new' ? `
+                            <div class="order-actions">
+                                <button class="btn btn-success" onclick="acceptOrder(${order.orderNumber})">✓ Accept Order</button>
+                                <button class="btn btn-danger" onclick="rejectOrder(${order.orderNumber})">✗ Reject</button>
+                            </div>
+                        ` : order.status === 'accepted' ? `
+                            <div class="order-actions">
+                                <button class="btn btn-success" onclick="markReady(${order.orderNumber})">✓ Mark as Ready</button>
+                            </div>
+                        ` : `
+                            <div class="order-actions">
+                                <button class="btn btn-primary" onclick="markDelivered(${order.orderNumber})">✓ Mark as Delivered</button>
+                            </div>
+                        `}
+                        <div class="sms-log">
+                            <strong>📱 SMS Log:</strong>
+                            <div class="sms-item">✓ Order received - Sent to restaurant (Connect98)</div>
+                            ${order.status !== 'new' ? '<div class="sms-item">✓ Order accepted - Sent to customer (Connect98)</div>' : ''}
+                            ${order.status === 'ready' ? '<div class="sms-item">✓ Order ready - Sent to customer (Connect98)</div>' : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            dashboardContainer.innerHTML = orderHtml;
+            activeContainer.innerHTML = orderHtml;
+        }
+
+        function acceptOrder(orderNum) {
+            const order = adminOrders.find(o => o.orderNumber === orderNum);
+            if (order) {
+                order.status = 'accepted';
+                updateAdminOrders();
+                updateAdminStats();
+                alert(`Order #${orderNum} accepted!\n\n📱 SMS Sent via Connect98:\n"Your order has been accepted and is being prepared. Estimated time: 25-30 mins"`);
+            }
+        }
+
+        function rejectOrder(orderNum) {
+            if (confirm('Are you sure you want to reject this order?')) {
+                adminOrders = adminOrders.filter(o => o.orderNumber !== orderNum);
+                updateAdminOrders();
+                updateAdminStats();
+                alert(`Order #${orderNum} rejected.\n\n📱 SMS Sent via Connect98:\n"Sorry, we cannot fulfill your order at this time. You will not be charged."`);
+            }
+        }
+
+        function markReady(orderNum) {
+            const order = adminOrders.find(o => o.orderNumber === orderNum);
+            if (order) {
+                order.status = 'ready';
+                updateAdminOrders();
+                updateAdminStats();
+                alert(`Order #${orderNum} marked as ready!\n\n📱 SMS Sent via Connect98:\n"Your order is ready! ${order.deliveryType === 'delivery' ? 'Driver is on the way.' : 'Ready for collection.'}"`);
+            }
+        }
+
+        function markDelivered(orderNum) {
+            adminOrders = adminOrders.filter(o => o.orderNumber !== orderNum);
+            updateAdminOrders();
+            updateAdminStats();
+            alert(`Order #${orderNum} marked as delivered!\n\n📱 SMS Sent via Connect98:\n"Your order has been delivered. Enjoy your meal!"`);
+        }
+
+        function addNewItem() {
+            alert('Add New Item form would appear here');
+        }
+
+        function saveSettings() {
+            alert('Settings saved successfully!\n\n✓ Restaurant details updated\n✓ Connect98 SMS configured\n✓ White label settings applied');
+        }
+
+        // PWA Manifest
+        const manifest = {
+            name: "MenuLinx - Complete Restaurant System",
+            short_name: "MenuLinx",
+            description: "Complete restaurant ordering and management system",
+            start_url: "./",
+            display: "standalone",
+            background_color: "#28A745",
+            theme_color: "#28A745",
+            icons: [{
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%2328A745'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>🍽️</text></svg>",
+                sizes: "192x192",
+                type: "image/svg+xml"
+            }]
+        };
+
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = manifestURL;
+        document.head.appendChild(manifestLink);
+    </script>
+</body>
+</html>
