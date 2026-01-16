@@ -1,540 +1,1033 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="mylynx - Your personal digital identity. Share your profile, connect, and showcase yourself.">
-    <title>mylynx - Personal Digital Identity</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --mylynx-purple: #8B5CF6;
-            --mylynx-pink: #DC3545;
-            --vtl-blue: #0057B8;
-            --vtl-cyan: #00C8E8;
-            --black: #0A0A0A;
-            --grey: #4A4A4A;
-            --light-grey: #F2F2F2;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>myLynx - Your Digital Identity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--light-grey);
-            color: var(--black);
-            line-height: 1.6;
-        }
+    :root {
+      --mylynx-purple: #8B5CF6;
+      --mylynx-pink: #DC3545;
+      --mylynx-gold: #FFD700;
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-card: #1a1f2e;
+      --text-primary: #f9fafb;
+      --text-secondary: #d1d5db;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --transition: all 0.2s ease;
+    }
 
-        .header {
-            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
-            padding: 1rem 2rem;
-            color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .header-content {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
+    /* TIER BANNER */
+    .tier-banner {
+      background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+      padding: 0.75rem;
+      text-align: center;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
+    .tier-banner.gold {
+      background: linear-gradient(135deg, var(--mylynx-gold), #FFA500);
+      color: var(--bg-primary);
+    }
 
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 2px solid white;
-            background: transparent;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
+    /* HEADER */
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem;
+    }
 
-        .btn:hover {
-            background: white;
-            color: var(--mylynx-purple);
-        }
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-        .profile-hero {
-            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
-            padding: 3rem 2rem;
-            color: white;
-        }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-        .profile-hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
 
-        .profile-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            border: 4px solid white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            flex-shrink: 0;
-        }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      transition: var(--transition);
+      font-size: 0.875rem;
+    }
 
-        .profile-info {
-            flex: 1;
-        }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
 
-        .profile-name {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
+    .btn-ghost:hover {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
 
-        .profile-title {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+      color: white;
+    }
 
-        .profile-bio {
-            font-size: 1.05rem;
-            opacity: 0.95;
-            line-height: 1.6;
-        }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
 
-        .content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--mylynx-gold), #FFA500);
+      color: var(--bg-primary);
+    }
 
-        .section {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+    }
 
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--mylynx-purple);
-        }
+    /* PROFILE HERO */
+    .profile-hero {
+      background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+      padding: 3rem 2rem;
+    }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
+    .profile-hero.gold {
+      background: linear-gradient(135deg, var(--mylynx-gold), #FFA500);
+      color: var(--bg-primary);
+    }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--light-grey);
-            border-radius: 8px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
+    .profile-hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
 
-        .contact-item:hover {
-            background: #e0e0e0;
-            transform: translateX(4px);
-        }
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 4px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      flex-shrink: 0;
+    }
 
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-        }
+    .profile-info h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
 
-        .contact-info h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
+    .profile-title {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
 
-        .contact-info p {
-            font-size: 0.9rem;
-            color: var(--grey);
-        }
+    .profile-bio {
+      font-size: 1.05rem;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+    /* CONTENT */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
 
-        .social-btn {
-            flex: 1;
-            min-width: 150px;
-            padding: 1rem;
-            background: var(--light-grey);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--black);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
 
-        .social-btn:hover {
-            background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
-            color: white;
-            transform: translateY(-2px);
-        }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--mylynx-purple);
+    }
 
-        .social-icon {
-            font-size: 1.5rem;
-        }
+    /* PLATFORM LINKS */
+    .platform-links {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
 
-        .listings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
+    .platform-link {
+      display: block;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .listing-card {
-            background: var(--light-grey);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
+    .platform-link:hover {
+      border-color: var(--mylynx-purple);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+    }
 
-        .listing-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(139,92,246,0.3);
-        }
+    .platform-link.locked {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
 
-        .listing-image {
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(135deg, #e0e0e0, var(--light-grey));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
+    .platform-link.locked:hover {
+      transform: none;
+      border-color: var(--border-color);
+    }
 
-        .listing-content {
-            padding: 1.5rem;
-        }
+    .platform-link-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
 
-        .listing-type {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--mylynx-purple);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
+    .platform-link-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
 
-        .listing-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
+    .platform-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
 
-        .listing-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--mylynx-purple);
-            margin-bottom: 1rem;
-        }
+    .platform-link.gold .platform-icon {
+      background: linear-gradient(135deg, var(--mylynx-gold), #FFA500);
+    }
 
-        .listing-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--mylynx-purple);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+    .platform-text h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
 
-        .listing-btn:hover {
-            background: var(--mylynx-pink);
-        }
+    .platform-text p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
 
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
+    .platform-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
 
-        .skill-tag {
-            padding: 0.75rem 1.25rem;
-            background: var(--light-grey);
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
+    .badge-unlocked {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
 
-        .powered-by {
-            text-align: center;
-            padding: 2rem;
-            color: var(--grey);
-        }
+    .badge-view-only {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
 
-        .powered-by a {
-            color: var(--vtl-blue);
-            text-decoration: none;
-            font-weight: 600;
-        }
+    .badge-locked {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
 
-        .qr-section {
-            text-align: center;
-            padding: 2rem;
-            background: var(--light-grey);
-            border-radius: 12px;
-        }
+    .badge-gold {
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--mylynx-gold);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
 
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            margin: 1rem auto;
-            background: white;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
 
-        @media (max-width: 768px) {
-            .profile-hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      cursor: pointer;
+    }
 
-            .profile-name {
-                font-size: 2rem;
-            }
+    .contact-item:hover {
+      background: var(--bg-primary);
+      transform: translateX(4px);
+    }
 
-            .contact-grid,
-            .listings-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .contact-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-info p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* SOCIAL */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      flex: 1;
+      min-width: 150px;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      background: linear-gradient(135deg, var(--mylynx-purple), var(--mylynx-pink));
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .social-icon {
+      font-size: 1.5rem;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .skill-tag {
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-secondary);
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    /* QR CODE */
+    .qr-section {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .qr-code {
+      width: 200px;
+      height: 200px;
+      margin: 1rem auto;
+      background: white;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    /* UPGRADE CARD */
+    .upgrade-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .upgrade-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .upgrade-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .upgrade-features {
+      list-style: none;
+      margin: 1rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .upgrade-features li {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .footer a {
+      color: var(--mylynx-purple);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      max-width: 500px;
+      width: 100%;
+      padding: 2rem;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-close:hover {
+      color: var(--text-primary);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .tier-banner {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0.75rem;
+      }
+
+      .profile-hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-info h1 {
+        font-size: 2rem;
+      }
+
+      .platform-link-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .platform-link-info {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .upgrade-features {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .social-links {
+        flex-direction: column;
+      }
+
+      .social-btn {
+        min-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <span style="font-size: 2rem;">m</span>
-                <span>mylynx</span>
+  <!-- Tier Banner -->
+  <div class="tier-banner" id="tier-banner" style="display: flex; justify-content: center; align-items: center; gap: 1rem;">
+    <span id="tier-text">myLynx Free</span>
+    <button class="btn btn-sm" style="padding: 0.4rem 0.8rem; font-size: 0.75rem; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white;" onclick="app.demoToggleTier()">
+      🔄 Demo Toggle
+    </button>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <span style="font-size: 2rem;">m</span>
+        <span>myLynx</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost" onclick="window.location.href='./index.html'">← AppWow</button>
+        <button class="btn btn-ghost" onclick="app.shareProfile()">📤 Share</button>
+        <button class="btn btn-ghost" id="upgrade-btn" onclick="app.showUpgradeModal()">⭐ Upgrade</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Profile Hero -->
+  <section class="profile-hero" id="profile-hero">
+    <div class="profile-hero-content">
+      <div class="profile-photo" id="profile-photo">👤</div>
+      <div class="profile-info">
+        <h1 id="profile-name">Sarah Thompson</h1>
+        <p class="profile-title" id="profile-title">Freelance Graphic Designer & Photographer</p>
+        <p class="profile-bio" id="profile-bio">
+          Based in Brighton, specializing in brand identity and creative photography. 
+          Available for projects and collaborations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Platform Integration Links -->
+    <div class="platform-links">
+      <!-- LinxLocal Link -->
+      <a href="#" class="platform-link" onclick="event.preventDefault(); app.openLinxLocal()">
+        <div class="platform-link-content">
+          <div class="platform-link-info">
+            <div class="platform-icon">📍</div>
+            <div class="platform-text">
+              <h3>LinxLocal</h3>
+              <p>Local services and community marketplace</p>
             </div>
-            <div style="display: flex; gap: 0.75rem;">
-                <button class="btn" onclick="window.location.href='./index.html'">← AppWow</button>
-                <button class="btn" onclick="alert('Share Profile')">📤 Share</button>
-                <button class="btn" onclick="alert('Install mylynx')">Install</button>
+          </div>
+          <span class="platform-badge badge-unlocked">✓ Full Access</span>
+        </div>
+      </a>
+
+      <!-- LinxMart Link -->
+      <a href="#" class="platform-link" id="linxmart-link" onclick="event.preventDefault(); app.openLinxMart()">
+        <div class="platform-link-content">
+          <div class="platform-link-info">
+            <div class="platform-icon">🛍️</div>
+            <div class="platform-text">
+              <h3>LinxMart</h3>
+              <p>Browse marketplace listings (LINK3 Stage 3)</p>
             </div>
+          </div>
+          <span class="platform-badge badge-view-only" id="linxmart-badge">👁️ View Only</span>
         </div>
-    </header>
+      </a>
 
-    <section class="profile-hero">
-        <div class="profile-hero-content">
-            <div class="profile-photo">👤</div>
-            <div class="profile-info">
-                <h1 class="profile-name">Sarah Thompson</h1>
-                <p class="profile-title">Freelance Graphic Designer & Photographer</p>
-                <p class="profile-bio">
-                    Based in Brighton, specializing in brand identity and creative photography. 
-                    Available for projects and collaborations.
-                </p>
+      <!-- LINK3 Stage 2 (Gold Only) -->
+      <a href="#" class="platform-link locked" id="link3-stage2-link" onclick="event.preventDefault(); app.showUpgradeModal()">
+        <div class="platform-link-content">
+          <div class="platform-link-info">
+            <div class="platform-icon" style="opacity: 0.5;">🔐</div>
+            <div class="platform-text">
+              <h3>LINK3 Stage 2 Access</h3>
+              <p>View base buyer items (requires Gold)</p>
             </div>
+          </div>
+          <span class="platform-badge badge-locked">🔒 Gold Only</span>
         </div>
-    </section>
-
-    <div class="content">
-        <!-- Contact Section -->
-        <div class="section">
-            <h2 class="section-title">📞 Get in Touch</h2>
-            <div class="contact-grid">
-                <div class="contact-item" onclick="window.location.href='tel:07700900123'">
-                    <div class="contact-icon">📱</div>
-                    <div class="contact-info">
-                        <h4>Phone</h4>
-                        <p>07700 900 123</p>
-                    </div>
-                </div>
-
-                <div class="contact-item" onclick="window.location.href='mailto:sarah@example.com'">
-                    <div class="contact-icon">📧</div>
-                    <div class="contact-info">
-                        <h4>Email</h4>
-                        <p>sarah@example.com</p>
-                    </div>
-                </div>
-
-                <div class="contact-item" onclick="alert('Opening location...')">
-                    <div class="contact-icon">📍</div>
-                    <div class="contact-info">
-                        <h4>Location</h4>
-                        <p>Brighton, UK</p>
-                    </div>
-                </div>
-
-                <div class="contact-item" onclick="alert('Opening website...')">
-                    <div class="contact-icon">🌐</div>
-                    <div class="contact-info">
-                        <h4>Website</h4>
-                        <p>sarahthompson.co.uk</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Social Links -->
-        <div class="section">
-            <h2 class="section-title">🔗 Connect With Me</h2>
-            <div class="social-links">
-                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening LinkedIn...')">
-                    <span class="social-icon">💼</span>
-                    <span>LinkedIn</span>
-                </a>
-                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Instagram...')">
-                    <span class="social-icon">📸</span>
-                    <span>Instagram</span>
-                </a>
-                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Portfolio...')">
-                    <span class="social-icon">🎨</span>
-                    <span>Portfolio</span>
-                </a>
-                <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Twitter...')">
-                    <span class="social-icon">🐦</span>
-                    <span>Twitter</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- About Section -->
-        <div class="section">
-            <h2 class="section-title">👋 About Me</h2>
-            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--grey); margin-bottom: 1.5rem;">
-                I'm a creative professional with over 8 years of experience in graphic design and photography. 
-                I work with businesses and individuals to create compelling visual identities that tell their story. 
-                My approach combines clean, modern design with authentic storytelling through imagery.
-            </p>
-            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--grey);">
-                When I'm not behind the camera or computer, you'll find me exploring Brighton's vibrant arts scene, 
-                practicing yoga, or enjoying the South Downs.
-            </p>
-        </div>
-
-        <!-- Skills -->
-        <div class="section">
-            <h2 class="section-title">💡 Skills & Expertise</h2>
-            <div class="skills-grid">
-                <div class="skill-tag">Brand Identity</div>
-                <div class="skill-tag">Logo Design</div>
-                <div class="skill-tag">Portrait Photography</div>
-                <div class="skill-tag">Adobe Creative Suite</div>
-                <div class="skill-tag">Web Design</div>
-                <div class="skill-tag">Social Media Content</div>
-                <div class="skill-tag">Event Photography</div>
-                <div class="skill-tag">Product Photography</div>
-            </div>
-        </div>
-
-        <!-- My Listings (Optional) -->
-        <div class="section">
-            <h2 class="section-title">🔖 My Listings</h2>
-            <p style="color: var(--grey); margin-bottom: 1.5rem;">
-                Items and services I'm currently offering through AppWow
-            </p>
-            
-            <div class="listings-grid">
-                <!-- Vehicle via CarLinx -->
-                <div class="listing-card" onclick="alert('Opening CarLinx listing...')">
-                    <div class="listing-image">🚗</div>
-                    <div class="listing-content">
-                        <div class="listing-type">CarLinx • For Sale</div>
-                        <h3 class="listing-title">2019 Mini Cooper S</h3>
-                        <div class="listing-price">£18,500</div>
-                        <button class="listing-btn">View on CarLinx</button>
-                    </div>
-                </div>
-
-                <!-- Service via LinxLocal -->
-                <div class="listing-card" onclick="alert('Opening LinxLocal listing...')">
-                    <div class="listing-image">📸</div>
-                    <div class="listing-content">
-                        <div class="listing-type">LinxLocal • Service</div>
-                        <h3 class="listing-title">Photography Sessions</h3>
-                        <div class="listing-price">From £150</div>
-                        <button class="listing-btn">View on LinxLocal</button>
-                    </div>
-                </div>
-
-                <!-- Room via HomeLinx -->
-                <div class="listing-card" onclick="alert('Opening HomeLinx listing...')">
-                    <div class="listing-image">🏠</div>
-                    <div class="listing-content">
-                        <div class="listing-type">HomeLinx • To Let</div>
-                        <h3 class="listing-title">Spare Room Available</h3>
-                        <div class="listing-price">£650 pcm</div>
-                        <button class="listing-btn">View on HomeLinx</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- QR Code -->
-        <div class="section">
-            <div class="qr-section">
-                <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;">Share My mylynx</h3>
-                <p style="color: var(--grey); margin-bottom: 1rem;">Scan to save my contact details</p>
-                <div class="qr-code">
-                    <div style="text-align: center;">
-                        <div style="font-size: 5rem;">📱</div>
-                        <div style="font-size: 0.9rem; color: var(--grey); margin-top: 0.5rem;">QR Code</div>
-                    </div>
-                </div>
-                <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">
-                    Or share: mylynx.app/sarah-thompson
-                </p>
-            </div>
-        </div>
+      </a>
     </div>
 
-    <div class="powered-by">
-        Powered by <a href="#">mylynx</a> • Part of the AppWow Evosystem
-        <br>
-        <span style="font-size: 0.85rem; opacity: 0.8;">Your personal digital identity • Installable • Shareable • Always up to date</span>
+    <!-- Upgrade Prompt (Free Users Only) -->
+    <div id="upgrade-prompt" class="upgrade-card">
+      <div class="upgrade-card-header">
+        <h3>
+          <span>💎</span>
+          <span>Unlock More with myLynx Gold</span>
+        </h3>
+        <span style="font-size: 0.875rem; color: var(--mylynx-gold); font-weight: 600;">£9.99/mo</span>
+      </div>
+      
+      <ul class="upgrade-features">
+        <li><span style="color: var(--mylynx-gold);">✓</span> Full LinxMart access</li>
+        <li><span style="color: var(--mylynx-gold);">✓</span> Create LINK3 listings</li>
+        <li><span style="color: var(--mylynx-gold);">✓</span> Stage 2 item access</li>
+        <li><span style="color: var(--mylynx-gold);">✓</span> LINK3 promotion tools</li>
+      </ul>
+
+      <button class="btn btn-gold btn-sm" onclick="app.showUpgradeModal()">
+        Learn More
+      </button>
     </div>
+
+    <!-- Contact Section -->
+    <div class="section">
+      <h2 class="section-title">📞 Get in Touch</h2>
+      <div class="contact-grid">
+        <div class="contact-item" onclick="window.location.href='tel:07700900123'">
+          <div class="contact-icon">📱</div>
+          <div class="contact-info">
+            <h4>Phone</h4>
+            <p>07700 900 123</p>
+          </div>
+        </div>
+
+        <div class="contact-item" onclick="window.location.href='mailto:sarah@example.com'">
+          <div class="contact-icon">📧</div>
+          <div class="contact-info">
+            <h4>Email</h4>
+            <p>sarah@example.com</p>
+          </div>
+        </div>
+
+        <div class="contact-item" onclick="alert('Opening location...')">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <h4>Location</h4>
+            <p>Brighton, UK</p>
+          </div>
+        </div>
+
+        <div class="contact-item" onclick="alert('Opening website...')">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-info">
+            <h4>Website</h4>
+            <p>sarahthompson.co.uk</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Links -->
+    <div class="section">
+      <h2 class="section-title">🔗 Connect With Me</h2>
+      <div class="social-links">
+        <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening LinkedIn...')">
+          <span class="social-icon">💼</span>
+          <span>LinkedIn</span>
+        </a>
+        <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Instagram...')">
+          <span class="social-icon">📸</span>
+          <span>Instagram</span>
+        </a>
+        <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Portfolio...')">
+          <span class="social-icon">🎨</span>
+          <span>Portfolio</span>
+        </a>
+        <a href="#" class="social-btn" onclick="event.preventDefault(); alert('Opening Twitter...')">
+          <span class="social-icon">🐦</span>
+          <span>Twitter</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="section">
+      <h2 class="section-title">👋 About Me</h2>
+      <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        I'm a creative professional with over 8 years of experience in graphic design and photography. 
+        I work with businesses and individuals to create compelling visual identities that tell their story. 
+        My approach combines clean, modern design with authentic storytelling through imagery.
+      </p>
+      <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary);">
+        When I'm not behind the camera or computer, you'll find me exploring Brighton's vibrant arts scene, 
+        practicing yoga, or enjoying the South Downs.
+      </p>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+      <h2 class="section-title">💡 Skills & Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-tag">Brand Identity</div>
+        <div class="skill-tag">Logo Design</div>
+        <div class="skill-tag">Portrait Photography</div>
+        <div class="skill-tag">Adobe Creative Suite</div>
+        <div class="skill-tag">Web Design</div>
+        <div class="skill-tag">Social Media Content</div>
+        <div class="skill-tag">Event Photography</div>
+        <div class="skill-tag">Product Photography</div>
+      </div>
+    </div>
+
+    <!-- QR Code -->
+    <div class="section">
+      <div class="qr-section">
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;">Share My myLynx</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Scan to save my contact details</p>
+        <div class="qr-code">
+          <div style="text-align: center;">
+            <div style="font-size: 5rem; color: var(--bg-primary);">📱</div>
+          </div>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 1rem;">
+          mylynx.app/sarah-thompson
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Powered by <a href="#">myLynx</a> • Part of the AppWow Evosystem
+    <br>
+    <span style="opacity: 0.8;">Your personal digital identity • Installable • Shareable • Always up to date</span>
+  </div>
+
+  <!-- Upgrade Modal -->
+  <div class="modal" id="upgrade-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="app.closeUpgradeModal()">✕</button>
+      
+      <div style="text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">💎</div>
+        <h2 style="margin-bottom: 1rem;">myLynx Gold</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+          Unlock the full power of LinxMart and LINK3
+        </p>
+
+        <div style="text-align: left; margin-bottom: 2rem;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">What you get:</h3>
+          <ul style="list-style: none; padding: 0;">
+            <li style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+              ✓ Full LinxMart access - list and trade items
+            </li>
+            <li style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+              ✓ Create LINK3 listings (Stages 2 & 3)
+            </li>
+            <li style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+              ✓ View LINK3 Stage 2 exclusive items
+            </li>
+            <li style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+              ✓ Promote items with LINK3 services
+            </li>
+            <li style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+              ✓ Priority customer support
+            </li>
+          </ul>
+        </div>
+
+        <div style="background: linear-gradient(135deg, var(--mylynx-gold), #FFA500); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; color: var(--bg-primary);">
+          <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">£9.99/month</div>
+          <div style="font-size: 1rem; opacity: 0.9;">Cancel anytime • No long-term commitment</div>
+        </div>
+
+        <button class="btn btn-gold" style="width: 100%; padding: 1rem; font-size: 1rem;" onclick="app.upgradeToGold()">
+          Upgrade to Gold Now
+        </button>
+
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">
+          Demo mode - no payment processing
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== APP DATA =====
+    const userData = {
+      tier: 'free', // 'free' or 'gold'
+      profile: {
+        name: 'Sarah Thompson',
+        title: 'Freelance Graphic Designer & Photographer',
+        bio: 'Based in Brighton, specializing in brand identity and creative photography. Available for projects and collaborations.',
+        photo: '👤',
+        contact: {
+          phone: '07700 900 123',
+          email: 'sarah@example.com',
+          location: 'Brighton, UK',
+          website: 'sarahthompson.co.uk'
+        }
+      }
+    };
+
+    // ===== APP LOGIC =====
+    class MyLynxApp {
+      constructor() {
+        this.tier = userData.tier;
+        this.init();
+      }
+
+      init() {
+        this.updateUI();
+        this.loadProfileData();
+      }
+
+      updateUI() {
+        const tierBanner = document.getElementById('tier-banner');
+        const tierText = document.getElementById('tier-text');
+        const profileHero = document.getElementById('profile-hero');
+        const upgradePrompt = document.getElementById('upgrade-prompt');
+        const upgradeBtn = document.getElementById('upgrade-btn');
+        const linxmartLink = document.getElementById('linxmart-link');
+        const linxmartBadge = document.getElementById('linxmart-badge');
+        const link3Stage2Link = document.getElementById('link3-stage2-link');
+
+        if (this.tier === 'gold') {
+          // Update to Gold UI
+          tierBanner.classList.add('gold');
+          tierText.innerHTML = '💎 myLynx Gold';
+          profileHero.classList.add('gold');
+          upgradePrompt.classList.add('hidden');
+          upgradeBtn.classList.add('hidden');
+
+          // Update LinxMart access
+          linxmartLink.classList.add('gold');
+          linxmartBadge.className = 'platform-badge badge-unlocked';
+          linxmartBadge.innerHTML = '✓ Full Access';
+
+          // Unlock LINK3 Stage 2
+          link3Stage2Link.classList.remove('locked');
+          link3Stage2Link.classList.add('gold');
+          link3Stage2Link.onclick = (e) => { e.preventDefault(); this.openLink3Stage2(); };
+          const stage2Badge = link3Stage2Link.querySelector('.platform-badge');
+          stage2Badge.className = 'platform-badge badge-gold';
+          stage2Badge.innerHTML = '💎 Gold Access';
+          link3Stage2Link.querySelector('.platform-icon').style.opacity = '1';
+        } else {
+          // Free tier UI
+          tierBanner.classList.remove('gold');
+          tierText.textContent = 'myLynx Free';
+          profileHero.classList.remove('gold');
+          upgradePrompt.classList.remove('hidden');
+          upgradeBtn.classList.remove('hidden');
+
+          // LinxMart view-only
+          linxmartLink.classList.remove('gold');
+          linxmartBadge.className = 'platform-badge badge-view-only';
+          linxmartBadge.innerHTML = '👁️ View Only';
+
+          // Lock LINK3 Stage 2
+          link3Stage2Link.classList.add('locked');
+          link3Stage2Link.classList.remove('gold');
+          link3Stage2Link.onclick = (e) => { e.preventDefault(); this.showUpgradeModal(); };
+          const stage2Badge = link3Stage2Link.querySelector('.platform-badge');
+          stage2Badge.className = 'platform-badge badge-locked';
+          stage2Badge.innerHTML = '🔒 Gold Only';
+          link3Stage2Link.querySelector('.platform-icon').style.opacity = '0.5';
+        }
+      }
+
+      loadProfileData() {
+        document.getElementById('profile-name').textContent = userData.profile.name;
+        document.getElementById('profile-title').textContent = userData.profile.title;
+        document.getElementById('profile-bio').textContent = userData.profile.bio;
+        document.getElementById('profile-photo').textContent = userData.profile.photo;
+      }
+
+      openLinxLocal() {
+        alert('🎉 Opening LinxLocal\n\n✓ Full access for all myLynx users\n\n• Browse local services\n• Find community marketplace\n• Connect with locals\n\n(LinxLocal integration in production)');
+      }
+
+      openLinxMart() {
+        if (this.tier === 'gold') {
+          alert('🎉 Opening LinxMart\n\n💎 Full Access (Gold)\n\n✓ Browse all listings\n✓ List your own items\n✓ Trade with LINK3\n✓ Create LINK3 Stage 3 listings\n\n(LinxMart integration in production)');
+        } else {
+          alert('👁️ Opening LinxMart\n\n📖 View-Only Access (Free)\n\n✓ Browse all LINK3 Stage 3 listings\n✗ Cannot list items\n✗ Cannot trade\n\n💡 Upgrade to Gold for full access\n\n(LinxMart integration in production)');
+        }
+      }
+
+      openLink3Stage2() {
+        alert('🎉 Opening LINK3 Stage 2\n\n💎 Gold Access\n\n✓ View base buyer exclusive items\n✓ Early access to listings\n✓ Priority viewing before public\n\n(LINK3 Stage 2 integration in production)');
+      }
+
+      showUpgradeModal() {
+        document.getElementById('upgrade-modal').classList.add('show');
+      }
+
+      closeUpgradeModal() {
+        document.getElementById('upgrade-modal').classList.remove('show');
+      }
+
+      upgradeToGold() {
+        if (confirm('Upgrade to myLynx Gold for £9.99/month?\n\n(Demo mode - no payment processing)')) {
+          this.tier = 'gold';
+          userData.tier = 'gold';
+          this.updateUI();
+          this.closeUpgradeModal();
+          
+          alert('🎉 Welcome to myLynx Gold!\n\nYou now have:\n✓ Full LinxMart access\n✓ LINK3 Stage 2 visibility\n✓ Item listing capabilities\n✓ LINK3 promotion services\n✓ Priority support');
+        }
+      }
+
+      demoToggleTier() {
+        if (this.tier === 'free') {
+          this.tier = 'gold';
+          userData.tier = 'gold';
+          alert('🎉 Switched to myLynx Gold (Demo)\n\nYou now have:\n✓ Full LinxMart access\n✓ LINK3 Stage 2 visibility\n✓ All Gold features unlocked');
+        } else {
+          this.tier = 'free';
+          userData.tier = 'free';
+          alert('↩️ Switched back to myLynx Free (Demo)\n\nYou now have:\n✓ LinxLocal full access\n✓ LinxMart view-only\n✗ Stage 2 locked');
+        }
+        this.updateUI();
+      }
+
+      shareProfile() {
+        const shareText = `Check out my myLynx profile!\n\n${userData.profile.name}\n${userData.profile.title}\n\nmylynx.app/sarah-thompson`;
+        
+        if (navigator.share) {
+          navigator.share({
+            title: `${userData.profile.name} - myLynx`,
+            text: shareText,
+            url: window.location.href
+          }).catch(() => {});
+        } else {
+          navigator.clipboard.writeText(shareText).then(() => {
+            alert('✓ Profile link copied to clipboard!');
+          });
+        }
+      }
+    }
+
+    // Initialize app
+    const app = new MyLynxApp();
+
+    // PWA Manifest
+    const manifest = {
+      name: "myLynx",
+      short_name: "myLynx",
+      start_url: "./",
+      display: "standalone",
+      background_color: "#0a0e1a",
+      theme_color: "#8B5CF6",
+      icons: [{
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230a0e1a'/><text x='96' y='135' font-size='80' text-anchor='middle' fill='%238B5CF6'>m</text></svg>",
+        sizes: "192x192",
+        type: "image/svg+xml"
+      }]
+    };
+
+    const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const manifestLink = document.createElement('link');
+    manifestLink.rel = 'manifest';
+    manifestLink.href = manifestURL;
+    document.head.appendChild(manifestLink);
+  </script>
 </body>
 </html>
