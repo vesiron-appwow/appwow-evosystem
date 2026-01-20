@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sussex Rentals - HomeLinx</title>
+    <meta name="theme-color" content="#00C8E8">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --homelinx-cyan: #00C8E8; --homelinx-green: #28A745; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F5F5; }
+        .header { background: linear-gradient(135deg, #00C8E8, #28A745); color: white; padding: 1.5rem; text-align: center; }
+        .business-name { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .nav-bar { background: white; padding: 1rem; }
+        .back-link { color: #00C8E8; text-decoration: none; font-weight: 600; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        .property-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .property-image { width: 100%; height: 200px; background: linear-gradient(135deg, #90EE90, #228B22); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .property-content { padding: 1.5rem; }
+        .property-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .property-price { font-size: 1.6rem; font-weight: 700; color: #00C8E8; margin-bottom: 1rem; }
+        .property-specs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; padding: 1rem; background: #f9f9f9; border-radius: 8px; }
+        .spec-item { font-size: 0.9rem; text-align: center; }
+        .footer { background: #00C8E8; color: white; text-align: center; padding: 1.5rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="business-name">🏡 Sussex Rentals</h1>
+        <p>Quality Rental Properties</p>
+    </header>
+    <nav class="nav-bar"><a href="./index.html" class="back-link">← Back to AppWow</a></nav>
+    <main class="content">
+        <div class="property-grid">
+            <div class="property-card">
+                <div class="property-image">🏘️</div>
+                <div class="property-content">
+                    <h3 class="property-name">City Centre Flat</h3>
+                    <div class="property-price">£1,250 /month</div>
+                    <p>📍 Brighton, BN1</p>
+                    <div class="property-specs">
+                        <div class="spec-item">🛏️ 2 Beds</div>
+                        <div class="spec-item">🚿 1 Bath</div>
+                        <div class="spec-item">📐 750 sqft</div>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🏘️</div>
+                <div class="property-content">
+                    <h3 class="property-name">Family House</h3>
+                    <div class="property-price">£1,850 /month</div>
+                    <p>📍 Hove, BN3</p>
+                    <div class="property-specs">
+                        <div class="spec-item">🛏️ 3 Beds</div>
+                        <div class="spec-item">🚿 2 Baths</div>
+                        <div class="spec-item">📐 1,200 sqft</div>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🏘️</div>
+                <div class="property-content">
+                    <h3 class="property-name">Modern Studio</h3>
+                    <div class="property-price">£850 /month</div>
+                    <p>📍 Brighton, BN2</p>
+                    <div class="property-specs">
+                        <div class="spec-item">🛏️ Studio</div>
+                        <div class="spec-item">🚿 1 Bath</div>
+                        <div class="spec-item">📐 400 sqft</div>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🏘️</div>
+                <div class="property-content">
+                    <h3 class="property-name">Seafront Apartment</h3>
+                    <div class="property-price">£1,650 /month</div>
+                    <p>📍 Brighton Marina</p>
+                    <div class="property-specs">
+                        <div class="spec-item">🛏️ 2 Beds</div>
+                        <div class="spec-item">🚿 2 Baths</div>
+                        <div class="spec-item">📐 900 sqft</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Sussex Rentals • A HomeLinx Trader</p>
+    </footer>
+    <script>
+        const manifest = { name: "Sussex Rentals - HomeLinx", short_name: "Sussex Rentals", start_url: "./homelinx-rentals.html", display: "standalone", background_color: "#00C8E8", theme_color: "#00C8E8", icons: [{ src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%2328A745'/><text x='96' y='135' font-size='100' text-anchor='middle'>🏡</text></svg>", sizes: "192x192", type: "image/svg+xml" }] };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        document.getElementById('manifest-placeholder').href = URL.createObjectURL(manifestBlob);
+    </script>
+</body>
+</html>

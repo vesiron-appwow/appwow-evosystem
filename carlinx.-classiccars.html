@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Cars Sussex - CarLinx</title>
+    <meta name="theme-color" content="#FFC107">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --carlinx-orange: #FFC107; --carlinx-red: #DC3545; --dark: #2C2C2C; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F5F5F5; color: var(--dark); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, var(--carlinx-orange), var(--carlinx-red)); color: white; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .business-name { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .business-tagline { font-size: 1rem; opacity: 0.9; }
+        .carlinx-badge { display: inline-block; margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .nav-bar { background: white; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .back-link { color: var(--carlinx-orange); text-decoration: none; font-weight: 600; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+        .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        .vehicle-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .vehicle-image { width: 100%; height: 200px; background: linear-gradient(135deg, #8B4513, #D2691E); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .vehicle-content { padding: 1.5rem; }
+        .vehicle-name { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .vehicle-price { font-size: 1.8rem; font-weight: 700; color: var(--carlinx-orange); margin-bottom: 1rem; }
+        .vehicle-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px; }
+        .spec-item { font-size: 0.9rem; color: #666; }
+        .spec-label { font-weight: 600; color: var(--dark); }
+        .classic-badge { display: inline-block; padding: 0.25rem 0.5rem; background: #8B4513; color: white; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .footer { background: var(--carlinx-orange); color: var(--dark); text-align: center; padding: 1.5rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="business-name">🏎️ Classic Cars Sussex</h1>
+        <p class="business-tagline">Rare & Collectible Vehicles</p>
+        <span class="carlinx-badge">CarLinx Trader • LINK3 Enabled</span>
+    </header>
+    <nav class="nav-bar"><a href="./index.html" class="back-link">← Back to AppWow</a></nav>
+    <main class="content">
+        <div class="vehicle-grid">
+            <div class="vehicle-card">
+                <div class="vehicle-image">🏁</div>
+                <div class="vehicle-content">
+                    <span class="classic-badge">COLLECTOR'S ITEM</span>
+                    <h3 class="vehicle-name">1967 Jaguar E-Type</h3>
+                    <div class="vehicle-price">£125,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 1967</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 48,000</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 4.2L Inline-6</div>
+                        <div class="spec-item"><span class="spec-label">Condition:</span> Restored</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">🏁</div>
+                <div class="vehicle-content">
+                    <span class="classic-badge">INVESTMENT GRADE</span>
+                    <h3 class="vehicle-name">1973 Porsche 911 RS</h3>
+                    <div class="vehicle-price">£285,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 1973</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 32,500</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 2.7L Flat-6</div>
+                        <div class="spec-item"><span class="spec-label">Condition:</span> Original</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">🏁</div>
+                <div class="vehicle-content">
+                    <span class="classic-badge">RARE FIND</span>
+                    <h3 class="vehicle-name">1964 Aston Martin DB5</h3>
+                    <div class="vehicle-price">£495,000</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 1964</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 56,000</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 4.0L Inline-6</div>
+                        <div class="spec-item"><span class="spec-label">Condition:</span> Concours</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">🏁</div>
+                <div class="vehicle-content">
+                    <span class="classic-badge">BRITISH ICON</span>
+                    <h3 class="vehicle-name">1971 MG MGB Roadster</h3>
+                    <div class="vehicle-price">£18,500</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 1971</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 72,000</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 1.8L Inline-4</div>
+                        <div class="spec-item"><span class="spec-label">Condition:</span> Good</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Classic Cars Sussex • A CarLinx Trader</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Collector vehicle listings available offline</p>
+    </footer>
+    <script>
+        const manifest = { name: "Classic Cars Sussex - CarLinx", short_name: "Classic Cars", start_url: "./carlinx-classiccars.html", display: "standalone", background_color: "#FFC107", theme_color: "#FFC107", icons: [{ src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%238B4513'/><text x='96' y='135' font-size='100' text-anchor='middle'>🏎️</text></svg>", sizes: "192x192", type: "image/svg+xml" }] };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        document.getElementById('manifest-placeholder').href = URL.createObjectURL(manifestBlob);
+    </script>
+</body>
+</html>

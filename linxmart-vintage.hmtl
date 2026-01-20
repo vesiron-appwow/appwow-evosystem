@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Interiors - LinxMart</title>
+    <meta name="theme-color" content="#28A745">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F5F5; }
+        .header { background: linear-gradient(135deg, #28A745, #00C8E8); color: white; padding: 1.5rem; text-align: center; }
+        .business-name { font-size: 2rem; font-weight: 700; }
+        .nav-bar { background: white; padding: 1rem; }
+        .back-link { color: #28A745; text-decoration: none; font-weight: 600; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .product-image { width: 100%; height: 200px; background: linear-gradient(135deg, #D2B48C, #8B7355); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .product-content { padding: 1.5rem; }
+        .product-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .product-price { font-size: 1.5rem; font-weight: 700; color: #28A745; margin-bottom: 0.5rem; }
+        .footer { background: #28A745; color: white; text-align: center; padding: 1.5rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="business-name">🛋️ Vintage Interiors</h1>
+        <p>Curated Vintage Furniture & Decor</p>
+    </header>
+    <nav class="nav-bar"><a href="./index.html" class="back-link">← Back to AppWow</a></nav>
+    <main class="content">
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">🪑</div>
+                <div class="product-content">
+                    <h3 class="product-name">Mid-Century Armchair</h3>
+                    <div class="product-price">£245</div>
+                    <p>1960s Danish teak armchair, newly reupholstered</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">💡</div>
+                <div class="product-content">
+                    <h3 class="product-name">Art Deco Table Lamp</h3>
+                    <div class="product-price">£125</div>
+                    <p>1930s brass and glass lamp, working condition</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🖼️</div>
+                <div class="product-content">
+                    <h3 class="product-name">Vintage Mirror</h3>
+                    <div class="product-price">£180</div>
+                    <p>Ornate gilt frame mirror, Victorian era</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">📚</div>
+                <div class="product-content">
+                    <h3 class="product-name">Oak Bookcase</h3>
+                    <div class="product-price">£385</div>
+                    <p>Solid oak bookcase from 1920s, excellent condition</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🕰️</div>
+                <div class="product-content">
+                    <h3 class="product-name">Mantel Clock</h3>
+                    <div class="product-price">£95</div>
+                    <p>Brass mantel clock, 1950s, fully serviced</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🪞</div>
+                <div class="product-content">
+                    <h3 class="product-name">Art Nouveau Vase</h3>
+                    <div class="product-price">£68</div>
+                    <p>Hand-painted ceramic vase, circa 1910</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><p>Vintage Interiors • A LinxMart Trader</p></footer>
+    <script>
+        const manifest = { name: "Vintage Interiors - LinxMart", short_name: "Vintage Interiors", start_url: "./linxmart-vintage.html", display: "standalone", background_color: "#28A745", theme_color: "#28A745", icons: [{ src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%23D2B48C'/><text x='96' y='135' font-size='100' text-anchor='middle'>🛋️</text></svg>", sizes: "192x192", type: "image/svg+xml" }] };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        document.getElementById('manifest-placeholder').href = URL.createObjectURL(manifestBlob);
+    </script>
+</body>
+</html>

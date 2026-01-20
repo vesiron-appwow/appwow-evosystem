@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Motors - CarLinx</title>
+    <meta name="theme-color" content="#FFC107">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --carlinx-orange: #FFC107;
+            --carlinx-red: #DC3545;
+            --dark: #2C2C2C;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #F5F5F5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--carlinx-orange), var(--carlinx-red));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .business-name { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .business-tagline { font-size: 1rem; opacity: 0.9; }
+        .carlinx-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .nav-bar {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .back-link {
+            color: var(--carlinx-orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .vehicle-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .vehicle-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .vehicle-content { padding: 1.5rem; }
+        .vehicle-name { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .vehicle-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--carlinx-orange);
+            margin-bottom: 1rem;
+        }
+        .vehicle-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .spec-item { font-size: 0.9rem; color: #666; }
+        .spec-label { font-weight: 600; color: var(--dark); }
+        .footer {
+            background: var(--carlinx-orange);
+            color: var(--dark);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="business-name">🚗 Premium Motors</h1>
+        <p class="business-tagline">Quality Used Vehicles</p>
+        <span class="carlinx-badge">CarLinx Trader</span>
+    </header>
+    <nav class="nav-bar">
+        <a href="./index.html" class="back-link">← Back to AppWow</a>
+    </nav>
+    <main class="content">
+        <div class="vehicle-grid">
+            <div class="vehicle-card">
+                <div class="vehicle-image">🚙</div>
+                <div class="vehicle-content">
+                    <h3 class="vehicle-name">2021 BMW 3 Series</h3>
+                    <div class="vehicle-price">£28,995</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 2021</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 24,500</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 2.0L Diesel</div>
+                        <div class="spec-item"><span class="spec-label">Trans:</span> Automatic</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">🚗</div>
+                <div class="vehicle-content">
+                    <h3 class="vehicle-name">2020 Audi A4</h3>
+                    <div class="vehicle-price">£24,500</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 2020</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 32,000</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 2.0L Petrol</div>
+                        <div class="spec-item"><span class="spec-label">Trans:</span> Automatic</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">🚙</div>
+                <div class="vehicle-content">
+                    <h3 class="vehicle-name">2022 Mercedes C-Class</h3>
+                    <div class="vehicle-price">£32,950</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 2022</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 15,800</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 2.0L Diesel</div>
+                        <div class="spec-item"><span class="spec-label">Trans:</span> Automatic</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">🚗</div>
+                <div class="vehicle-content">
+                    <h3 class="vehicle-name">2019 VW Golf GTI</h3>
+                    <div class="vehicle-price">£19,750</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 2019</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 38,500</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 2.0L Petrol</div>
+                        <div class="spec-item"><span class="spec-label">Trans:</span> Manual</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vehicle-card">
+                <div class="vehicle-image">🚙</div>
+                <div class="vehicle-content">
+                    <h3 class="vehicle-name">2021 Range Rover Sport</h3>
+                    <div class="vehicle-price">£54,995</div>
+                    <div class="vehicle-specs">
+                        <div class="spec-item"><span class="spec-label">Year:</span> 2021</div>
+                        <div class="spec-item"><span class="spec-label">Mileage:</span> 18,200</div>
+                        <div class="spec-item"><span class="spec-label">Engine:</span> 3.0L Diesel</div>
+                        <div class="spec-item"><span class="spec-label">Trans:</span> Automatic</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Premium Motors • A CarLinx Trader</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Vehicle listings available offline</p>
+    </footer>
+    <script>
+        const manifest = {
+            name: "Premium Motors - CarLinx",
+            short_name: "Premium Motors",
+            start_url: "./carlinx-premiummotors.html",
+            display: "standalone",
+            background_color: "#FFC107",
+            theme_color: "#FFC107",
+            icons: [{
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%23FFC107'/><text x='96' y='135' font-size='100' text-anchor='middle'>🚗</text></svg>",
+                sizes: "192x192",
+                type: "image/svg+xml"
+            }]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').href = manifestURL;
+    </script>
+</body>
+</html>

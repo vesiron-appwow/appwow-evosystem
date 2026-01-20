@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brighton Barber - Men's Grooming Services">
+    <title>Brighton Barber - LinxLocal</title>
+    <meta name="theme-color" content="#0057B8">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --linxlocal-blue: #0057B8;
+            --linxlocal-cyan: #00C8E8;
+            --barber-red: #8B0000;
+            --barber-gold: #DAA520;
+            --light-bg: #F8F8F8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-bg);
+            color: #2C2C2C;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--linxlocal-blue), var(--linxlocal-cyan));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .business-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .business-tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .linxlocal-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-link {
+            color: var(--linxlocal-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--barber-red);
+            border-bottom: 2px solid var(--linxlocal-cyan);
+            padding-bottom: 0.5rem;
+        }
+
+        .service-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .service-item {
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid var(--barber-gold);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--barber-red);
+        }
+
+        .service-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--linxlocal-blue);
+        }
+
+        .service-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .info-icon {
+            font-size: 1.25rem;
+            min-width: 1.5rem;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--barber-red);
+            margin-bottom: 0.25rem;
+        }
+
+        .features-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--light-bg);
+            border-radius: 6px;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+        }
+
+        .footer {
+            background: var(--barber-red);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+
+            .business-name {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="business-name">✂️ Brighton Barber</h1>
+        <p class="business-tagline">Traditional Barbering & Men's Grooming</p>
+        <span class="linxlocal-badge">LinxLocal Business</span>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="./index.html" class="back-link">← Back to AppWow</a>
+    </nav>
+
+    <main class="content">
+        <section class="info-section">
+            <h2 class="section-title">About Us</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div class="info-text">
+                        <div class="info-label">Location</div>
+                        <div>15 Western Road, Brighton, BN1 2AA</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">⏰</span>
+                    <div class="info-text">
+                        <div class="info-label">Opening Hours</div>
+                        <div>Mon-Fri: 9:00 AM - 7:00 PM</div>
+                        <div>Saturday: 8:00 AM - 6:00 PM</div>
+                        <div>Sunday: 10:00 AM - 4:00 PM</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div class="info-text">
+                        <div class="info-label">Contact</div>
+                        <div>01273 555 333</div>
+                        <div>book@brightonbarber.local</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✨</span>
+                    <div class="info-text">
+                        <div class="info-label">Specialties</div>
+                        <div>Traditional cuts, hot towel shaves, beard grooming</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">Services & Pricing</h2>
+            
+            <div class="service-grid">
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Standard Cut</span>
+                        <span class="service-price">£18</span>
+                    </div>
+                    <p class="service-description">Classic men's haircut with consultation, wash, cut, and style</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Premium Cut</span>
+                        <span class="service-price">£25</span>
+                    </div>
+                    <p class="service-description">Extended styling session including hot towel treatment and scalp massage</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Beard Trim</span>
+                        <span class="service-price">£12</span>
+                    </div>
+                    <p class="service-description">Professional beard shaping and trimming with finishing oils</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Cut & Beard Combo</span>
+                        <span class="service-price">£28</span>
+                    </div>
+                    <p class="service-description">Complete grooming package - haircut and beard trim</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Hot Towel Shave</span>
+                        <span class="service-price">£22</span>
+                    </div>
+                    <p class="service-description">Traditional wet shave with hot towels, premium products, and aftershave</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Hair & Shave Package</span>
+                        <span class="service-price">£35</span>
+                    </div>
+                    <p class="service-description">Full service - haircut and traditional hot towel shave</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Student Cut</span>
+                        <span class="service-price">£15</span>
+                    </div>
+                    <p class="service-description">Discounted haircut for students (valid ID required)</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Kids Cut (Under 12)</span>
+                        <span class="service-price">£14</span>
+                    </div>
+                    <p class="service-description">Haircut for children under 12 years old</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Seniors Cut (65+)</span>
+                        <span class="service-price">£15</span>
+                    </div>
+                    <p class="service-description">Discounted cut for seniors - weekdays before 2pm</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="feature-icon">✂️</span>
+                    <div>Experienced barbers with 10+ years in traditional barbering</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📅</span>
+                    <div>Walk-ins welcome or book ahead online</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💈</span>
+                    <div>Classic barbershop atmosphere with modern techniques</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <div>Premium grooming products from leading brands</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">☕</span>
+                    <div>Complimentary refreshments while you wait</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">♿</span>
+                    <div>Wheelchair accessible ground floor location</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">Brighton Barber • A LinxLocal Business</p>
+        <p class="footer-text" style="font-size: 0.8rem; margin-top: 0.5rem;">Services & pricing available offline once loaded</p>
+    </footer>
+
+    <script>
+        const manifest = {
+            name: "Brighton Barber - LinxLocal",
+            short_name: "Brighton Barber",
+            start_url: "./linxlocal-barber.html",
+            display: "standalone",
+            background_color: "#0057B8",
+            theme_color: "#0057B8",
+            icons: [{
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%238B0000'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>✂️</text></svg>",
+                sizes: "192x192",
+                type: "image/svg+xml"
+            }]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').href = manifestURL;
+    </script>
+</body>
+</html>

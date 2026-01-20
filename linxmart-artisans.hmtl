@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sussex Artisans - LinxMart</title>
+    <meta name="theme-color" content="#28A745">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F5F5; }
+        .header { background: linear-gradient(135deg, #28A745, #00C8E8); color: white; padding: 1.5rem; text-align: center; }
+        .business-name { font-size: 2rem; font-weight: 700; }
+        .nav-bar { background: white; padding: 1rem; }
+        .back-link { color: #28A745; text-decoration: none; font-weight: 600; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .product-image { width: 100%; height: 200px; background: linear-gradient(135deg, #FFD700, #FFA500); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .product-content { padding: 1.5rem; }
+        .product-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .product-price { font-size: 1.5rem; font-weight: 700; color: #28A745; margin-bottom: 0.5rem; }
+        .footer { background: #28A745; color: white; text-align: center; padding: 1.5rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="business-name">🎨 Sussex Artisans</h1>
+        <p>Handmade Local Crafts & Art</p>
+    </header>
+    <nav class="nav-bar"><a href="./index.html" class="back-link">← Back to AppWow</a></nav>
+    <main class="content">
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">🧶</div>
+                <div class="product-content">
+                    <h3 class="product-name">Hand-Knitted Blanket</h3>
+                    <div class="product-price">£85</div>
+                    <p>Pure wool throw blanket, locally made</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🏺</div>
+                <div class="product-content">
+                    <h3 class="product-name">Ceramic Bowl Set</h3>
+                    <div class="product-price">£45</div>
+                    <p>Handcrafted pottery, set of 4 bowls</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🕯️</div>
+                <div class="product-content">
+                    <h3 class="product-name">Soy Wax Candles</h3>
+                    <div class="product-price">£18</div>
+                    <p>Natural soy candles, Sussex lavender scent</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🧵</div>
+                <div class="product-content">
+                    <h3 class="product-name">Quilted Cushions</h3>
+                    <div class="product-price">£32</div>
+                    <p>Hand-quilted cushion covers, various designs</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🖌️</div>
+                <div class="product-content">
+                    <h3 class="product-name">Watercolor Prints</h3>
+                    <div class="product-price">£55</div>
+                    <p>Local landscape paintings, A3 size</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🧺</div>
+                <div class="product-content">
+                    <h3 class="product-name">Woven Basket</h3>
+                    <div class="product-price">£42</div>
+                    <p>Natural willow storage basket, handwoven</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"><p>Sussex Artisans • A LinxMart Trader</p></footer>
+    <script>
+        const manifest = { name: "Sussex Artisans - LinxMart", short_name: "Sussex Artisans", start_url: "./linxmart-artisans.html", display: "standalone", background_color: "#28A745", theme_color: "#28A745", icons: [{ src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%23FFD700'/><text x='96' y='135' font-size='100' text-anchor='middle'>🎨</text></svg>", sizes: "192x192", type: "image/svg+xml" }] };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        document.getElementById('manifest-placeholder').href = URL.createObjectURL(manifestBlob);
+    </script>
+</body>
+</html>

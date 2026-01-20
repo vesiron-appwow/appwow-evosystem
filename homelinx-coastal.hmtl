@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coastal Properties - HomeLinx</title>
+    <meta name="theme-color" content="#00C8E8">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --homelinx-cyan: #00C8E8; --homelinx-green: #28A745; --dark: #2C2C2C; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F5F5F5; color: var(--dark); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, var(--homelinx-cyan), var(--homelinx-green)); color: white; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .business-name { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .business-tagline { font-size: 1rem; opacity: 0.9; }
+        .homelinx-badge { display: inline-block; margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .nav-bar { background: white; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .back-link { color: var(--homelinx-cyan); text-decoration: none; font-weight: 600; }
+        .content { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        .property-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .property-image { width: 100%; height: 200px; background: linear-gradient(135deg, #87CEEB, #4682B4); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .property-content { padding: 1.5rem; }
+        .property-name { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .property-price { font-size: 1.8rem; font-weight: 700; color: var(--homelinx-cyan); margin-bottom: 1rem; }
+        .property-specs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px; }
+        .spec-item { font-size: 0.9rem; color: #666; text-align: center; }
+        .spec-label { font-weight: 600; color: var(--dark); display: block; margin-bottom: 0.25rem; }
+        .property-location { color: #666; font-size: 0.95rem; margin-bottom: 0.75rem; }
+        .footer { background: var(--homelinx-cyan); color: white; text-align: center; padding: 1.5rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="business-name">🏖️ Coastal Properties</h1>
+        <p class="business-tagline">Seaside Homes in Sussex</p>
+        <span class="homelinx-badge">HomeLinx Trader</span>
+    </header>
+    <nav class="nav-bar"><a href="./index.html" class="back-link">← Back to AppWow</a></nav>
+    <main class="content">
+        <div class="property-grid">
+            <div class="property-card">
+                <div class="property-image">🌊</div>
+                <div class="property-content">
+                    <h3 class="property-name">Sea View Apartment</h3>
+                    <div class="property-price">£425,000</div>
+                    <p class="property-location">📍 Brighton Marina, BN2</p>
+                    <div class="property-specs">
+                        <div class="spec-item"><span class="spec-label">🛏️ Beds</span>2</div>
+                        <div class="spec-item"><span class="spec-label">🚿 Baths</span>2</div>
+                        <div class="spec-item"><span class="spec-label">📐 Sqft</span>950</div>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🏖️</div>
+                <div class="property-content">
+                    <h3 class="property-name">Beachfront Cottage</h3>
+                    <div class="property-price">£575,000</div>
+                    <p class="property-location">📍 Shoreham Beach, BN43</p>
+                    <div class="property-specs">
+                        <div class="spec-item"><span class="spec-label">🛏️ Beds</span>3</div>
+                        <div class="spec-item"><span class="spec-label">🚿 Baths</span>2</div>
+                        <div class="spec-item"><span class="spec-label">📐 Sqft</span>1,200</div>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🌅</div>
+                <div class="property-content">
+                    <h3 class="property-name">Coastal Family Home</h3>
+                    <div class="property-price">£695,000</div>
+                    <p class="property-location">📍 Hove Seafront, BN3</p>
+                    <div class="property-specs">
+                        <div class="spec-item"><span class="spec-label">🛏️ Beds</span>4</div>
+                        <div class="spec-item"><span class="spec-label">🚿 Baths</span>3</div>
+                        <div class="spec-item"><span class="spec-label">📐 Sqft</span>1,800</div>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🏝️</div>
+                <div class="property-content">
+                    <h3 class="property-name">Modern Penthouse</h3>
+                    <div class="property-price">£850,000</div>
+                    <p class="property-location">📍 Brighton Seafront, BN1</p>
+                    <div class="property-specs">
+                        <div class="spec-item"><span class="spec-label">🛏️ Beds</span>3</div>
+                        <div class="spec-item"><span class="spec-label">🚿 Baths</span>2</div>
+                        <div class="spec-item"><span class="spec-label">📐 Sqft</span>1,500</div>
+                    </div>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🌊</div>
+                <div class="property-content">
+                    <h3 class="property-name">Marina View Studio</h3>
+                    <div class="property-price">£225,000</div>
+                    <p class="property-location">📍 Brighton Marina, BN2</p>
+                    <div class="property-specs">
+                        <div class="spec-item"><span class="spec-label">🛏️ Beds</span>1</div>
+                        <div class="spec-item"><span class="spec-label">🚿 Baths</span>1</div>
+                        <div class="spec-item"><span class="spec-label">📐 Sqft</span>450</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Coastal Properties • A HomeLinx Trader</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Property listings available offline</p>
+    </footer>
+    <script>
+        const manifest = { name: "Coastal Properties - HomeLinx", short_name: "Coastal Properties", start_url: "./homelinx-coastal.html", display: "standalone", background_color: "#00C8E8", theme_color: "#00C8E8", icons: [{ src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%2300C8E8'/><text x='96' y='135' font-size='100' text-anchor='middle'>🏖️</text></svg>", sizes: "192x192", type: "image/svg+xml" }] };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        document.getElementById('manifest-placeholder').href = URL.createObjectURL(manifestBlob);
+    </script>
+</body>
+</html>
