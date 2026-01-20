@@ -570,7 +570,7 @@
                 <div class="footer-menu-icon">💼</div>
                 <div class="footer-menu-label">Business</div>
             </a>
-            <a href="#search" class="footer-menu-item">
+            <a href="#search" class="footer-menu-item" onclick="toggleSearch(event)">
                 <div class="footer-menu-icon">🔍</div>
                 <div class="footer-menu-label">Search</div>
             </a>
@@ -578,6 +578,68 @@
     </nav>
 
     <script>
+        // Search functionality - replaces Sections 2 & 3 when activated
+        let searchActive = false;
+        
+        function toggleSearch(e) {
+            e.preventDefault();
+            searchActive = !searchActive;
+            
+            const utilityBar = document.querySelector('.utility-toolbar');
+            const link3Bar = document.querySelector('.link3-toolbar');
+            
+            if (searchActive) {
+                // Hide sections 2 & 3
+                utilityBar.style.display = 'none';
+                link3Bar.style.display = 'none';
+                
+                // Create and show search section
+                if (!document.getElementById('searchSection')) {
+                    const searchSection = document.createElement('div');
+                    searchSection.id = 'searchSection';
+                    searchSection.innerHTML = `
+                        <div style="background: white; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div style="max-width: 1400px; margin: 0 auto;">
+                                <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--evosystem-black);">Search AppWow</h2>
+                                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                                    <input type="text" id="searchInput" placeholder="Search apps, categories, or functions..." 
+                                        style="flex: 1; padding: 1rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                                    <button onclick="performSearch()" style="padding: 1rem 2rem; background: var(--vtl-blue); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Search</button>
+                                    <button onclick="toggleSearch(event)" style="padding: 1rem 2rem; background: var(--technical-grey); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Close</button>
+                                </div>
+                                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                    <span style="font-weight: 600; color: var(--technical-grey);">Categories:</span>
+                                    <button onclick="filterCategory('food')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Food & Drink</button>
+                                    <button onclick="filterCategory('transport')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Transport</button>
+                                    <button onclick="filterCategory('travel')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Travel</button>
+                                    <button onclick="filterCategory('local')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Local Business</button>
+                                    <button onclick="filterCategory('shopping')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Shopping</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    link3Bar.parentNode.insertBefore(searchSection, link3Bar);
+                }
+                document.getElementById('searchSection').style.display = 'block';
+            } else {
+                // Show sections 2 & 3, hide search
+                utilityBar.style.display = 'block';
+                link3Bar.style.display = 'block';
+                if (document.getElementById('searchSection')) {
+                    document.getElementById('searchSection').style.display = 'none';
+                }
+            }
+        }
+        
+        function performSearch() {
+            const query = document.getElementById('searchInput').value;
+            alert('Searching for: ' + query + '\n\nIn production, this would filter and display matching apps.');
+        }
+        
+        function filterCategory(category) {
+            alert('Filtering by category: ' + category + '\n\nIn production, this would show apps in this category.');
+        }
+
         // Menu functions
         function openMenu() {
             document.getElementById('menuOverlay').classList.add('active');
@@ -809,4 +871,3 @@
     </script>
 </body>
 </html>
-
