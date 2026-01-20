@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brighton Cafe - Menu, Pricing & Information">
+    <title>Brighton Cafe - LinxLocal</title>
+    <meta name="theme-color" content="#0057B8">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --linxlocal-blue: #0057B8;
+            --linxlocal-cyan: #00C8E8;
+            --coffee-brown: #6F4E37;
+            --warm-cream: #F5F5DC;
+            --dark-text: #2C2C2C;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--warm-cream);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--linxlocal-blue), var(--linxlocal-cyan));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .business-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .business-tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .linxlocal-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-link {
+            color: var(--linxlocal-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--coffee-brown);
+            border-bottom: 2px solid var(--linxlocal-cyan);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .info-icon {
+            font-size: 1.25rem;
+            min-width: 1.5rem;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--coffee-brown);
+            margin-bottom: 0.25rem;
+        }
+
+        /* Menu Items */
+        .menu-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .menu-item {
+            background: var(--warm-cream);
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid var(--linxlocal-cyan);
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--coffee-brown);
+        }
+
+        .menu-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--linxlocal-blue);
+        }
+
+        .menu-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .category-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--coffee-brown);
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--linxlocal-cyan);
+        }
+
+        .category-header:first-child {
+            margin-top: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--coffee-brown);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+
+            .business-name {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="business-name">☕ Brighton Cafe</h1>
+        <p class="business-tagline">Artisan Coffee & Fresh Pastries</p>
+        <span class="linxlocal-badge">LinxLocal Business</span>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <a href="./index.html" class="back-link">← Back to AppWow</a>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+        <!-- Business Info -->
+        <section class="info-section">
+            <h2 class="section-title">About Us</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div class="info-text">
+                        <div class="info-label">Location</div>
+                        <div>42 North Street, Brighton, BN1 1RJ</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">⏰</span>
+                    <div class="info-text">
+                        <div class="info-label">Opening Hours</div>
+                        <div>Mon-Fri: 7:00 AM - 6:00 PM</div>
+                        <div>Sat-Sun: 8:00 AM - 5:00 PM</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div class="info-text">
+                        <div class="info-label">Contact</div>
+                        <div>01273 555 123</div>
+                        <div>hello@brightoncafe.local</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✨</span>
+                    <div class="info-text">
+                        <div class="info-label">Specialties</div>
+                        <div>Locally roasted coffee, homemade pastries, vegan options</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu -->
+        <section class="info-section">
+            <h2 class="section-title">Our Menu</h2>
+            
+            <h3 class="category-header">Hot Drinks</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Espresso</span>
+                        <span class="menu-price">£2.50</span>
+                    </div>
+                    <p class="menu-description">Rich, smooth espresso from our locally roasted beans</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Cappuccino</span>
+                        <span class="menu-price">£3.20</span>
+                    </div>
+                    <p class="menu-description">Classic cappuccino with velvety microfoam</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Flat White</span>
+                        <span class="menu-price">£3.40</span>
+                    </div>
+                    <p class="menu-description">Double shot with silky steamed milk</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Latte</span>
+                        <span class="menu-price">£3.50</span>
+                    </div>
+                    <p class="menu-description">Smooth espresso with steamed milk. Dairy or oat milk available</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Mocha</span>
+                        <span class="menu-price">£3.80</span>
+                    </div>
+                    <p class="menu-description">Espresso with chocolate and steamed milk</p>
+                </div>
+            </div>
+
+            <h3 class="category-header">Cold Drinks</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Iced Latte</span>
+                        <span class="menu-price">£3.80</span>
+                    </div>
+                    <p class="menu-description">Chilled espresso with cold milk over ice</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Cold Brew</span>
+                        <span class="menu-price">£4.00</span>
+                    </div>
+                    <p class="menu-description">Smooth, slow-brewed coffee served over ice</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Fruit Smoothie</span>
+                        <span class="menu-price">£4.50</span>
+                    </div>
+                    <p class="menu-description">Fresh fruit blended with yogurt or coconut milk</p>
+                </div>
+            </div>
+
+            <h3 class="category-header">Food</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Croissant</span>
+                        <span class="menu-price">£2.80</span>
+                    </div>
+                    <p class="menu-description">Buttery, flaky croissant baked fresh daily</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Almond Danish</span>
+                        <span class="menu-price">£3.20</span>
+                    </div>
+                    <p class="menu-description">Sweet pastry with almond cream filling</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Avocado Toast</span>
+                        <span class="menu-price">£6.50</span>
+                    </div>
+                    <p class="menu-description">Smashed avocado on sourdough with chili flakes and lemon</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Breakfast Bagel</span>
+                        <span class="menu-price">£5.80</span>
+                    </div>
+                    <p class="menu-description">Toasted bagel with egg, cheese, and your choice of bacon or vegetables</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Soup of the Day</span>
+                        <span class="menu-price">£5.50</span>
+                    </div>
+                    <p class="menu-description">Homemade soup served with fresh bread</p>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <span class="menu-name">Vegan Brownie</span>
+                        <span class="menu-price">£3.50</span>
+                    </div>
+                    <p class="menu-description">Rich chocolate brownie made without dairy or eggs</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">Brighton Cafe • A LinxLocal Business</p>
+        <p class="footer-text" style="font-size: 0.8rem; margin-top: 0.5rem;">This menu is available offline once loaded</p>
+    </footer>
+
+    <script>
+        // PWA Manifest
+        const manifest = {
+            name: "Brighton Cafe - LinxLocal",
+            short_name: "Brighton Cafe",
+            start_url: "./linxlocal-brightoncafe.html",
+            display: "standalone",
+            background_color: "#0057B8",
+            theme_color: "#0057B8",
+            icons: [{
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%236F4E37'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>☕</text></svg>",
+                sizes: "192x192",
+                type: "image/svg+xml"
+            }]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').href = manifestURL;
+    </script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brighton Emergency Plumbing - 24/7 Service">
+    <title>Brighton Emergency Plumbing - LinxLocal</title>
+    <meta name="theme-color" content="#0057B8">
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --linxlocal-blue: #0057B8;
+            --linxlocal-cyan: #00C8E8;
+            --plumber-blue: #1E88E5;
+            --emergency-red: #E53935;
+            --light-bg: #F5F9FC;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-bg);
+            color: #2C2C2C;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--linxlocal-blue), var(--linxlocal-cyan));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .business-name {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .business-tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .linxlocal-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: var(--emergency-red);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .emergency-number {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-link {
+            color: var(--linxlocal-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--plumber-blue);
+            border-bottom: 2px solid var(--linxlocal-cyan);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Service Items */
+        .service-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .service-item {
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid var(--plumber-blue);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--plumber-blue);
+        }
+
+        .service-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--linxlocal-blue);
+        }
+
+        .service-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .service-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: var(--emergency-red);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .info-icon {
+            font-size: 1.25rem;
+            min-width: 1.5rem;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--plumber-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        /* Features List */
+        .features-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--light-bg);
+            border-radius: 6px;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--plumber-blue);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+
+            .business-name {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="business-name">🔧 Brighton Emergency Plumbing</h1>
+        <p class="business-tagline">24/7 Emergency Service</p>
+        <span class="linxlocal-badge">LinxLocal Business</span>
+    </header>
+
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        Emergency? Call Now!
+        <div class="emergency-number">☎️ 01273 999 888</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <a href="./index.html" class="back-link">← Back to AppWow</a>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+        <!-- Business Info -->
+        <section class="info-section">
+            <h2 class="section-title">About Our Service</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div class="info-text">
+                        <div class="info-label">Coverage Area</div>
+                        <div>Brighton, Hove, and surrounding areas within 15 miles</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">⏰</span>
+                    <div class="info-text">
+                        <div class="info-label">Availability</div>
+                        <div>24 hours a day, 7 days a week</div>
+                        <div>Including bank holidays</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div class="info-text">
+                        <div class="info-label">Contact</div>
+                        <div>Emergency: 01273 999 888</div>
+                        <div>General: 01273 555 777</div>
+                        <div>Email: help@brightonplumbing.local</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✅</span>
+                    <div class="info-text">
+                        <div class="info-label">Credentials</div>
+                        <div>Gas Safe Registered • Fully Insured • 15+ Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="info-section">
+            <h2 class="section-title">Our Services</h2>
+            
+            <div class="service-grid">
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Emergency Callout<span class="service-badge">24/7</span></span>
+                        <span class="service-price">£85</span>
+                    </div>
+                    <p class="service-description">Rapid response for burst pipes, major leaks, no heating, or boiler breakdowns</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Leak Detection & Repair</span>
+                        <span class="service-price">from £120</span>
+                    </div>
+                    <p class="service-description">Professional leak detection and repair for pipes, taps, toilets, and radiators</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Boiler Service</span>
+                        <span class="service-price">£95</span>
+                    </div>
+                    <p class="service-description">Annual boiler service to keep your heating safe and efficient</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Boiler Repair</span>
+                        <span class="service-price">from £150</span>
+                    </div>
+                    <p class="service-description">Expert diagnosis and repair for all makes and models of boilers</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Toilet Repair/Install</span>
+                        <span class="service-price">from £180</span>
+                    </div>
+                    <p class="service-description">Toilet repairs, replacements, and new installations</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Tap Installation</span>
+                        <span class="service-price">from £95</span>
+                    </div>
+                    <p class="service-description">Kitchen and bathroom tap fitting and replacement</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Radiator Service</span>
+                        <span class="service-price">from £120</span>
+                    </div>
+                    <p class="service-description">Radiator installation, removal, balancing, and power flushing</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Blocked Drain Clearance</span>
+                        <span class="service-price">from £110</span>
+                    </div>
+                    <p class="service-description">Fast clearance of blocked sinks, toilets, and drains</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <span class="service-name">Full Bathroom Installation</span>
+                        <span class="service-price">Quote</span>
+                    </div>
+                    <p class="service-description">Complete bathroom design and installation service</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="info-section">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div>Fast response - typically within 60 minutes for emergencies</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💰</span>
+                    <div>No hidden charges - fixed prices quoted upfront</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div>12-month guarantee on all work</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">👨‍🔧</span>
+                    <div>Experienced, Gas Safe registered engineers</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🧽</span>
+                    <div>Clean and tidy - we clean up after every job</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">💳</span>
+                    <div>Flexible payment options available</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">Brighton Emergency Plumbing • A LinxLocal Business</p>
+        <p class="footer-text" style="font-size: 0.8rem; margin-top: 0.5rem;">This service information is available offline once loaded</p>
+    </footer>
+
+    <script>
+        // PWA Manifest
+        const manifest = {
+            name: "Brighton Emergency Plumbing - LinxLocal",
+            short_name: "Emergency Plumbing",
+            start_url: "./linxlocal-plumbing.html",
+            display: "standalone",
+            background_color: "#0057B8",
+            theme_color: "#0057B8",
+            icons: [{
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%231E88E5'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>🔧</text></svg>",
+                sizes: "192x192",
+                type: "image/svg+xml"
+            }]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').href = manifestURL;
+    </script>
+</body>
+</html>
