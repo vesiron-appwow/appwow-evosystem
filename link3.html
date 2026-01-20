@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LINK3 - Structured Discovery System on AppWow">
+    <title>LINK3 - AppWow</title>
+    <meta name="theme-color" content="#0057B8">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vtl-blue: #0057B8;
+            --vtl-cyan: #00C8E8;
+            --evosystem-black: #0A0A0A;
+            --technical-grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+            --success-green: #28A745;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--light-grey);
+            color: var(--evosystem-black);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--evosystem-black);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0057B8, #00C8E8, #28A745, #FFC107, #DC3545, #8B5CF6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Content */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--evosystem-black);
+            text-align: center;
+        }
+
+        /* Tiles */
+        .tile {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,87,184,0.15);
+        }
+
+        .tile-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--vtl-blue);
+        }
+
+        .tile p {
+            font-size: 1.05rem;
+            color: var(--technical-grey);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .tile p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tile ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .tile li {
+            font-size: 1.05rem;
+            color: var(--technical-grey);
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        /* Stage tiles specific styling */
+        .tile.stage-1 {
+            border-left: 4px solid #DC3545;
+        }
+
+        .tile.stage-2 {
+            border-left: 4px solid var(--vtl-blue);
+        }
+
+        .tile.stage-3 {
+            border-left: 4px solid var(--success-green);
+        }
+
+        .tile.summary {
+            background: linear-gradient(135deg, rgba(0,87,184,0.05), rgba(0,200,232,0.05));
+            border: 2px solid var(--vtl-cyan);
+        }
+
+        .section-label {
+            font-weight: 700;
+            color: var(--evosystem-black);
+            display: block;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .tile-title {
+                font-size: 1.3rem;
+            }
+
+            .tile {
+                padding: 1.5rem;
+            }
+
+            .content {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">A</div>
+                <span>AppWow</span>
+            </a>
+            <a href="./index.html" class="back-link">← Back to Home</a>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+        <h1 class="page-title">LINK3</h1>
+
+        <!-- Tile 1: LINK3 Overview -->
+        <div class="tile">
+            <h2 class="tile-title">LINK3 — Structured Discovery System based upon three distinct stages.</h2>
+            <p>LINK3 controls how content (listed items) is/are discovered and how users (AppWow registered members) are allowed to act on the content listed.</p>
+            <p>It separates who can see from who can act, allowing AppWow to scale discovery without becoming a marketplace.</p>
+        </div>
+
+        <!-- Tile 2: Core Principle -->
+        <div class="tile">
+            <h2 class="tile-title">Visibility and Action Are Separate</h2>
+            <p>On AppWow, seeing something and acting on it are purposely two different things.</p>
+            <p>LINK3 defines:</p>
+            <ul>
+                <li>who can view content at what stage</li>
+                <li>who can act on it at what stage</li>
+            </ul>
+            <p>Action rights increase only where validation and registration level allow.</p>
+        </div>
+
+        <!-- Tile 3: Registration & Validation -->
+        <div class="tile">
+            <h2 class="tile-title">Registration Adds Validation</h2>
+            <p>AppWow registration creates a validation layer.</p>
+            <p>Registered users:</p>
+            <ul>
+                <li>are identifiable within platform rules</li>
+                <li>operate under defined behavioural standards</li>
+                <li>can be granted controlled access and action rights</li>
+            </ul>
+            <p>This validation is what makes LINK3 possible.</p>
+        </div>
+
+        <!-- Tile 4: Stage 1 -->
+        <div class="tile stage-1">
+            <h2 class="tile-title">Stage 1 — Controlled Discovery</h2>
+            
+            <span class="section-label">Who can see:</span>
+            <ul>
+                <li>Stage 1 registered persons</li>
+                <li>Stage 2 registered users</li>
+            </ul>
+
+            <span class="section-label">Who can act:</span>
+            <ul>
+                <li>Stage 1 registered persons only (Professional Buyers / Dealers / Collectors etc whom are registered as Stage 1 members)</li>
+            </ul>
+
+            <p>Stage 1 is used where serious or sensitive engagement requires tight control and Listers require prompt action with best offers.</p>
+        </div>
+
+        <!-- Tile 5: Stage 2 -->
+        <div class="tile stage-2">
+            <h2 class="tile-title">Stage 2 — Registered Discovery</h2>
+            
+            <span class="section-label">Who can see:</span>
+            <ul>
+                <li>Stage 1 registered persons</li>
+                <li>Stage 2 registered users (General Dealers / Traders / Private Buyers etc)</li>
+                <li>myLynx-Gold members</li>
+            </ul>
+
+            <span class="section-label">Who can act:</span>
+            <ul>
+                <li>Stage 1 registered persons</li>
+                <li>Stage 2 registered users</li>
+            </ul>
+
+            <span class="section-label">myLynx Gold:</span>
+            <ul>
+                <li>view and save only</li>
+            </ul>
+
+            <p>Stage 2 expands visibility while keeping action rights deliberate.</p>
+        </div>
+
+        <!-- Tile 6: Stage 3 -->
+        <div class="tile stage-3">
+            <h2 class="tile-title">Stage 3 — LinxMart Display</h2>
+            
+            <span class="section-label">Who can see:</span>
+            <ul>
+                <li>everyone (registered or not)</li>
+            </ul>
+
+            <span class="section-label">Who can act:</span>
+            <ul>
+                <li>AppWow registered users / members</li>
+            </ul>
+
+            <p>LinxMart is a display centre with maximum visibility and controlled engagement.</p>
+        </div>
+
+        <!-- Tile 7: Summary -->
+        <div class="tile summary">
+            <h2 class="tile-title">How LINK3 Works</h2>
+            <p>LINK3 allows AppWow to show content widely without giving everyone the same powers.</p>
+            <p>All Stages are time controlled, usually:</p>
+            <ul>
+                <li>Stage 1 = 3 Days</li>
+                <li>Stage 2 = 3 Days</li>
+                <li>Stage 3 = 28 Days</li>
+            </ul>
+            <p>Visibility increases through the stages.</p>
+            <p>Action ability is always controlled by registered member status.</p>
+        </div>
+    </main>
+</body>
+</html>

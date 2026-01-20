@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legal & Trust - AppWow platform governance and privacy">
+    <title>Legal & Trust - AppWow</title>
+    <meta name="theme-color" content="#0057B8">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vtl-blue: #0057B8;
+            --vtl-cyan: #00C8E8;
+            --evosystem-black: #0A0A0A;
+            --technical-grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #fff;
+            color: var(--evosystem-black);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--evosystem-black);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0057B8, #00C8E8, #28A745, #FFC107, #DC3545, #8B5CF6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--evosystem-black);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--evosystem-black);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: var(--technical-grey);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .section ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        .section li {
+            font-size: 1.1rem;
+            color: var(--technical-grey);
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">A</div>
+                <span>AppWow</span>
+            </a>
+            <a href="./index.html" class="back-link">← Back to Home</a>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+        <h1 class="page-title">Legal & Trust</h1>
+
+        <section class="section">
+            <h2 class="section-title">Platform Positioning</h2>
+            <p>AppWow operates as a directory and discovery service.</p>
+            <p>It does not host third-party applications, process transactions, or act as a marketplace. Applications featured on AppWow are accessed directly from their original publishers.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Data & Privacy</h2>
+            <p>AppWow is built with a privacy-first philosophy.</p>
+            <ul>
+                <li>No unnecessary tracking</li>
+                <li>No sale of personal data</li>
+                <li>Minimal analytics for platform integrity only</li>
+            </ul>
+            <p>Users can browse AppWow without accounts or identification.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Content Responsibility</h2>
+            <p>Each application featured on AppWow remains the responsibility of its publisher.</p>
+            <p>AppWow does not modify, control, or interfere with third-party application behaviour. Clear removal and governance processes will apply where standards are not met.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Governance & Policy Direction</h2>
+            <p>Formal policies, terms, and governance frameworks will be published as the platform evolves.</p>
+            <p>These will focus on:</p>
+            <ul>
+                <li>Fair access</li>
+                <li>Abuse prevention</li>
+                <li>Transparency</li>
+                <li>User trust</li>
+            </ul>
+            <p>AppWow's priority is long-term credibility, not short-term scale.</p>
+        </section>
+    </main>
+</body>
+</html>

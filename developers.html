@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Developers - Publishing Instant Apps on AppWow">
+    <title>Developers - AppWow</title>
+    <meta name="theme-color" content="#0057B8">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vtl-blue: #0057B8;
+            --vtl-cyan: #00C8E8;
+            --evosystem-black: #0A0A0A;
+            --technical-grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #fff;
+            color: var(--evosystem-black);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: var(--evosystem-black);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0057B8, #00C8E8, #28A745, #FFC107, #DC3545, #8B5CF6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--evosystem-black);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--evosystem-black);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: var(--technical-grey);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .section ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        .section li {
+            font-size: 1.1rem;
+            color: var(--technical-grey);
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">A</div>
+                <span>AppWow</span>
+            </a>
+            <a href="./index.html" class="back-link">← Back to Home</a>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+        <h1 class="page-title">Developers</h1>
+
+        <section class="section">
+            <h2 class="section-title">Publishing on AppWow</h2>
+            <p>AppWow is designed to support Instant App developers who build focused, web-based applications using modern standards such as PWAs.</p>
+            <p>The platform favours:</p>
+            <ul>
+                <li>Clear purpose</li>
+                <li>Fast load times</li>
+                <li>Privacy-respecting design</li>
+                <li>Real-world utility</li>
+            </ul>
+            <p>This is not a volume marketplace. It is a curated environment.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">How AppWow Is Different</h2>
+            <p>Traditional app stores act as gatekeepers.</p>
+            <p>They impose:</p>
+            <ul>
+                <li>Complex submission processes</li>
+                <li>Revenue extraction models</li>
+                <li>Algorithmic visibility controls</li>
+            </ul>
+            <p>AppWow takes a different approach.</p>
+            <p>It is built as a discovery and visibility layer, not a distribution choke point. Developers retain ownership, control, and independence.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Instant Apps vs Native Apps (High Level)</h2>
+            <p>Instant Apps:</p>
+            <ul>
+                <li>Run directly in the browser</li>
+                <li>Work across devices</li>
+                <li>Update instantly</li>
+                <li>Require no installation</li>
+            </ul>
+            <p>Native apps:</p>
+            <ul>
+                <li>Require downloads</li>
+                <li>Are tied to platforms</li>
+                <li>Add friction for users</li>
+            </ul>
+            <p>AppWow exists because Instant Apps are now mature enough to stand on their own.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Roadmap (Informational Only)</h2>
+            <p>Future phases of AppWow will introduce:</p>
+            <ul>
+                <li>Structured submission workflows</li>
+                <li>Developer analytics</li>
+                <li>Optional monetisation support</li>
+            </ul>
+            <p>These features are not active yet and are intentionally staged to preserve platform quality and trust.</p>
+        </section>
+    </main>
+</body>
+</html>
