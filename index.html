@@ -578,6 +578,33 @@
     </nav>
 
     <script>
+        // Silent pre-caching of utility pages for offline functionality
+        // This ensures all utility toolbar apps are cached and work offline
+        function preCacheUtilityPages() {
+            const utilityPages = [
+                './linxlocal.html',
+                './carlinx.html',
+                './linxmart.html',
+                './homelinx.html',
+                './arcadia.html',
+                './mylynx.html'
+            ];
+            
+            // Silently fetch each page to trigger service worker caching
+            utilityPages.forEach(page => {
+                fetch(page, { mode: 'no-cors' })
+                    .then(() => console.log('[AppWow] Pre-cached:', page))
+                    .catch(err => console.log('[AppWow] Pre-cache failed for:', page, err));
+            });
+        }
+        
+        // Run pre-caching when page loads and service worker is ready
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(() => {
+                preCacheUtilityPages();
+            });
+        }
+
         // Menu functions
         function openMenu() {
             document.getElementById('menuOverlay').classList.add('active');
