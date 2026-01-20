@@ -946,5 +946,117 @@
             alert('Install LinxLocal as a standalone app on your device!\n\n(PWA installation prompt would appear here)');
         }
     </script>
+    
+  <script>
+    // PWA Manifest
+    const manifest = {
+        name: "LinxLocal - Local Business Discovery",
+        short_name: "LinxLocal",
+        description: "Discover local businesses in Brighton & Sussex",
+        start_url: "./linxlocal.html",
+        display: "standalone",
+        background_color: "#0057B8",
+        theme_color: "#0057B8",
+        icons: [{
+            src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230057B8'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>L</text></svg>",
+            sizes: "192x192",
+            type: "image/svg+xml"
+        }]
+    };
+
+    const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const manifestLink = document.createElement('link');
+    manifestLink.rel = 'manifest';
+    manifestLink.href = manifestURL;
+    document.head.appendChild(manifestLink);
+
+    // Service Worker for full offline capability
+    const swCode = `
+const CACHE_NAME = 'linxlocal-v1';
+const urlsToCache = [
+    './',
+    './linxlocal.html',
+    './?utm_source=homescreen'
+];
+
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then((cache) => {
+                console.log('LinxLocal: Cache opened');
+                return cache.addAll(urlsToCache);
+            })
+            .then(() => self.skipWaiting())
+    );
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('LinxLocal: Deleting old cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        }).then(() => self.clients.claim())
+    );
+});
+
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        caches.match(event.request)
+            .then((response) => {
+                // Cache hit - return response from cache
+                if (response) {
+                    return response;
+                }
+                
+                // Clone the request
+                const fetchRequest = event.request.clone();
+                
+                return fetch(fetchRequest).then((response) => {
+                    // Check if valid response
+                    if (!response || response.status !== 200 || response.type !== 'basic') {
+                        return response;
+                    }
+                    
+                    // Clone the response
+                    const responseToCache = response.clone();
+                    
+                    caches.open(CACHE_NAME)
+                        .then((cache) => {
+                            cache.put(event.request, responseToCache);
+                        });
+                    
+                    return response;
+                });
+            })
+            .catch(() => {
+                // Fallback for offline - return cached page
+                return caches.match('./linxlocal.html');
+            })
+    );
+});
+`;
+
+    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+    const swURL = URL.createObjectURL(swBlob);
+    
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register(swURL)
+                .then((registration) => {
+                    console.log('LinxLocal: Service Worker registered successfully:', registration.scope);
+                })
+                .catch((error) => {
+                    console.log('LinxLocal: Service Worker registration failed:', error);
+                });
+        });
+    }
+</script>  
 </body>
 </html>
