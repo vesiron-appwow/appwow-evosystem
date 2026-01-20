@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AppWow - Discover instant apps that work immediately. No downloads, no app stores, just apps that work.">
+    <meta name="description" content="AppWow - Instant Apps that work immediately, install only if you want, and feel like real apps from the first tap.">
     <title>AppWow - Instant Apps Marketplace</title>
     <meta name="theme-color" content="#0057B8">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
     <style>
         * {
             margin: 0;
@@ -20,11 +20,9 @@
             --evosystem-black: #0A0A0A;
             --technical-grey: #4A4A4A;
             --light-grey: #F2F2F2;
-            --light-blue: #E3F2FD;
             --success-green: #28A745;
             --warning-amber: #FFC107;
             --error-red: #DC3545;
-            --purple: #8B5CF6;
         }
 
         body {
@@ -32,13 +30,12 @@
             background: #fff;
             color: var(--evosystem-black);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* ========== SECTION 1: HEADER ========== */
+        /* Header Navigation */
         .header {
             background: var(--evosystem-black);
-            padding: 1rem 1.5rem;
+            padding: 1rem 2rem;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -51,6 +48,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .logo {
@@ -63,11 +62,10 @@
             text-decoration: none;
         }
 
-        /* PLACEHOLDER ICON - Replace with actual image when ready */
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #0057B8, #00C8E8);
+            background: linear-gradient(135deg, #0057B8, #00C8E8, #28A745, #FFC107, #DC3545, #8B5CF6);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -78,79 +76,86 @@
         }
 
         .hamburger {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
             display: flex;
             flex-direction: column;
             gap: 4px;
+            cursor: pointer;
+            padding: 8px;
         }
 
         .hamburger span {
-            width: 28px;
+            width: 25px;
             height: 3px;
             background: white;
             border-radius: 2px;
             transition: all 0.3s ease;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        /* Hamburger Menu Dropdown */
-        .hamburger-menu {
+        .menu-overlay {
             position: fixed;
-            top: 73px;
-            right: 0;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
             background: var(--evosystem-black);
-            width: 100%;
-            max-width: 300px;
-            box-shadow: -2px 2px 12px rgba(0,0,0,0.3);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 999;
+            z-index: 2000;
+            transition: right 0.3s ease;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.3);
         }
 
-        .hamburger-menu.active {
-            transform: translateX(0);
+        .menu-overlay.active {
+            right: 0;
         }
 
-        .hamburger-menu a {
+        .menu-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-close {
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .menu-links {
+            padding: 1rem 0;
+        }
+
+        .menu-link {
             display: block;
-            padding: 1.25rem 1.5rem;
+            padding: 1rem 1.5rem;
             color: white;
             text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
             font-weight: 500;
             transition: background 0.3s ease;
         }
 
-        .hamburger-menu a:hover {
+        .menu-link:hover {
             background: rgba(255,255,255,0.1);
         }
 
-        /* ========== SECTION 2: UTILITY TOOL BAR ========== */
+        /* Utility Tool Bar (Section 2) */
         .utility-toolbar {
             background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
-            padding: 2rem 1rem;
+            padding: 1.5rem 2rem;
+            overflow-x: auto;
         }
 
-        .utility-content {
+        .utility-toolbar-content {
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            display: flex;
             gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .utility-item {
@@ -158,7 +163,7 @@
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            padding: 1rem 0.5rem;
+            padding: 1rem 1.5rem;
             background: rgba(255,255,255,0.15);
             backdrop-filter: blur(10px);
             border-radius: 12px;
@@ -166,6 +171,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             color: white;
+            min-width: 110px;
             border: 2px solid transparent;
         }
 
@@ -175,975 +181,613 @@
             border-color: rgba(255,255,255,0.3);
         }
 
-        .utility-item:active {
-            transform: translateY(0);
-        }
-
-        /* PLACEHOLDER ICONS - Replace with actual images when ready */
         .utility-icon {
             width: 56px;
             height: 56px;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 700;
             background: white;
             color: var(--vtl-blue);
-            flex-shrink: 0;
-        }
-
-        .utility-icon.linxlocal {
-            background: linear-gradient(135deg, #0057B8, #00C8E8);
-            color: white;
-        }
-
-        .utility-icon.carlinx {
-            background: linear-gradient(135deg, #FFC107, #DC3545);
-            color: white;
-        }
-
-        .utility-icon.linxmart {
-            background: linear-gradient(135deg, #28A745, #00C8E8);
-            color: white;
-        }
-
-        .utility-icon.homelinx {
-            background: linear-gradient(135deg, #00C8E8, #28A745);
-            color: white;
-        }
-
-        .utility-icon.arcadia {
-            background: linear-gradient(135deg, #4A4A4A, #8B5CF6);
-            color: white;
         }
 
         .utility-label {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 600;
             text-align: center;
         }
 
-        /* ========== SECTION 3: LINK3 / myLynx TOOLBAR ========== */
+        /* LINK3 / myLynx Tool Bar (Section 3) */
         .link3-toolbar {
-            background: var(--light-blue);
-            padding: 1.5rem 1rem;
+            background: var(--light-grey);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #ddd;
         }
 
-        .link3-content {
+        .link3-toolbar-content {
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 1rem;
         }
 
         .link3-btn {
-            padding: 1rem 1.5rem;
+            flex: 1;
+            padding: 0.75rem 1.5rem;
             background: white;
             border: 2px solid var(--vtl-blue);
+            color: var(--vtl-blue);
             border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
             text-decoration: none;
-            color: var(--vtl-blue);
-            font-weight: 600;
-            font-size: 1rem;
+            display: block;
         }
 
         .link3-btn:hover {
             background: var(--vtl-blue);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,87,184,0.2);
         }
 
-        .link3-btn:active {
-            transform: translateY(0);
-        }
-
-        /* ========== SECTION 4 & 5: SCROLLABLE IA SECTIONS ========== */
-        .ia-section {
+        /* Scroll Sections */
+        .scroll-section {
             padding: 2rem 0;
             background: white;
         }
 
-        .ia-section:nth-of-type(even) {
-            background: var(--light-grey);
+        .scroll-section:nth-child(even) {
+            background: #fafafa;
         }
 
-        .ia-header {
-            padding: 0 1rem 1rem;
+        .scroll-header {
+            padding: 0 2rem 1rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .ia-title {
-            font-size: 1.5rem;
+        .scroll-title {
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--evosystem-black);
             margin-bottom: 0.5rem;
+            color: var(--evosystem-black);
         }
 
-        .ia-subtitle {
-            font-size: 0.95rem;
+        .scroll-description {
+            font-size: 1rem;
             color: var(--technical-grey);
         }
 
-        .ia-scroll {
+        .scroll-container {
             overflow-x: auto;
             overflow-y: hidden;
+            padding: 1rem 2rem;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: var(--vtl-cyan) var(--light-grey);
         }
 
-        .ia-scroll::-webkit-scrollbar {
+        .scroll-container::-webkit-scrollbar {
             height: 8px;
         }
 
-        .ia-scroll::-webkit-scrollbar-track {
-            background: var(--light-grey);
+        .scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
 
-        .ia-scroll::-webkit-scrollbar-thumb {
-            background: var(--vtl-cyan);
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: var(--vtl-blue);
             border-radius: 4px;
         }
 
-        .ia-cards {
+        .scroll-content {
             display: flex;
-            gap: 1rem;
-            padding: 0 1rem 1rem;
+            gap: 1.5rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .ia-card {
-            min-width: 280px;
-            max-width: 280px;
+        /* PWA Cards */
+        .pwa-card {
+            flex: 0 0 300px;
             background: white;
-            border-radius: 12px;
-            padding: 1.25rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             cursor: pointer;
             border: 2px solid transparent;
-            flex-shrink: 0;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
-        .ia-card:hover {
+        .pwa-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0,87,184,0.15);
+            box-shadow: 0 8px 24px rgba(0,87,184,0.15);
             border-color: var(--vtl-cyan);
         }
 
-        .ia-card-header {
+        .pwa-card-header {
             display: flex;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
             align-items: center;
         }
 
-        /* PLACEHOLDER ICONS - Replace with actual images when ready */
-        .ia-card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
+        .pwa-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             flex-shrink: 0;
         }
 
-        .ia-card-info {
+        .pwa-info {
             flex: 1;
-            min-width: 0;
         }
 
-        .ia-card-name {
-            font-size: 1.1rem;
+        .pwa-name {
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.25rem;
             color: var(--evosystem-black);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .ia-card-category {
-            font-size: 0.8rem;
+        .pwa-category {
+            font-size: 0.85rem;
             color: var(--technical-grey);
             font-weight: 500;
         }
 
-        .ia-card-description {
+        .pwa-description {
             color: var(--technical-grey);
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-bottom: 0.75rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
         }
 
-        .ia-badge {
+        .pwa-badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
             background: var(--light-grey);
             color: var(--technical-grey);
             border-radius: 6px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
         }
 
-        .ia-badge.featured {
+        .pwa-badge.reference {
             background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
             color: white;
         }
 
-        .ia-badge.new {
-            background: linear-gradient(135deg, var(--success-green), var(--warning-amber));
+        .pwa-badge.global {
+            background: linear-gradient(135deg, var(--success-green), var(--vtl-cyan));
             color: white;
         }
 
-        /* ========== SECTION 6: FOOTER MENU ========== */
+        /* Footer Menu (Section 6) */
         .footer-menu {
-            background: var(--technical-grey);
-            padding: 0;
             position: sticky;
             bottom: 0;
-            border-top: 1px solid rgba(0,0,0,0.2);
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+            background: #E8F4F8;
+            border-top: 2px solid var(--vtl-cyan);
+            padding: 0.75rem 1rem;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            z-index: 900;
         }
 
-        .footer-content {
+        .footer-menu-content {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-around;
-            align-items: stretch;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .footer-btn {
-            flex: 1;
-            padding: 0.75rem 0.5rem;
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            font-weight: 500;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.7);
+        .footer-menu-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             gap: 0.25rem;
+            padding: 0.5rem;
+            color: var(--technical-grey);
             text-decoration: none;
-            min-height: 60px;
-        }
-
-        .footer-btn:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .footer-btn.active {
-            color: var(--vtl-cyan);
-        }
-
-        .footer-icon {
-            font-size: 1.5rem;
-            line-height: 1;
-        }
-
-        .footer-label {
-            font-size: 0.7rem;
-            line-height: 1;
-        }
-
-        /* Search Overlay */
-        .search-overlay {
-            display: none;
-            position: fixed;
-            top: 73px;
-            left: 0;
-            right: 0;
-            bottom: 60px;
-            background: white;
-            z-index: 998;
-            overflow-y: auto;
-        }
-
-        .search-overlay.active {
-            display: block;
-        }
-
-        .search-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.1rem;
-            border: 2px solid var(--vtl-blue);
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--vtl-cyan);
-        }
-
-        .search-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .search-category {
-            padding: 1.5rem;
-            background: var(--light-grey);
-            border-radius: 12px;
-            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            flex: 1;
+            max-width: 100px;
+        }
+
+        .footer-menu-item:hover {
+            color: var(--vtl-blue);
+        }
+
+        .footer-menu-icon {
+            font-size: 1.5rem;
+        }
+
+        .footer-menu-label {
+            font-size: 0.7rem;
             font-weight: 600;
-            color: var(--evosystem-black);
+            text-align: center;
         }
 
-        .search-category:hover {
-            background: var(--vtl-blue);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* ========== INFO PAGES ========== */
-        .info-page {
-            display: none;
-            position: fixed;
-            top: 73px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: white;
-            z-index: 998;
-            overflow-y: auto;
-        }
-
-        .info-page.active {
-            display: block;
+        /* Info Section */
+        .info-section {
+            padding: 3rem 2rem;
+            background: var(--light-grey);
+            text-align: center;
         }
 
         .info-content {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
         }
 
-        .info-close {
-            position: sticky;
-            top: 1rem;
-            float: right;
-            background: var(--evosystem-black);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .info-page h1 {
-            font-size: 2.5rem;
+        .info-title {
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 1rem;
             color: var(--evosystem-black);
         }
 
-        .info-page h2 {
-            font-size: 1.75rem;
-            margin: 2rem 0 1rem;
-            color: var(--vtl-blue);
-        }
-
-        .info-page h3 {
-            font-size: 1.25rem;
-            margin: 1.5rem 0 0.75rem;
-            color: var(--technical-grey);
-        }
-
-        .info-page p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-            color: var(--technical-grey);
-        }
-
-        .info-page ul {
-            margin: 1rem 0 1rem 2rem;
-            line-height: 1.8;
-            color: var(--technical-grey);
-        }
-
-        .info-page ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .info-cta {
-            display: inline-block;
-            margin: 2rem 0;
-            padding: 1rem 2rem;
-            background: var(--vtl-blue);
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .info-cta:hover {
-            background: var(--vtl-cyan);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,87,184,0.3);
-        }
-
-        .pricing-box {
-            background: var(--light-grey);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 1rem 0;
-        }
-
-        .pricing-box h4 {
-            color: var(--vtl-blue);
+        .info-text {
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            color: var(--technical-grey);
+            line-height: 1.8;
+            margin-bottom: 1rem;
         }
 
-        /* ========== RESPONSIVE DESIGN ========== */
-        @media (min-width: 768px) {
-            .utility-content {
-                gap: 1.5rem;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .utility-toolbar-content {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
             }
 
-            .utility-icon {
-                width: 64px;
-                height: 64px;
-                font-size: 2rem;
-            }
-
-            .utility-label {
-                font-size: 0.95rem;
-            }
-
-            .ia-cards {
-                gap: 1.5rem;
-            }
-
-            .ia-card {
-                min-width: 320px;
-                max-width: 320px;
-            }
-
-            .search-categories {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .utility-content {
-                gap: 2rem;
-                padding: 0 2rem;
-            }
-
-            .ia-cards {
-                gap: 2rem;
-                padding: 0 2rem 1rem;
-            }
-
-            .ia-card {
-                min-width: 340px;
-                max-width: 340px;
-            }
-
-            .hamburger-menu {
-                max-width: 350px;
-            }
-        }
-
-        /* Mobile optimization for utility toolbar */
-        @media (max-width: 480px) {
-            .utility-label {
-                font-size: 0.75rem;
-            }
-
-            .utility-icon {
-                width: 48px;
-                height: 48px;
+            .scroll-title {
                 font-size: 1.5rem;
             }
 
-            .utility-item {
-                padding: 0.75rem 0.25rem;
+            .pwa-card {
+                flex: 0 0 280px;
             }
 
-            .footer-icon {
-                font-size: 1.3rem;
+            .footer-menu-content {
+                gap: 0.25rem;
             }
 
-            .footer-label {
-                font-size: 0.65rem;
+            .footer-menu-item {
+                padding: 0.25rem;
             }
+        }
+
+        /* Backdrop for menu */
+        .menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+
+        .menu-backdrop.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <!-- ========== SECTION 1: HEADER ========== -->
+    <!-- Menu Backdrop -->
+    <div id="menuBackdrop" class="menu-backdrop" onclick="closeMenu()"></div>
+
+    <!-- Menu Overlay -->
+    <div id="menuOverlay" class="menu-overlay">
+        <div class="menu-header">
+            <span style="color: white; font-weight: 700; font-size: 1.2rem;">Menu</span>
+            <button class="menu-close" onclick="closeMenu()">&times;</button>
+        </div>
+        <nav class="menu-links">
+            <a href="#about" class="menu-link" onclick="closeMenu()">About</a>
+            <a href="#developers" class="menu-link" onclick="closeMenu()">Developers</a>
+            <a href="#legal" class="menu-link" onclick="closeMenu()">Legal</a>
+        </nav>
+    </div>
+
+    <!-- Header (Section 1) -->
     <header class="header">
         <div class="header-content">
-            <a href="./" class="logo">
+            <a href="#" class="logo">
                 <div class="logo-icon">A</div>
                 <span>AppWow</span>
             </a>
-            <button class="hamburger" onclick="toggleHamburger()" aria-label="Menu">
+            <div class="hamburger" onclick="openMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
-            </button>
+            </div>
         </div>
     </header>
 
-    <!-- Hamburger Menu Dropdown -->
-    <nav class="hamburger-menu" id="hamburgerMenu">
-        <a href="#" onclick="showInfoPage('about'); closeHamburger(); return false;">About</a>
-        <a href="#" onclick="showInfoPage('developers'); closeHamburger(); return false;">Developers</a>
-        <a href="#" onclick="showInfoPage('legal'); closeHamburger(); return false;">Legal</a>
-    </nav>
-
-    <!-- ========== SECTION 2: UTILITY TOOL BAR ========== -->
-    <section class="utility-toolbar">
-        <div class="utility-content">
+    <!-- Utility Tool Bar (Section 2) -->
+    <div class="utility-toolbar">
+        <div class="utility-toolbar-content">
             <a href="./linxlocal.html" class="utility-item">
-                <div class="utility-icon linxlocal">L</div>
+                <div class="utility-icon" style="background: linear-gradient(135deg, #0057B8, #00C8E8);">L</div>
                 <span class="utility-label">LinxLocal</span>
             </a>
             <a href="./carlinx.html" class="utility-item">
-                <div class="utility-icon carlinx">C</div>
+                <div class="utility-icon" style="background: linear-gradient(135deg, #FFC107, #DC3545); color: white;">C</div>
                 <span class="utility-label">CarLinx</span>
             </a>
             <a href="./linxmart.html" class="utility-item">
-                <div class="utility-icon linxmart">M</div>
+                <div class="utility-icon" style="background: linear-gradient(135deg, #28A745, #00C8E8);">M</div>
                 <span class="utility-label">LinxMart</span>
             </a>
             <a href="./homelinx.html" class="utility-item">
-                <div class="utility-icon homelinx">H</div>
+                <div class="utility-icon" style="background: linear-gradient(135deg, #00C8E8, #28A745);">H</div>
                 <span class="utility-label">HomeLinx</span>
             </a>
             <a href="./arcadia.html" class="utility-item">
-                <div class="utility-icon arcadia">⛰</div>
+                <div class="utility-icon" style="background: linear-gradient(135deg, #4A4A4A, #0057B8);">⛰</div>
                 <span class="utility-label">Arcadia</span>
             </a>
         </div>
-    </section>
+    </div>
 
-    <!-- ========== SECTION 3: LINK3 / myLynx TOOLBAR ========== -->
-    <section class="link3-toolbar">
-        <div class="link3-content">
-            <a href="#" onclick="showInfoPage('link3'); return false;" class="link3-btn">LINK3</a>
-            <a href="./mylynx.html" class="link3-btn">myLynx</a>
+    <!-- LINK3 / myLynx Tool Bar (Section 3) -->
+    <div class="link3-toolbar">
+        <div class="link3-toolbar-content">
+            <a href="#link3" class="link3-btn">LINK3</a>
+            <a href="#mylynx" class="link3-btn">myLynx</a>
         </div>
-    </section>
+    </div>
 
-    <!-- ========== SECTION 4: FEATURED IA SCROLL ========== -->
-    <section class="ia-section">
-        <div class="ia-header">
-            <h2 class="ia-title">Featured Instant Apps</h2>
-            <p class="ia-subtitle">Established and proven apps across the AppWow Evosystem</p>
+    <!-- Featured IA Scroll (Section 4) -->
+    <section class="scroll-section">
+        <div class="scroll-header">
+            <h2 class="scroll-title">Featured Instant Apps</h2>
+            <p class="scroll-description">Established PWAs demonstrating instant access and reliability</p>
         </div>
-        <div class="ia-scroll">
-            <div class="ia-cards" id="featuredCards">
-                <!-- Cards will be dynamically loaded and randomized -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== SECTION 5: NEW / AI / SPECIAL IA SCROLL ========== -->
-    <section class="ia-section">
-        <div class="ia-header">
-            <h2 class="ia-title">New & Special Apps</h2>
-            <p class="ia-subtitle">Fresh releases and innovative AI-powered experiences</p>
-        </div>
-        <div class="ia-scroll">
-            <div class="ia-cards" id="newCards">
-                <!-- Cards will be dynamically loaded with random primary showcase -->
+        <div class="scroll-container">
+            <div id="featuredScroll" class="scroll-content">
+                <!-- Featured PWAs will be inserted here by JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- ========== SECTION 6: FOOTER MENU ========== -->
-    <footer class="footer-menu">
-        <div class="footer-content">
-            <a href="#" onclick="goHome(); return false;" class="footer-btn" id="homeBtn">
-                <span class="footer-icon">🏠</span>
-                <span class="footer-label">Home</span>
-            </a>
-            <a href="#" onclick="showCategory('sports'); return false;" class="footer-btn">
-                <span class="footer-icon">⚽</span>
-                <span class="footer-label">Sports</span>
-            </a>
-            <a href="#" onclick="showCategory('news'); return false;" class="footer-btn">
-                <span class="footer-icon">📰</span>
-                <span class="footer-label">News</span>
-            </a>
-            <a href="#" onclick="showCategory('business'); return false;" class="footer-btn">
-                <span class="footer-icon">💼</span>
-                <span class="footer-label">Business</span>
-            </a>
-            <a href="#" onclick="toggleSearch(); return false;" class="footer-btn" id="searchBtn">
-                <span class="footer-icon">🔍</span>
-                <span class="footer-label">Search</span>
-            </a>
+    <!-- New / Global IA Scroll (Section 5) -->
+    <section class="scroll-section">
+        <div class="scroll-header">
+            <h2 class="scroll-title">Global Instant Apps</h2>
+            <p class="scroll-description">Innovative PWAs with worldwide reach and impact</p>
         </div>
-    </footer>
-
-    <!-- ========== SEARCH OVERLAY ========== -->
-    <div class="search-overlay" id="searchOverlay">
-        <div class="search-container">
-            <h2 style="margin-bottom: 1rem;">Search AppWow</h2>
-            <input type="text" class="search-box" placeholder="Search for apps, categories, or features..." id="searchInput">
-            <div class="search-categories">
-                <div class="search-category">All Apps</div>
-                <div class="search-category">Local Business</div>
-                <div class="search-category">Automotive</div>
-                <div class="search-category">Property</div>
-                <div class="search-category">Shopping</div>
-                <div class="search-category">Entertainment</div>
-                <div class="search-category">Food & Drink</div>
-                <div class="search-category">Sports</div>
-                <div class="search-category">News</div>
-                <div class="search-category">Business</div>
-                <div class="search-category">Personal</div>
-                <div class="search-category">Gaming</div>
+        <div class="scroll-container">
+            <div id="globalScroll" class="scroll-content">
+                <!-- Global PWAs will be inserted here by JavaScript -->
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ========== INFO PAGES ========== -->
-    <!-- About Page -->
-    <div class="info-page" id="aboutPage">
+    <!-- Info Section -->
+    <section id="about" class="info-section">
         <div class="info-content">
-            <button class="info-close" onclick="closeInfoPage('about')" aria-label="Close">×</button>
-            <h1>About AppWow</h1>
-            
-            <h2>What is AppWow?</h2>
-            <p>AppWow is a global discovery and display platform dedicated to Instant Apps (IA's) — modern, installable Progressive Web Apps (PWA's) that run instantly in a browser, without downloads, app stores, or platform lock-in.</p>
-            <p>AppWow exists to make discovering, trusting, and using high-quality web-based applications simple, safe, and consistent worldwide.</p>
-
-            <h2>The AppWow Evosystem</h2>
-            <p>AppWow operates as part of the AppWow Evosystem — an intentionally evolving framework designed to support:</p>
-            <ul>
-                <li>Instant App discovery</li>
-                <li>Developer visibility and credibility</li>
-                <li>Sector-specific discovery portals</li>
-                <li>Cross-device compatibility</li>
-                <li>Long-term global scalability</li>
-            </ul>
-            <p>The Evosystem allows AppWow to grow organically without disrupting existing users or developers.</p>
-
-            <h2>Built for Global Growth</h2>
-            <p>AppWow is designed to be:</p>
-            <ul>
-                <li>Platform-agnostic</li>
-                <li>Internationally deployable</li>
-                <li>Region and language extensible</li>
-                <li>Developer-friendly</li>
-                <li>Privacy-respecting</li>
-            </ul>
-            <p>Instant Apps listed on AppWow may be accessed globally, subject only to developer-defined limitations.</p>
-        </div>
-    </div>
-
-    <!-- Developers Page -->
-    <div class="info-page" id="developersPage">
-        <div class="info-content">
-            <button class="info-close" onclick="closeInfoPage('developers')" aria-label="Close">×</button>
-            <h1>Developers</h1>
-            
-            <h2>AppWow for Developers</h2>
-            <p>AppWow is open to AppWow Registered Developers who create Progressive Web Apps (PWA's) suitable for instant access and public discovery.</p>
-            <p>AppWow is a display and discovery platform, not an app store or marketplace.</p>
-
-            <h2>Basic Listing Requirements</h2>
-            <p>Submitted Instant Apps must:</p>
-            <ul>
-                <li>Be a valid Progressive Web App (PWA)</li>
-                <li>Run reliably in modern browsers</li>
-                <li>Use HTTPS</li>
-                <li>Clearly identify the developer or publisher</li>
-                <li>Comply with applicable laws and regulations</li>
-                <li>Contain no malicious, deceptive, or unlawful content</li>
-            </ul>
-            <p>AppWow reserves the right to reject or remove listings that fail to meet these standards.</p>
-
-            <h2>Developer Membership & Pricing (UK)</h2>
-            <p style="font-size: 0.9rem; font-style: italic;">(All prices include VAT where applicable)</p>
-            
-            <div class="pricing-box">
-                <h4>Dev-1 — Up to 5 Live IA's</h4>
-                <p style="font-size: 1.25rem; font-weight: 700; color: var(--vtl-blue); margin: 0;">£12 per month</p>
-            </div>
-            
-            <div class="pricing-box">
-                <h4>Dev-2 — Up to 20 Live IA's</h4>
-                <p style="font-size: 1.25rem; font-weight: 700; color: var(--vtl-blue); margin: 0;">£30 per month</p>
-            </div>
-            
-            <div class="pricing-box">
-                <h4>Dev-3 — Up to 50 Live IA's</h4>
-                <p style="font-size: 1.25rem; font-weight: 700; color: var(--vtl-blue); margin: 0;">£48 per month</p>
-            </div>
-
-            <p>Membership pricing is based solely on the number of live listed IA's.</p>
-
-            <h2>No Commission. No Revenue Share. No Per-App Fees.</h2>
-            <p>AppWow operates on a simple membership model:</p>
-            <ul>
-                <li>No commission</li>
-                <li>No revenue share</li>
-                <li>No app sales or transaction fees</li>
-                <li>No hidden charges</li>
-            </ul>
-            <p>Once listed, 100% of all revenue generated by an Instant App remains with the revenue owner — either the developer, or the site/business owner where the developer has been commissioned to build the Instant App.</p>
-            <p>AppWow does not act as an app store, payment processor, reseller, broker, or agent. All monetisation, billing, users, and data remain outside AppWow.</p>
-
-            <a href="mailto:admin@vesiron.com?subject=Submit Instant App" class="info-cta">Submit Your Instant App</a>
-        </div>
-    </div>
-
-    <!-- Legal Page -->
-    <div class="info-page" id="legalPage">
-        <div class="info-content">
-            <button class="info-close" onclick="closeInfoPage('legal')" aria-label="Close">×</button>
-            <h1>Legal</h1>
-            
-            <h2>Terms & Conditions of Use</h2>
-            <p>AppWow provides information, links, and discovery services only.</p>
-            <ul>
-                <li>AppWow does not host or operate third-party Instant Apps</li>
-                <li>Use of listed IA's is at the user's discretion</li>
-                <li>Developers remain responsible for their applications</li>
-                <li>AppWow accepts no liability for third-party content</li>
-            </ul>
-            <p>Terms may be updated periodically.</p>
-
-            <h2>Privacy & GDPR</h2>
-            <p>AppWow operates in accordance with UK GDPR and applicable data protection laws.</p>
-            <ul>
-                <li>Minimal personal data collection</li>
-                <li>No sale of personal data</li>
-                <li>Data used only for operational or compliance purposes</li>
-                <li>Users may request access or deletion of their data</li>
-            </ul>
-
-            <h2>Contact</h2>
-            <p><strong>Email:</strong> <a href="mailto:admin@vesiron.com" style="color: var(--vtl-blue);">admin@vesiron.com</a></p>
-
-            <h2>Ownership Statement</h2>
-            <p>AppWow and all associated brand names, trade names, designs, and platform elements are the property of:</p>
-            <p><strong>Vesiron Technologies Ltd</strong><br>
-            Registered in England & Wales<br>
-            Company Registration Number: 16927866</p>
-            <p>All rights reserved.</p>
-        </div>
-    </div>
-
-    <!-- LINK3 Info Page -->
-    <div class="info-page" id="link3Page">
-        <div class="info-content">
-            <button class="info-close" onclick="closeInfoPage('link3')" aria-label="Close">×</button>
-            <h1>LINK3</h1>
-            
-            <p style="font-size: 1.1rem; font-weight: 500; color: var(--vtl-blue); margin-bottom: 2rem;">A structured, fair-access disposal and acquisition framework within AppWow.</p>
-
-            <h2>What is LINK3?</h2>
-            <p>LINK3 is a tiered interaction framework available to AppWow registered users, designed to manage the disposal and acquisition of items in a controlled, transparent way.</p>
-            <p><strong>It is not a marketplace or shop.</strong></p>
-            <p>It is a process layer that governs who can see what, when, and how.</p>
-
-            <h2>Who Can Use LINK3?</h2>
-            <ul>
-                <li>All AppWow registered users may access LINK3 at appropriate levels</li>
-                <li>myLynx-Gold enables expanded participation</li>
-                <li>Higher-value or sensitive actions are gated to protect users and sellers</li>
-            </ul>
-            <p>LINK3 supports both:</p>
-            <ul>
-                <li><strong>Disposal</strong> (offering items)</li>
-                <li><strong>Acquisition</strong> (expressing interest or intent)</li>
-            </ul>
-
-            <h2>Why LINK3 Exists</h2>
-            <p>LINK3 is designed to:</p>
-            <ul>
-                <li>Reduce spam, abuse, and bad-faith behaviour</li>
-                <li>Protect private individuals and serious sellers</li>
-                <li>Introduce fairness and order into discovery-led transactions</li>
-                <li>Separate display from engagement</li>
-            </ul>
-
-            <h2>LINK3 Levels</h2>
-            <ul>
-                <li>Structured access stages</li>
-                <li>Graduated permissions</li>
-                <li>Clear behavioural rules</li>
-                <li>Platform-wide enforcement logic</li>
-            </ul>
-
-            <p style="margin-top: 2rem; padding: 1.5rem; background: var(--light-blue); border-radius: 8px; font-size: 0.95rem;">
-                <strong>Note:</strong> Detailed LINK3 mechanics and level structures are explained in dedicated documentation. LINK3 functionality is integrated across CarLinx, HomeLinx, and other Evosystem platforms where applicable.
+            <h2 class="info-title">What is AppWow?</h2>
+            <p class="info-text">
+                AppWow is a global discovery and display platform for Instant Apps — 
+                modern Progressive Web Apps that work immediately in your browser, 
+                with no downloads or app store friction.
+            </p>
+            <p class="info-text">
+                Discover, try, and install apps instantly. It's that simple.
             </p>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer Menu (Section 6) -->
+    <nav class="footer-menu">
+        <div class="footer-menu-content">
+            <a href="#" class="footer-menu-item">
+                <div class="footer-menu-icon">🏠</div>
+                <div class="footer-menu-label">Home</div>
+            </a>
+            <a href="#sports" class="footer-menu-item">
+                <div class="footer-menu-icon">⚽</div>
+                <div class="footer-menu-label">Sports</div>
+            </a>
+            <a href="#news" class="footer-menu-item">
+                <div class="footer-menu-icon">📰</div>
+                <div class="footer-menu-label">News</div>
+            </a>
+            <a href="#business" class="footer-menu-item">
+                <div class="footer-menu-icon">💼</div>
+                <div class="footer-menu-label">Business</div>
+            </a>
+            <a href="#search" class="footer-menu-item">
+                <div class="footer-menu-icon">🔍</div>
+                <div class="footer-menu-label">Search</div>
+            </a>
+        </div>
+    </nav>
 
     <script>
-        // ========== FEATURED APPS DATA ========== 
-        const featuredApps = [
+        // Menu functions
+        function openMenu() {
+            document.getElementById('menuOverlay').classList.add('active');
+            document.getElementById('menuBackdrop').classList.add('active');
+        }
+
+        function closeMenu() {
+            document.getElementById('menuOverlay').classList.remove('active');
+            document.getElementById('menuBackdrop').classList.remove('active');
+        }
+
+        // Featured PWAs Data (Section 4)
+        const featuredPWAs = [
             {
-                name: "Cafe Menu",
-                category: "Food & Drink",
-                description: "A simple menu app for local cafes. Browse offerings, see prices, and order ahead.",
+                name: "Starbucks",
+                description: "Order, customise, and pay for drinks instantly using Starbucks' Progressive Web App.",
+                category: "Food & Drink • Retail",
+                url: "https://www.starbucks.com",
                 icon: "☕",
-                iconBg: "linear-gradient(135deg, #28A745, #00C8E8)",
-                badge: "featured"
+                gradient: "linear-gradient(135deg, #006241, #1E3932)",
+                badge: "Reference PWA"
             },
             {
-                name: "Brighton Plumbing",
-                category: "Home Services",
-                description: "Emergency plumbing services in Brighton. View services, get quotes, book appointments.",
-                icon: "🔧",
-                iconBg: "linear-gradient(135deg, #0057B8, #00C8E8)",
-                badge: "featured"
-            },
-            {
-                name: "Premium Motors",
-                category: "Automotive",
-                description: "Browse quality used vehicles with Link3 staged selling. Trade priority available.",
+                name: "Uber",
+                description: "Request rides, track drivers, and manage trips with Uber's lightweight PWA.",
+                category: "Transport • Mobility",
+                url: "https://m.uber.com",
                 icon: "🚗",
-                iconBg: "linear-gradient(135deg, #FFC107, #DC3545)",
-                badge: "featured"
+                gradient: "linear-gradient(135deg, #000000, #333333)",
+                badge: "Reference PWA"
             },
             {
-                name: "Coastal Properties",
-                category: "Property",
-                description: "Discover seaside properties in Sussex. View listings, book viewings, get valuations.",
+                name: "Airbnb",
+                description: "Discover and book places to stay worldwide with Airbnb's fast, image-rich PWA.",
+                category: "Travel • Accommodation",
+                url: "https://www.airbnb.com",
                 icon: "🏠",
-                iconBg: "linear-gradient(135deg, #00C8E8, #28A745)",
-                badge: "featured"
+                gradient: "linear-gradient(135deg, #FF5A5F, #FF385C)",
+                badge: "Reference PWA"
             },
             {
-                name: "John's Digital Card",
-                category: "Personal",
-                description: "Personal digital identity with contact info, social links, and portfolio showcase.",
-                icon: "👤",
-                iconBg: "linear-gradient(135deg, #8B5CF6, #DC3545)",
-                badge: "featured"
-            },
-            {
-                name: "Fresh Market",
-                category: "Shopping",
-                description: "Local farmers market with fresh produce. Order online for pickup or delivery.",
-                icon: "🥬",
-                iconBg: "linear-gradient(135deg, #28A745, #FFC107)",
-                badge: "featured"
-            },
-            {
-                name: "Fitness First",
-                category: "Sports",
-                description: "Personal training and gym sessions. Book classes, track progress, and achieve goals.",
-                icon: "💪",
-                iconBg: "linear-gradient(135deg, #DC3545, #8B5CF6)",
-                badge: "featured"
-            },
-            {
-                name: "Local News Hub",
-                category: "News",
-                description: "Community news and events. Stay informed about what's happening in your area.",
+                name: "The Guardian",
+                description: "Read breaking news, in-depth journalism, and opinion pieces offline or online.",
+                category: "News & Media",
+                url: "https://www.theguardian.com",
                 icon: "📰",
-                iconBg: "linear-gradient(135deg, #4A4A4A, #0057B8)",
-                badge: "featured"
+                gradient: "linear-gradient(135deg, #052962, #041F4A)",
+                badge: "Reference PWA"
+            },
+            {
+                name: "Financial Times",
+                description: "Global business and financial news delivered via a highly optimised PWA.",
+                category: "News & Business",
+                url: "https://www.ft.com",
+                icon: "📈",
+                gradient: "linear-gradient(135deg, #FFF1E5, #F2DFCE)",
+                badge: "Reference PWA"
+            },
+            {
+                name: "Trivago",
+                description: "Compare hotel prices across hundreds of booking sites in seconds.",
+                category: "Travel • Comparison",
+                url: "https://www.trivago.co.uk",
+                icon: "🏨",
+                gradient: "linear-gradient(135deg, #007FAD, #0AA0E8)",
+                badge: "Reference PWA"
+            },
+            {
+                name: "Spotify",
+                description: "Stream music and podcasts instantly with Spotify's adaptive web app.",
+                category: "Music & Audio",
+                url: "https://open.spotify.com",
+                icon: "🎵",
+                gradient: "linear-gradient(135deg, #1DB954, #1ED760)",
+                badge: "Reference PWA"
+            },
+            {
+                name: "Pinterest",
+                description: "Discover ideas, inspiration, and visual content with a fast-loading PWA.",
+                category: "Discovery • Lifestyle",
+                url: "https://www.pinterest.com",
+                icon: "📌",
+                gradient: "linear-gradient(135deg, #E60023, #FF2E4C)",
+                badge: "Reference PWA"
+            },
+            {
+                name: "Telegram",
+                description: "Cloud-based messaging with fast performance and multi-device access.",
+                category: "Communication",
+                url: "https://web.telegram.org",
+                icon: "✈️",
+                gradient: "linear-gradient(135deg, #0088CC, #2AABEE)",
+                badge: "Reference PWA"
+            },
+            {
+                name: "Twitter Lite",
+                description: "Lightweight access to real-time news, posts, and conversations.",
+                category: "Social • News",
+                url: "https://mobile.twitter.com",
+                icon: "🐦",
+                gradient: "linear-gradient(135deg, #1DA1F2, #0D8BCE)",
+                badge: "Reference PWA"
             }
         ];
 
-        // ========== NEW/SPECIAL APPS DATA ========== 
-        const newApps = [
+        // Global PWAs Data (Section 5)
+        const globalPWAs = [
             {
-                name: "AI Recipe Assistant",
-                category: "AI • Food",
-                description: "Get personalized recipes based on ingredients you have. AI-powered cooking companion.",
-                icon: "🤖",
-                iconBg: "linear-gradient(135deg, #8B5CF6, #00C8E8)",
-                badge: "new"
+                name: "AliExpress",
+                description: "Global online marketplace offering millions of products via a fast PWA.",
+                category: "Shopping • Marketplace",
+                url: "https://www.aliexpress.com",
+                icon: "🛒",
+                gradient: "linear-gradient(135deg, #FF4747, #FF7A00)",
+                badge: "Global PWA"
             },
             {
-                name: "Puzzle Quest",
-                category: "Gaming",
-                description: "Engaging puzzle game playable instantly. No install needed, works offline.",
-                icon: "🎮",
-                iconBg: "linear-gradient(135deg, #4A4A4A, #8B5CF6)",
-                badge: "new"
+                name: "Jumia",
+                description: "Africa's leading eCommerce platform built for low-bandwidth access.",
+                category: "Shopping • Marketplace",
+                url: "https://www.jumia.com",
+                icon: "🟠",
+                gradient: "linear-gradient(135deg, #F68B1E, #FFB347)",
+                badge: "Global PWA"
             },
             {
-                name: "Smart Budget Tracker",
-                category: "AI • Finance",
-                description: "AI-powered expense tracking and budget recommendations. Take control of your finances.",
-                icon: "💰",
-                iconBg: "linear-gradient(135deg, #28A745, #0057B8)",
-                badge: "new"
+                name: "Flipkart",
+                description: "Indian eCommerce giant delivering a full shopping experience via PWA.",
+                category: "Shopping • Retail",
+                url: "https://www.flipkart.com",
+                icon: "🛍️",
+                gradient: "linear-gradient(135deg, #2874F0, #5A9BFF)",
+                badge: "Global PWA"
             },
             {
-                name: "Quick Translate",
-                category: "AI • Utilities",
-                description: "Instant translation powered by AI. Supports 100+ languages with offline capability.",
-                icon: "🌐",
-                iconBg: "linear-gradient(135deg, #00C8E8, #8B5CF6)",
-                badge: "new"
+                name: "MakeMyTrip",
+                description: "Book flights, hotels, and travel services optimised for mobile access.",
+                category: "Travel • Booking",
+                url: "https://www.makemytrip.com",
+                icon: "✈️",
+                gradient: "linear-gradient(135deg, #E11C2A, #FF5A5F)",
+                badge: "Global PWA"
             },
             {
-                name: "Local Event Finder",
-                category: "Entertainment",
-                description: "Discover events happening near you. Concerts, markets, festivals, and more.",
-                icon: "🎉",
-                iconBg: "linear-gradient(135deg, #FFC107, #DC3545)",
-                badge: "new"
+                name: "Wego",
+                description: "Compare flights and hotels across Asia and the Middle East in seconds.",
+                category: "Travel • Comparison",
+                url: "https://www.wego.com",
+                icon: "🌍",
+                gradient: "linear-gradient(135deg, #00A7E1, #00C6FF)",
+                badge: "Global PWA"
             },
             {
-                name: "Meditation Space",
-                category: "Wellness",
-                description: "Guided meditation and mindfulness exercises. Find peace in your busy day.",
-                icon: "🧘",
-                iconBg: "linear-gradient(135deg, #8B5CF6, #28A745)",
-                badge: "new"
+                name: "Carsales",
+                description: "Australia's leading automotive marketplace with fast mobile browsing.",
+                category: "Automotive • Marketplace",
+                url: "https://www.carsales.com.au",
+                icon: "🚘",
+                gradient: "linear-gradient(135deg, #D32F2F, #F44336)",
+                badge: "Global PWA"
             }
         ];
 
-        // ========== RANDOMIZE AND RENDER CARDS ========== 
+        // Shuffle function for randomization
         function shuffleArray(array) {
             const shuffled = [...array];
             for (let i = shuffled.length - 1; i > 0; i--) {
@@ -1153,94 +797,42 @@
             return shuffled;
         }
 
-        function createCard(app) {
+        // Create PWA card
+        function createPWACard(pwa) {
+            const badgeClass = pwa.badge === "Global PWA" ? "global" : "reference";
+            
             return `
-                <div class="ia-card">
-                    <div class="ia-card-header">
-                        <div class="ia-card-icon" style="background: ${app.iconBg}; color: white;">${app.icon}</div>
-                        <div class="ia-card-info">
-                            <h3 class="ia-card-name">${app.name}</h3>
-                            <p class="ia-card-category">${app.category}</p>
+                <a href="${pwa.url}" target="_blank" rel="noopener noreferrer" class="pwa-card">
+                    <div class="pwa-card-header">
+                        <div class="pwa-icon" style="background: ${pwa.gradient};">${pwa.icon}</div>
+                        <div class="pwa-info">
+                            <h3 class="pwa-name">${pwa.name}</h3>
+                            <p class="pwa-category">${pwa.category}</p>
                         </div>
                     </div>
-                    <span class="ia-badge ${app.badge}">${app.badge === 'featured' ? 'Featured Instant App' : 'New Release'}</span>
-                    <p class="ia-card-description">${app.description}</p>
-                </div>
+                    <span class="pwa-badge ${badgeClass}">${pwa.badge}</span>
+                    <p class="pwa-description">${pwa.description}</p>
+                </a>
             `;
         }
 
-        // Render Featured Apps (randomized)
-        const featuredContainer = document.getElementById('featuredCards');
-        const shuffledFeatured = shuffleArray(featuredApps);
-        featuredContainer.innerHTML = shuffledFeatured.map(createCard).join('');
+        // Initialize PWA scrolls with randomization
+        function initializePWAScrolls() {
+            // Randomize and render Featured PWAs
+            const shuffledFeatured = shuffleArray(featuredPWAs);
+            const featuredContainer = document.getElementById('featuredScroll');
+            featuredContainer.innerHTML = shuffledFeatured.map(pwa => createPWACard(pwa)).join('');
 
-        // Render New Apps (randomized)
-        const newContainer = document.getElementById('newCards');
-        const shuffledNew = shuffleArray(newApps);
-        newContainer.innerHTML = shuffledNew.map(createCard).join('');
-
-        // ========== HAMBURGER MENU ========== 
-        function toggleHamburger() {
-            const hamburger = document.querySelector('.hamburger');
-            const menu = document.getElementById('hamburgerMenu');
-            hamburger.classList.toggle('active');
-            menu.classList.toggle('active');
+            // Randomize and render Global PWAs
+            const shuffledGlobal = shuffleArray(globalPWAs);
+            const globalContainer = document.getElementById('globalScroll');
+            globalContainer.innerHTML = shuffledGlobal.map(pwa => createPWACard(pwa)).join('');
         }
 
-        function closeHamburger() {
-            const hamburger = document.querySelector('.hamburger');
-            const menu = document.getElementById('hamburgerMenu');
-            hamburger.classList.remove('active');
-            menu.classList.remove('active');
-        }
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializePWAScrolls);
 
-        // Close hamburger when clicking outside
-        document.addEventListener('click', function(event) {
-            const hamburger = document.querySelector('.hamburger');
-            const menu = document.getElementById('hamburgerMenu');
-            if (!hamburger.contains(event.target) && !menu.contains(event.target)) {
-                closeHamburger();
-            }
-        });
-
-        // ========== INFO PAGES ========== 
-        function showInfoPage(page) {
-            // Hide all info pages
-            document.querySelectorAll('.info-page').forEach(p => p.classList.remove('active'));
-            // Show selected page
-            document.getElementById(page + 'Page').classList.add('active');
-        }
-
-        function closeInfoPage(page) {
-            document.getElementById(page + 'Page').classList.remove('active');
-        }
-
-        // ========== SEARCH FUNCTIONALITY ========== 
-        function toggleSearch() {
-            const overlay = document.getElementById('searchOverlay');
-            const searchBtn = document.getElementById('searchBtn');
-            const isActive = overlay.classList.toggle('active');
-            searchBtn.classList.toggle('active');
-            
-            if (isActive) {
-                document.getElementById('searchInput').focus();
-            }
-        }
-
-        // ========== FOOTER NAVIGATION ========== 
-        function goHome() {
-            // Close search if open
-            document.getElementById('searchOverlay').classList.remove('active');
-            document.getElementById('searchBtn').classList.remove('active');
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showCategory(category) {
-            alert('Category "' + category + '" coming soon! This will filter apps by category.');
-        }
-
-        // ========== PWA MANIFEST ========== 
+        // PWA Manifest
         const manifest = {
             name: "AppWow - Instant Apps Marketplace",
             short_name: "AppWow",
@@ -1248,42 +840,19 @@
             display: "standalone",
             background_color: "#0057B8",
             theme_color: "#0057B8",
-            description: "Discover instant apps that work immediately. No downloads, no app stores.",
             icons: [{
                 src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230057B8'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>🅰️</text></svg>",
                 sizes: "192x192",
                 type: "image/svg+xml"
             }]
         };
-        
         const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
         const manifestURL = URL.createObjectURL(manifestBlob);
         const manifestLink = document.createElement('link');
         manifestLink.rel = 'manifest';
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
-
-        // ========== SERVICE WORKER REGISTRATION ========== 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Check if sw.js exists before attempting registration
-                fetch('./sw.js', { method: 'HEAD' })
-                    .then(response => {
-                        if (response.ok) {
-                            navigator.serviceWorker.register('./sw.js').then(function(registration) {
-                                console.log('[AppWow] ServiceWorker registration successful');
-                            }, function(err) {
-                                console.log('[AppWow] ServiceWorker registration failed: ', err);
-                            });
-                        } else {
-                            console.log('[AppWow] ServiceWorker not available (sw.js not found) - app will work without offline capability');
-                        }
-                    })
-                    .catch(() => {
-                        console.log('[AppWow] ServiceWorker not available - app will work without offline capability');
-                    });
-            });
-        }
     </script>
 </body>
 </html>
+        
