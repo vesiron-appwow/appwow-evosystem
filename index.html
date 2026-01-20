@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AppWow - Instant Apps that work immediately, install only if you want, and feel like real apps from the first tap.">
+    <meta name="description" content="AppWow - Discover instant apps that work immediately. No downloads, no app stores, just apps that work.">
     <title>AppWow - Instant Apps Marketplace</title>
     <meta name="theme-color" content="#0057B8">
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🅰️</text></svg>">
     <style>
         * {
             margin: 0;
@@ -20,9 +20,11 @@
             --evosystem-black: #0A0A0A;
             --technical-grey: #4A4A4A;
             --light-grey: #F2F2F2;
+            --light-blue: #E3F2FD;
             --success-green: #28A745;
             --warning-amber: #FFC107;
             --error-red: #DC3545;
+            --purple: #8B5CF6;
         }
 
         body {
@@ -30,12 +32,13 @@
             background: #fff;
             color: var(--evosystem-black);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header Navigation */
+        /* ========== SECTION 1: HEADER ========== */
         .header {
             background: var(--evosystem-black);
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -48,8 +51,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
         }
 
         .logo {
@@ -62,10 +63,11 @@
             text-decoration: none;
         }
 
+        /* PLACEHOLDER ICON - Replace with actual image when ready */
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #0057B8, #00C8E8, #28A745, #FFC107, #DC3545, #8B5CF6);
+            background: linear-gradient(135deg, #0057B8, #00C8E8);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -75,57 +77,88 @@
             font-size: 1.5rem;
         }
 
-        .nav-links {
+        .hamburger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
             display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
             transition: all 0.3s ease;
-            font-weight: 500;
         }
 
-        .nav-link:hover {
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Hamburger Menu Dropdown */
+        .hamburger-menu {
+            position: fixed;
+            top: 73px;
+            right: 0;
+            background: var(--evosystem-black);
+            width: 100%;
+            max-width: 300px;
+            box-shadow: -2px 2px 12px rgba(0,0,0,0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .hamburger-menu.active {
+            transform: translateX(0);
+        }
+
+        .hamburger-menu a {
+            display: block;
+            padding: 1.25rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .hamburger-menu a:hover {
             background: rgba(255,255,255,0.1);
         }
 
-        .nav-link.cta {
-            background: var(--vtl-blue);
-            color: white;
-        }
-
-        .nav-link.cta:hover {
-            background: var(--vtl-cyan);
-        }
-
-        /* Linx Toolbar */
-        .linx-toolbar {
+        /* ========== SECTION 2: UTILITY TOOL BAR ========== */
+        .utility-toolbar {
             background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
-            padding: 1rem 2rem;
-            overflow-x: auto;
+            padding: 2rem 1rem;
         }
 
-        .linx-toolbar-content {
+        .utility-content {
             max-width: 1400px;
             margin: 0 auto;
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
             gap: 1rem;
-            justify-content: center;
-            align-items: center;
         }
 
-        .linx-item {
+        .utility-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
+            padding: 1rem 0.5rem;
             background: rgba(255,255,255,0.15);
             backdrop-filter: blur(10px);
             border-radius: 12px;
@@ -133,714 +166,1143 @@
             transition: all 0.3s ease;
             text-decoration: none;
             color: white;
-            min-width: 100px;
             border: 2px solid transparent;
         }
 
-        .linx-item:hover {
+        .utility-item:hover {
             background: rgba(255,255,255,0.25);
             transform: translateY(-2px);
             border-color: rgba(255,255,255,0.3);
         }
 
-        .linx-icon {
-            width: 48px;
-            height: 48px;
+        .utility-item:active {
+            transform: translateY(0);
+        }
+
+        /* PLACEHOLDER ICONS - Replace with actual images when ready */
+        .utility-icon {
+            width: 56px;
+            height: 56px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
             background: white;
             color: var(--vtl-blue);
+            flex-shrink: 0;
         }
 
-        .linx-label {
-            font-size: 0.9rem;
+        .utility-icon.linxlocal {
+            background: linear-gradient(135deg, #0057B8, #00C8E8);
+            color: white;
+        }
+
+        .utility-icon.carlinx {
+            background: linear-gradient(135deg, #FFC107, #DC3545);
+            color: white;
+        }
+
+        .utility-icon.linxmart {
+            background: linear-gradient(135deg, #28A745, #00C8E8);
+            color: white;
+        }
+
+        .utility-icon.homelinx {
+            background: linear-gradient(135deg, #00C8E8, #28A745);
+            color: white;
+        }
+
+        .utility-icon.arcadia {
+            background: linear-gradient(135deg, #4A4A4A, #8B5CF6);
+            color: white;
+        }
+
+        .utility-label {
+            font-size: 0.85rem;
             font-weight: 600;
             text-align: center;
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--light-grey) 0%, #fff 100%);
-            padding: 4rem 2rem;
-            text-align: center;
+        /* ========== SECTION 3: LINK3 / myLynx TOOLBAR ========== */
+        .link3-toolbar {
+            background: var(--light-blue);
+            padding: 1.5rem 1rem;
         }
 
-        .hero-content {
-            max-width: 900px;
+        .link3-content {
+            max-width: 1400px;
             margin: 0 auto;
-        }
-
-        .hero-tagline {
-            color: var(--technical-grey);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: var(--evosystem-black);
-            line-height: 1.2;
-        }
-
-        .hero-description {
-            font-size: 1.25rem;
-            color: var(--technical-grey);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .hero-buttons {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
         }
 
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--vtl-blue);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--vtl-cyan);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,87,184,0.3);
-        }
-
-        .btn-secondary {
-            background: var(--evosystem-black);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: var(--technical-grey);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--vtl-blue);
+        .link3-btn {
+            padding: 1rem 1.5rem;
+            background: white;
             border: 2px solid var(--vtl-blue);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: var(--vtl-blue);
+            font-weight: 600;
+            font-size: 1rem;
         }
 
-        .btn-outline:hover {
+        .link3-btn:hover {
             background: var(--vtl-blue);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,87,184,0.2);
         }
 
-        /* Featured Apps Section */
-        .section {
-            padding: 4rem 2rem;
+        .link3-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ========== SECTION 4 & 5: SCROLLABLE IA SECTIONS ========== */
+        .ia-section {
+            padding: 2rem 0;
+            background: white;
+        }
+
+        .ia-section:nth-of-type(even) {
+            background: var(--light-grey);
+        }
+
+        .ia-header {
+            padding: 0 1rem 1rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .section-header {
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
+        .ia-title {
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
             color: var(--evosystem-black);
+            margin-bottom: 0.5rem;
         }
 
-        .section-description {
-            font-size: 1.1rem;
+        .ia-subtitle {
+            font-size: 0.95rem;
             color: var(--technical-grey);
         }
 
-        /* App Grid */
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .ia-scroll {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--vtl-cyan) var(--light-grey);
         }
 
-        .app-card {
+        .ia-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .ia-scroll::-webkit-scrollbar-track {
+            background: var(--light-grey);
+        }
+
+        .ia-scroll::-webkit-scrollbar-thumb {
+            background: var(--vtl-cyan);
+            border-radius: 4px;
+        }
+
+        .ia-cards {
+            display: flex;
+            gap: 1rem;
+            padding: 0 1rem 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .ia-card {
+            min-width: 280px;
+            max-width: 280px;
             background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             cursor: pointer;
             border: 2px solid transparent;
-        }
-
-        .app-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,87,184,0.15);
-            border-color: var(--vtl-cyan);
-        }
-
-        .app-card-header {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            align-items: center;
-        }
-
-        .app-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
             flex-shrink: 0;
         }
 
-        .app-info {
-            flex: 1;
+        .ia-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,87,184,0.15);
+            border-color: var(--vtl-cyan);
         }
 
-        .app-name {
-            font-size: 1.3rem;
+        .ia-card-header {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            align-items: center;
+        }
+
+        /* PLACEHOLDER ICONS - Replace with actual images when ready */
+        .ia-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .ia-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ia-card-name {
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 0.25rem;
             color: var(--evosystem-black);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .app-category {
-            font-size: 0.85rem;
+        .ia-card-category {
+            font-size: 0.8rem;
             color: var(--technical-grey);
             font-weight: 500;
         }
 
-        .app-description {
+        .ia-card-description {
             color: var(--technical-grey);
-            margin-bottom: 1rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .app-badge {
+        .ia-badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
             background: var(--light-grey);
             color: var(--technical-grey);
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            margin-bottom: 1rem;
         }
 
-        .app-badge.featured {
+        .ia-badge.featured {
             background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
             color: white;
         }
 
-        .app-actions {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .app-btn {
-            flex: 1;
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .app-btn-primary {
-            background: var(--vtl-blue);
+        .ia-badge.new {
+            background: linear-gradient(135deg, var(--success-green), var(--warning-amber));
             color: white;
         }
 
-        .app-btn-primary:hover {
-            background: var(--vtl-cyan);
-        }
-
-        /* Info Boxes */
-        .info-boxes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .info-box {
-            background: var(--light-grey);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .info-box-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .info-box-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--evosystem-black);
-        }
-
-        .info-box-description {
-            color: var(--technical-grey);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--evosystem-black);
-            color: white;
-            padding: 3rem 2rem 1rem;
-            margin-top: 4rem;
+        /* ========== SECTION 6: FOOTER MENU ========== */
+        .footer-menu {
+            background: var(--light-blue);
+            padding: 0.75rem 1rem;
+            position: sticky;
+            bottom: 0;
+            border-top: 2px solid var(--vtl-cyan);
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
         }
 
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: 1fr auto auto auto 1fr;
+            gap: 0.75rem;
+            align-items: center;
         }
 
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--vtl-cyan);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.8);
+        .footer-btn {
+            padding: 0.75rem 1.25rem;
+            background: white;
+            border: 2px solid var(--vtl-blue);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--vtl-blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
             text-decoration: none;
-            transition: color 0.3s ease;
         }
 
-        .footer-links a:hover {
-            color: var(--vtl-cyan);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .app-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .linx-toolbar-content {
-                justify-content: flex-start;
-            }
-
-            .header-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links {
-                width: 100%;
-            }
-        }
-
-        /* Install Banner */
-        .install-banner {
-            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
+        .footer-btn:hover {
+            background: var(--vtl-blue);
             color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-            display: none;
+            transform: translateY(-2px);
         }
 
-        .install-banner.show {
+        .footer-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer-btn.active {
+            background: var(--vtl-blue);
+            color: white;
+        }
+
+        .footer-icon {
+            font-size: 1.25rem;
+        }
+
+        .footer-label {
+            font-size: 0.75rem;
+        }
+
+        /* Search Overlay */
+        .search-overlay {
+            display: none;
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            bottom: 74px;
+            background: white;
+            z-index: 998;
+            overflow-y: auto;
+        }
+
+        .search-overlay.active {
             display: block;
         }
 
-        .install-banner button {
-            background: white;
-            color: var(--vtl-blue);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--vtl-blue);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--vtl-cyan);
+        }
+
+        .search-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .search-category {
+            padding: 1.5rem;
+            background: var(--light-grey);
+            border-radius: 12px;
+            text-align: center;
             cursor: pointer;
-            margin-left: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--evosystem-black);
+        }
+
+        .search-category:hover {
+            background: var(--vtl-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ========== INFO PAGES ========== */
+        .info-page {
+            display: none;
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 998;
+            overflow-y: auto;
+        }
+
+        .info-page.active {
+            display: block;
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .info-close {
+            position: sticky;
+            top: 1rem;
+            float: right;
+            background: var(--evosystem-black);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .info-page h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--evosystem-black);
+        }
+
+        .info-page h2 {
+            font-size: 1.75rem;
+            margin: 2rem 0 1rem;
+            color: var(--vtl-blue);
+        }
+
+        .info-page h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--technical-grey);
+        }
+
+        .info-page p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: var(--technical-grey);
+        }
+
+        .info-page ul {
+            margin: 1rem 0 1rem 2rem;
+            line-height: 1.8;
+            color: var(--technical-grey);
+        }
+
+        .info-page ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-cta {
+            display: inline-block;
+            margin: 2rem 0;
+            padding: 1rem 2rem;
+            background: var(--vtl-blue);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .info-cta:hover {
+            background: var(--vtl-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,87,184,0.3);
+        }
+
+        .pricing-box {
+            background: var(--light-grey);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        .pricing-box h4 {
+            color: var(--vtl-blue);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (min-width: 768px) {
+            .utility-content {
+                gap: 1.5rem;
+            }
+
+            .utility-icon {
+                width: 64px;
+                height: 64px;
+                font-size: 2rem;
+            }
+
+            .utility-label {
+                font-size: 0.95rem;
+            }
+
+            .ia-cards {
+                gap: 1.5rem;
+            }
+
+            .ia-card {
+                min-width: 320px;
+                max-width: 320px;
+            }
+
+            .footer-content {
+                gap: 1.5rem;
+            }
+
+            .search-categories {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .utility-content {
+                gap: 2rem;
+                padding: 0 2rem;
+            }
+
+            .ia-cards {
+                gap: 2rem;
+                padding: 0 2rem 1rem;
+            }
+
+            .ia-card {
+                min-width: 340px;
+                max-width: 340px;
+            }
+
+            .hamburger-menu {
+                max-width: 350px;
+            }
+        }
+
+        /* Mobile optimization for utility toolbar */
+        @media (max-width: 480px) {
+            .utility-label {
+                font-size: 0.75rem;
+            }
+
+            .utility-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.5rem;
+            }
+
+            .utility-item {
+                padding: 0.75rem 0.25rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 0.5rem;
+            }
+
+            .footer-btn {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .footer-btn:nth-child(1) {
+                grid-column: 1;
+            }
+
+            .footer-btn:nth-child(5) {
+                grid-column: 3;
+            }
+
+            .footer-label {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Install Banner -->
-    <div id="installBanner" class="install-banner">
-        <span>Install AppWow for quick access to all Instant Apps</span>
-        <button onclick="installApp()">Install Now</button>
-        <button onclick="dismissBanner()" style="background: transparent; color: white; border: 1px solid white;">Not Now</button>
-    </div>
-
-    <!-- Header -->
+    <!-- ========== SECTION 1: HEADER ========== -->
     <header class="header">
         <div class="header-content">
-            <a href="#" class="logo">
+            <a href="./" class="logo">
                 <div class="logo-icon">A</div>
                 <span>AppWow</span>
             </a>
-            <nav class="nav-links">
-                <a href="#browse" class="nav-link">Browse Apps</a>
-                <a href="#about" class="nav-link">What Is an Instant App?</a>
-                <a href="#developers" class="nav-link">Developer Challenge</a>
-                <a href="#" class="nav-link cta">Install AppWow</a>
-            </nav>
+            <button class="hamburger" onclick="toggleHamburger()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
-    <!-- Linx Toolbar -->
-    <div class="linx-toolbar">
-        <div class="linx-toolbar-content">
-            <a href="./linxlocal.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #0057B8, #00C8E8);">L</div>
-                <span class="linx-label">LinxLocal</span>
+    <!-- Hamburger Menu Dropdown -->
+    <nav class="hamburger-menu" id="hamburgerMenu">
+        <a href="#" onclick="showInfoPage('about'); closeHamburger(); return false;">About</a>
+        <a href="#" onclick="showInfoPage('developers'); closeHamburger(); return false;">Developers</a>
+        <a href="#" onclick="showInfoPage('legal'); closeHamburger(); return false;">Legal</a>
+    </nav>
+
+    <!-- ========== SECTION 2: UTILITY TOOL BAR ========== -->
+    <section class="utility-toolbar">
+        <div class="utility-content">
+            <a href="./linxlocal.html" class="utility-item">
+                <div class="utility-icon linxlocal">L</div>
+                <span class="utility-label">LinxLocal</span>
             </a>
-            <a href="./carlinx.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #FFC107, #DC3545); color: white;">C</div>
-                <span class="linx-label">CarLinx</span>
+            <a href="./carlinx.html" class="utility-item">
+                <div class="utility-icon carlinx">C</div>
+                <span class="utility-label">CarLinx</span>
             </a>
-            <a href="./homelinx.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #00C8E8, #28A745);">H</div>
-                <span class="linx-label">HomeLinx</span>
+            <a href="./linxmart.html" class="utility-item">
+                <div class="utility-icon linxmart">M</div>
+                <span class="utility-label">LinxMart</span>
             </a>
-            <a href="./mylynx.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #8B5CF6, #DC3545);">m</div>
-                <span class="linx-label">mylynx</span>
+            <a href="./homelinx.html" class="utility-item">
+                <div class="utility-icon homelinx">H</div>
+                <span class="utility-label">HomeLinx</span>
             </a>
-            <a href="./arcadia.html" class="linx-item">
-                <div class="linx-icon" style="background: linear-gradient(135deg, #4A4A4A, #0057B8);">⛰</div>
-                <span class="linx-label">Arcadia</span>
+            <a href="./arcadia.html" class="utility-item">
+                <div class="utility-icon arcadia">⛰</div>
+                <span class="utility-label">Arcadia</span>
             </a>
         </div>
-    </div>
+    </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <p class="hero-tagline">Instant Apps. Simple, quick and easy — PDQ.</p>
-            <h1 class="hero-title">Welcome to AppWow</h1>
-            <p class="hero-description">
-                AppWow showcases Instant Apps that work immediately, install only if you want, 
-                and feel like real apps from the first tap.
-            </p>
-            <p class="hero-description">
-                No app store. No friction. Just apps that work — PDQ.
-            </p>
-            <div class="hero-buttons">
-                <a href="#browse" class="btn btn-primary">Browse App Directory</a>
-                <a href="#about" class="btn btn-secondary">What Is an Instant App?</a>
-                <a href="#developers" class="btn btn-outline">Developer Challenge</a>
+    <!-- ========== SECTION 3: LINK3 / myLynx TOOLBAR ========== -->
+    <section class="link3-toolbar">
+        <div class="link3-content">
+            <a href="#" onclick="showInfoPage('link3'); return false;" class="link3-btn">LINK3</a>
+            <a href="./mylynx.html" class="link3-btn">myLynx</a>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 4: FEATURED IA SCROLL ========== -->
+    <section class="ia-section">
+        <div class="ia-header">
+            <h2 class="ia-title">Featured Instant Apps</h2>
+            <p class="ia-subtitle">Established and proven apps across the AppWow Evosystem</p>
+        </div>
+        <div class="ia-scroll">
+            <div class="ia-cards" id="featuredCards">
+                <!-- Cards will be dynamically loaded and randomized -->
             </div>
         </div>
     </section>
 
-    <!-- Info Boxes -->
-    <section class="section">
-        <div class="info-boxes">
-            <div class="info-box">
-                <div class="info-box-icon">⚡</div>
-                <h3 class="info-box-title">Instant Access</h3>
-                <p class="info-box-description">No downloads required. Apps work immediately in your browser.</p>
-            </div>
-            <div class="info-box">
-                <div class="info-box-icon">📱</div>
-                <h3 class="info-box-title">Install If You Want</h3>
-                <p class="info-box-description">Like it? Add to home screen. It's that simple.</p>
-            </div>
-            <div class="info-box">
-                <div class="info-box-icon">🔌</div>
-                <h3 class="info-box-title">Works Offline</h3>
-                <p class="info-box-description">Many apps continue working even without internet.</p>
+    <!-- ========== SECTION 5: NEW / AI / SPECIAL IA SCROLL ========== -->
+    <section class="ia-section">
+        <div class="ia-header">
+            <h2 class="ia-title">New & Special Apps</h2>
+            <p class="ia-subtitle">Fresh releases and innovative AI-powered experiences</p>
+        </div>
+        <div class="ia-scroll">
+            <div class="ia-cards" id="newCards">
+                <!-- Cards will be dynamically loaded with random primary showcase -->
             </div>
         </div>
     </section>
 
-    <!-- Featured Apps -->
-    <section id="browse" class="section">
-        <div class="section-header">
-            <h2 class="section-title">Featured Instant Apps</h2>
-            <p class="section-description">Discover apps across multiple categories in the AppWow Evosystem</p>
-        </div>
-
-        <div class="app-grid">
-            <!-- LinxLocal Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #28A745, #00C8E8);">☕</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Cafe Menu</h3>
-                        <p class="app-category">Local Business • Food & Drink</p>
-                    </div>
-                </div>
-                <span class="app-badge featured">Featured Instant App</span>
-                <p class="app-description">A simple menu app for local cafes. Browse offerings, see prices, and order ahead.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Cafe Menu')">Open</button>
-                </div>
-            </div>
-
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #0057B8, #00C8E8);">🔧</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Brighton Plumbing</h3>
-                        <p class="app-category">Local Business • Home Services</p>
-                    </div>
-                </div>
-                <span class="app-badge">LinxLocal Trader</span>
-                <p class="app-description">Emergency plumbing services in Brighton. View services, get quotes, book appointments.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Brighton Plumbing')">Open</button>
-                </div>
-            </div>
-
-            <!-- CarLinx Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #FFC107, #DC3545);">🚗</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Premium Motors</h3>
-                        <p class="app-category">Automotive • Vehicle Sales</p>
-                    </div>
-                </div>
-                <span class="app-badge">CarLinx Trader • Link3 Enabled</span>
-                <p class="app-description">Browse quality used vehicles with Link3 staged selling. Trade priority available.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Premium Motors')">Open</button>
-                </div>
-            </div>
-
-            <!-- HomeLinx Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #00C8E8, #28A745);">🏠</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Coastal Properties</h3>
-                        <p class="app-category">Property • Estate Agent</p>
-                    </div>
-                </div>
-                <span class="app-badge">HomeLinx Trader</span>
-                <p class="app-description">Discover seaside properties in Sussex. View listings, book viewings, get valuations.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Coastal Properties')">Open</button>
-                </div>
-            </div>
-
-            <!-- mylynx Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #8B5CF6, #DC3545);">👤</div>
-                    <div class="app-info">
-                        <h3 class="app-name">John's Digital Card</h3>
-                        <p class="app-category">Personal • Digital Identity</p>
-                    </div>
-                </div>
-                <span class="app-badge">mylynx Profile</span>
-                <p class="app-description">Personal digital identity with contact info, social links, and portfolio showcase.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Johns Card')">Open</button>
-                </div>
-            </div>
-
-            <!-- Arcadia Apps -->
-            <div class="app-card">
-                <div class="app-card-header">
-                    <div class="app-icon" style="background: linear-gradient(135deg, #4A4A4A, #8B5CF6);">🎮</div>
-                    <div class="app-info">
-                        <h3 class="app-name">Puzzle Quest</h3>
-                        <p class="app-category">Entertainment • Gaming</p>
-                    </div>
-                </div>
-                <span class="app-badge">Arcadia Experience</span>
-                <p class="app-description">Engaging puzzle game playable instantly. No install needed, works offline.</p>
-                <div class="app-actions">
-                    <button class="app-btn app-btn-primary" onclick="openApp('Puzzle Quest')">Open</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- What Is an Instant App -->
-    <section id="about" class="section" style="background: var(--light-grey); margin: 4rem 0; padding: 4rem 2rem; border-radius: 24px;">
-        <div class="section-header" style="text-align: center;">
-            <h2 class="section-title">What Is an Instant App?</h2>
-            <p class="section-description" style="max-width: 700px; margin: 1rem auto;">
-                Instant Apps are Progressive Web Apps (PWAs) that combine the best of web and mobile apps. 
-                They work instantly in your browser, can be installed to your device, and work offline.
-            </p>
-        </div>
-        <div class="info-boxes">
-            <div class="info-box" style="background: white;">
-                <div class="info-box-icon">🌐</div>
-                <h3 class="info-box-title">Web-Based</h3>
-                <p class="info-box-description">Access instantly through any modern browser. No app store needed.</p>
-            </div>
-            <div class="info-box" style="background: white;">
-                <div class="info-box-icon">⚙️</div>
-                <h3 class="info-box-title">App-Like Experience</h3>
-                <p class="info-box-description">Feels like a native app with smooth interactions and fast performance.</p>
-            </div>
-            <div class="info-box" style="background: white;">
-                <div class="info-box-icon">📲</div>
-                <h3 class="info-box-title">Installable</h3>
-                <p class="info-box-description">Add to home screen for quick access, just like traditional apps.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Developer Challenge -->
-    <section id="developers" class="section">
-        <div class="section-header" style="text-align: center;">
-            <h2 class="section-title">Developer Challenge</h2>
-            <p class="section-description" style="max-width: 700px; margin: 1rem auto;">
-                Build Instant Apps and publish them on AppWow. Join our growing community of developers 
-                creating the next generation of web applications.
-            </p>
-            <div class="hero-buttons" style="margin-top: 2rem;">
-                <a href="#" class="btn btn-primary">Learn More</a>
-                <a href="#" class="btn btn-outline">View Documentation</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- ========== SECTION 6: FOOTER MENU ========== -->
+    <footer class="footer-menu">
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>AppWow</h3>
-                <p style="color: rgba(255,255,255,0.8);">
-                    The home for Instant Apps. Discover, install, and use apps instantly.
-                </p>
-            </div>
-            <div class="footer-section">
-                <h3>Products</h3>
-                <ul class="footer-links">
-                    <li><a href="#linxlocal">LinxLocal</a></li>
-                    <li><a href="#carlinx">CarLinx</a></li>
-                    <li><a href="#homelinx">HomeLinx</a></li>
-                    <li><a href="#mylynx">mylynx</a></li>
-                    <li><a href="#arcadia">Arcadia</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Resources</h3>
-                <ul class="footer-links">
-                    <li><a href="#about">What is an Instant App?</a></li>
-                    <li><a href="#developers">Developer Challenge</a></li>
-                    <li><a href="#docs">Documentation</a></li>
-                    <li><a href="#support">Support</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Company</h3>
-                <ul class="footer-links">
-                    <li><a href="#about-us">About VTL</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#privacy">Privacy Policy</a></li>
-                    <li><a href="#terms">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 AppWow. Part of the VTL Evosystem. All rights reserved.</p>
+            <a href="#" onclick="goHome(); return false;" class="footer-btn" id="homeBtn">
+                <span class="footer-icon">🏠</span>
+                <span class="footer-label">Home</span>
+            </a>
+            <a href="#" onclick="showCategory('sports'); return false;" class="footer-btn">
+                <span class="footer-icon">⚽</span>
+                <span class="footer-label">Sports</span>
+            </a>
+            <a href="#" onclick="showCategory('news'); return false;" class="footer-btn">
+                <span class="footer-icon">📰</span>
+                <span class="footer-label">News</span>
+            </a>
+            <a href="#" onclick="showCategory('business'); return false;" class="footer-btn">
+                <span class="footer-icon">💼</span>
+                <span class="footer-label">Business</span>
+            </a>
+            <a href="#" onclick="toggleSearch(); return false;" class="footer-btn" id="searchBtn">
+                <span class="footer-icon">🔍</span>
+                <span class="footer-label">Search</span>
+            </a>
         </div>
     </footer>
 
+    <!-- ========== SEARCH OVERLAY ========== -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <h2 style="margin-bottom: 1rem;">Search AppWow</h2>
+            <input type="text" class="search-box" placeholder="Search for apps, categories, or features..." id="searchInput">
+            <div class="search-categories">
+                <div class="search-category">All Apps</div>
+                <div class="search-category">Local Business</div>
+                <div class="search-category">Automotive</div>
+                <div class="search-category">Property</div>
+                <div class="search-category">Shopping</div>
+                <div class="search-category">Entertainment</div>
+                <div class="search-category">Food & Drink</div>
+                <div class="search-category">Sports</div>
+                <div class="search-category">News</div>
+                <div class="search-category">Business</div>
+                <div class="search-category">Personal</div>
+                <div class="search-category">Gaming</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== INFO PAGES ========== -->
+    <!-- About Page -->
+    <div class="info-page" id="aboutPage">
+        <div class="info-content">
+            <button class="info-close" onclick="closeInfoPage('about')" aria-label="Close">×</button>
+            <h1>About AppWow</h1>
+            
+            <h2>What is AppWow?</h2>
+            <p>AppWow is a global discovery and display platform dedicated to Instant Apps (IA's) — modern, installable Progressive Web Apps (PWA's) that run instantly in a browser, without downloads, app stores, or platform lock-in.</p>
+            <p>AppWow exists to make discovering, trusting, and using high-quality web-based applications simple, safe, and consistent worldwide.</p>
+
+            <h2>The AppWow Evosystem</h2>
+            <p>AppWow operates as part of the AppWow Evosystem — an intentionally evolving framework designed to support:</p>
+            <ul>
+                <li>Instant App discovery</li>
+                <li>Developer visibility and credibility</li>
+                <li>Sector-specific discovery portals</li>
+                <li>Cross-device compatibility</li>
+                <li>Long-term global scalability</li>
+            </ul>
+            <p>The Evosystem allows AppWow to grow organically without disrupting existing users or developers.</p>
+
+            <h2>Built for Global Growth</h2>
+            <p>AppWow is designed to be:</p>
+            <ul>
+                <li>Platform-agnostic</li>
+                <li>Internationally deployable</li>
+                <li>Region and language extensible</li>
+                <li>Developer-friendly</li>
+                <li>Privacy-respecting</li>
+            </ul>
+            <p>Instant Apps listed on AppWow may be accessed globally, subject only to developer-defined limitations.</p>
+        </div>
+    </div>
+
+    <!-- Developers Page -->
+    <div class="info-page" id="developersPage">
+        <div class="info-content">
+            <button class="info-close" onclick="closeInfoPage('developers')" aria-label="Close">×</button>
+            <h1>Developers</h1>
+            
+            <h2>AppWow for Developers</h2>
+            <p>AppWow is open to AppWow Registered Developers who create Progressive Web Apps (PWA's) suitable for instant access and public discovery.</p>
+            <p>AppWow is a display and discovery platform, not an app store or marketplace.</p>
+
+            <h2>Basic Listing Requirements</h2>
+            <p>Submitted Instant Apps must:</p>
+            <ul>
+                <li>Be a valid Progressive Web App (PWA)</li>
+                <li>Run reliably in modern browsers</li>
+                <li>Use HTTPS</li>
+                <li>Clearly identify the developer or publisher</li>
+                <li>Comply with applicable laws and regulations</li>
+                <li>Contain no malicious, deceptive, or unlawful content</li>
+            </ul>
+            <p>AppWow reserves the right to reject or remove listings that fail to meet these standards.</p>
+
+            <h2>Developer Membership & Pricing (UK)</h2>
+            <p style="font-size: 0.9rem; font-style: italic;">(All prices include VAT where applicable)</p>
+            
+            <div class="pricing-box">
+                <h4>Dev-1 — Up to 5 Live IA's</h4>
+                <p style="font-size: 1.25rem; font-weight: 700; color: var(--vtl-blue); margin: 0;">£12 per month</p>
+            </div>
+            
+            <div class="pricing-box">
+                <h4>Dev-2 — Up to 20 Live IA's</h4>
+                <p style="font-size: 1.25rem; font-weight: 700; color: var(--vtl-blue); margin: 0;">£30 per month</p>
+            </div>
+            
+            <div class="pricing-box">
+                <h4>Dev-3 — Up to 50 Live IA's</h4>
+                <p style="font-size: 1.25rem; font-weight: 700; color: var(--vtl-blue); margin: 0;">£48 per month</p>
+            </div>
+
+            <p>Membership pricing is based solely on the number of live listed IA's.</p>
+
+            <h2>No Commission. No Revenue Share. No Per-App Fees.</h2>
+            <p>AppWow operates on a simple membership model:</p>
+            <ul>
+                <li>No commission</li>
+                <li>No revenue share</li>
+                <li>No app sales or transaction fees</li>
+                <li>No hidden charges</li>
+            </ul>
+            <p>Once listed, 100% of all revenue generated by an Instant App remains with the revenue owner — either the developer, or the site/business owner where the developer has been commissioned to build the Instant App.</p>
+            <p>AppWow does not act as an app store, payment processor, reseller, broker, or agent. All monetisation, billing, users, and data remain outside AppWow.</p>
+
+            <a href="mailto:admin@vesiron.com?subject=Submit Instant App" class="info-cta">Submit Your Instant App</a>
+        </div>
+    </div>
+
+    <!-- Legal Page -->
+    <div class="info-page" id="legalPage">
+        <div class="info-content">
+            <button class="info-close" onclick="closeInfoPage('legal')" aria-label="Close">×</button>
+            <h1>Legal</h1>
+            
+            <h2>Terms & Conditions of Use</h2>
+            <p>AppWow provides information, links, and discovery services only.</p>
+            <ul>
+                <li>AppWow does not host or operate third-party Instant Apps</li>
+                <li>Use of listed IA's is at the user's discretion</li>
+                <li>Developers remain responsible for their applications</li>
+                <li>AppWow accepts no liability for third-party content</li>
+            </ul>
+            <p>Terms may be updated periodically.</p>
+
+            <h2>Privacy & GDPR</h2>
+            <p>AppWow operates in accordance with UK GDPR and applicable data protection laws.</p>
+            <ul>
+                <li>Minimal personal data collection</li>
+                <li>No sale of personal data</li>
+                <li>Data used only for operational or compliance purposes</li>
+                <li>Users may request access or deletion of their data</li>
+            </ul>
+
+            <h2>Contact</h2>
+            <p><strong>Email:</strong> <a href="mailto:admin@vesiron.com" style="color: var(--vtl-blue);">admin@vesiron.com</a></p>
+
+            <h2>Ownership Statement</h2>
+            <p>AppWow and all associated brand names, trade names, designs, and platform elements are the property of:</p>
+            <p><strong>Vesiron Technologies Ltd</strong><br>
+            Registered in England & Wales<br>
+            Company Registration Number: 16927866</p>
+            <p>All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- LINK3 Info Page -->
+    <div class="info-page" id="link3Page">
+        <div class="info-content">
+            <button class="info-close" onclick="closeInfoPage('link3')" aria-label="Close">×</button>
+            <h1>LINK3</h1>
+            
+            <p style="font-size: 1.1rem; font-weight: 500; color: var(--vtl-blue); margin-bottom: 2rem;">A structured, fair-access disposal and acquisition framework within AppWow.</p>
+
+            <h2>What is LINK3?</h2>
+            <p>LINK3 is a tiered interaction framework available to AppWow registered users, designed to manage the disposal and acquisition of items in a controlled, transparent way.</p>
+            <p><strong>It is not a marketplace or shop.</strong></p>
+            <p>It is a process layer that governs who can see what, when, and how.</p>
+
+            <h2>Who Can Use LINK3?</h2>
+            <ul>
+                <li>All AppWow registered users may access LINK3 at appropriate levels</li>
+                <li>myLynx-Gold enables expanded participation</li>
+                <li>Higher-value or sensitive actions are gated to protect users and sellers</li>
+            </ul>
+            <p>LINK3 supports both:</p>
+            <ul>
+                <li><strong>Disposal</strong> (offering items)</li>
+                <li><strong>Acquisition</strong> (expressing interest or intent)</li>
+            </ul>
+
+            <h2>Why LINK3 Exists</h2>
+            <p>LINK3 is designed to:</p>
+            <ul>
+                <li>Reduce spam, abuse, and bad-faith behaviour</li>
+                <li>Protect private individuals and serious sellers</li>
+                <li>Introduce fairness and order into discovery-led transactions</li>
+                <li>Separate display from engagement</li>
+            </ul>
+
+            <h2>LINK3 Levels</h2>
+            <ul>
+                <li>Structured access stages</li>
+                <li>Graduated permissions</li>
+                <li>Clear behavioural rules</li>
+                <li>Platform-wide enforcement logic</li>
+            </ul>
+
+            <p style="margin-top: 2rem; padding: 1.5rem; background: var(--light-blue); border-radius: 8px; font-size: 0.95rem;">
+                <strong>Note:</strong> Detailed LINK3 mechanics and level structures are explained in dedicated documentation. LINK3 functionality is integrated across CarLinx, HomeLinx, and other Evosystem platforms where applicable.
+            </p>
+        </div>
+    </div>
+
     <script>
-        // App opening functionality
-        function openApp(appName) {
-            alert('Opening ' + appName + '... This would navigate to the apps URL in production.');
+        // ========== FEATURED APPS DATA ========== 
+        const featuredApps = [
+            {
+                name: "Cafe Menu",
+                category: "Food & Drink",
+                description: "A simple menu app for local cafes. Browse offerings, see prices, and order ahead.",
+                icon: "☕",
+                iconBg: "linear-gradient(135deg, #28A745, #00C8E8)",
+                badge: "featured"
+            },
+            {
+                name: "Brighton Plumbing",
+                category: "Home Services",
+                description: "Emergency plumbing services in Brighton. View services, get quotes, book appointments.",
+                icon: "🔧",
+                iconBg: "linear-gradient(135deg, #0057B8, #00C8E8)",
+                badge: "featured"
+            },
+            {
+                name: "Premium Motors",
+                category: "Automotive",
+                description: "Browse quality used vehicles with Link3 staged selling. Trade priority available.",
+                icon: "🚗",
+                iconBg: "linear-gradient(135deg, #FFC107, #DC3545)",
+                badge: "featured"
+            },
+            {
+                name: "Coastal Properties",
+                category: "Property",
+                description: "Discover seaside properties in Sussex. View listings, book viewings, get valuations.",
+                icon: "🏠",
+                iconBg: "linear-gradient(135deg, #00C8E8, #28A745)",
+                badge: "featured"
+            },
+            {
+                name: "John's Digital Card",
+                category: "Personal",
+                description: "Personal digital identity with contact info, social links, and portfolio showcase.",
+                icon: "👤",
+                iconBg: "linear-gradient(135deg, #8B5CF6, #DC3545)",
+                badge: "featured"
+            },
+            {
+                name: "Fresh Market",
+                category: "Shopping",
+                description: "Local farmers market with fresh produce. Order online for pickup or delivery.",
+                icon: "🥬",
+                iconBg: "linear-gradient(135deg, #28A745, #FFC107)",
+                badge: "featured"
+            },
+            {
+                name: "Fitness First",
+                category: "Sports",
+                description: "Personal training and gym sessions. Book classes, track progress, and achieve goals.",
+                icon: "💪",
+                iconBg: "linear-gradient(135deg, #DC3545, #8B5CF6)",
+                badge: "featured"
+            },
+            {
+                name: "Local News Hub",
+                category: "News",
+                description: "Community news and events. Stay informed about what's happening in your area.",
+                icon: "📰",
+                iconBg: "linear-gradient(135deg, #4A4A4A, #0057B8)",
+                badge: "featured"
+            }
+        ];
+
+        // ========== NEW/SPECIAL APPS DATA ========== 
+        const newApps = [
+            {
+                name: "AI Recipe Assistant",
+                category: "AI • Food",
+                description: "Get personalized recipes based on ingredients you have. AI-powered cooking companion.",
+                icon: "🤖",
+                iconBg: "linear-gradient(135deg, #8B5CF6, #00C8E8)",
+                badge: "new"
+            },
+            {
+                name: "Puzzle Quest",
+                category: "Gaming",
+                description: "Engaging puzzle game playable instantly. No install needed, works offline.",
+                icon: "🎮",
+                iconBg: "linear-gradient(135deg, #4A4A4A, #8B5CF6)",
+                badge: "new"
+            },
+            {
+                name: "Smart Budget Tracker",
+                category: "AI • Finance",
+                description: "AI-powered expense tracking and budget recommendations. Take control of your finances.",
+                icon: "💰",
+                iconBg: "linear-gradient(135deg, #28A745, #0057B8)",
+                badge: "new"
+            },
+            {
+                name: "Quick Translate",
+                category: "AI • Utilities",
+                description: "Instant translation powered by AI. Supports 100+ languages with offline capability.",
+                icon: "🌐",
+                iconBg: "linear-gradient(135deg, #00C8E8, #8B5CF6)",
+                badge: "new"
+            },
+            {
+                name: "Local Event Finder",
+                category: "Entertainment",
+                description: "Discover events happening near you. Concerts, markets, festivals, and more.",
+                icon: "🎉",
+                iconBg: "linear-gradient(135deg, #FFC107, #DC3545)",
+                badge: "new"
+            },
+            {
+                name: "Meditation Space",
+                category: "Wellness",
+                description: "Guided meditation and mindfulness exercises. Find peace in your busy day.",
+                icon: "🧘",
+                iconBg: "linear-gradient(135deg, #8B5CF6, #28A745)",
+                badge: "new"
+            }
+        ];
+
+        // ========== RANDOMIZE AND RENDER CARDS ========== 
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
         }
 
-        // Install banner functionality
-        let deferredPrompt;
-        
-        window.addEventListener('beforeinstallprompt', function(e) {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBanner').classList.add('show');
+        function createCard(app) {
+            return `
+                <div class="ia-card">
+                    <div class="ia-card-header">
+                        <div class="ia-card-icon" style="background: ${app.iconBg}; color: white;">${app.icon}</div>
+                        <div class="ia-card-info">
+                            <h3 class="ia-card-name">${app.name}</h3>
+                            <p class="ia-card-category">${app.category}</p>
+                        </div>
+                    </div>
+                    <span class="ia-badge ${app.badge}">${app.badge === 'featured' ? 'Featured Instant App' : 'New Release'}</span>
+                    <p class="ia-card-description">${app.description}</p>
+                </div>
+            `;
+        }
+
+        // Render Featured Apps (randomized)
+        const featuredContainer = document.getElementById('featuredCards');
+        const shuffledFeatured = shuffleArray(featuredApps);
+        featuredContainer.innerHTML = shuffledFeatured.map(createCard).join('');
+
+        // Render New Apps (randomized)
+        const newContainer = document.getElementById('newCards');
+        const shuffledNew = shuffleArray(newApps);
+        newContainer.innerHTML = shuffledNew.map(createCard).join('');
+
+        // ========== HAMBURGER MENU ========== 
+        function toggleHamburger() {
+            const hamburger = document.querySelector('.hamburger');
+            const menu = document.getElementById('hamburgerMenu');
+            hamburger.classList.toggle('active');
+            menu.classList.toggle('active');
+        }
+
+        function closeHamburger() {
+            const hamburger = document.querySelector('.hamburger');
+            const menu = document.getElementById('hamburgerMenu');
+            hamburger.classList.remove('active');
+            menu.classList.remove('active');
+        }
+
+        // Close hamburger when clicking outside
+        document.addEventListener('click', function(event) {
+            const hamburger = document.querySelector('.hamburger');
+            const menu = document.getElementById('hamburgerMenu');
+            if (!hamburger.contains(event.target) && !menu.contains(event.target)) {
+                closeHamburger();
+            }
         });
 
-        function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(function(choiceResult) {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    }
-                    deferredPrompt = null;
-                    document.getElementById('installBanner').classList.remove('show');
-                });
+        // ========== INFO PAGES ========== 
+        function showInfoPage(page) {
+            // Hide all info pages
+            document.querySelectorAll('.info-page').forEach(p => p.classList.remove('active'));
+            // Show selected page
+            document.getElementById(page + 'Page').classList.add('active');
+        }
+
+        function closeInfoPage(page) {
+            document.getElementById(page + 'Page').classList.remove('active');
+        }
+
+        // ========== SEARCH FUNCTIONALITY ========== 
+        function toggleSearch() {
+            const overlay = document.getElementById('searchOverlay');
+            const searchBtn = document.getElementById('searchBtn');
+            const isActive = overlay.classList.toggle('active');
+            searchBtn.classList.toggle('active');
+            
+            if (isActive) {
+                document.getElementById('searchInput').focus();
             }
         }
 
-        function dismissBanner() {
-            document.getElementById('installBanner').classList.remove('show');
+        // ========== FOOTER NAVIGATION ========== 
+        function goHome() {
+            // Close search if open
+            document.getElementById('searchOverlay').classList.remove('active');
+            document.getElementById('searchBtn').classList.remove('active');
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // PWA Manifest (copied from working menulinx-admin.html)
-        var manifest = {
+        function showCategory(category) {
+            alert('Category "' + category + '" coming soon! This will filter apps by category.');
+        }
+
+        // ========== PWA MANIFEST ========== 
+        const manifest = {
             name: "AppWow - Instant Apps Marketplace",
             short_name: "AppWow",
             start_url: "./",
             display: "standalone",
             background_color: "#0057B8",
             theme_color: "#0057B8",
+            description: "Discover instant apps that work immediately. No downloads, no app stores.",
             icons: [{
                 src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230057B8'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>🅰️</text></svg>",
                 sizes: "192x192",
                 type: "image/svg+xml"
             }]
         };
-        var manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-        var manifestURL = URL.createObjectURL(manifestBlob);
-        var manifestLink = document.createElement('link');
+        
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const manifestLink = document.createElement('link');
         manifestLink.rel = 'manifest';
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
+
+        // ========== SERVICE WORKER REGISTRATION ========== 
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Check if sw.js exists before attempting registration
+                fetch('./sw.js', { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            navigator.serviceWorker.register('./sw.js').then(function(registration) {
+                                console.log('[AppWow] ServiceWorker registration successful');
+                            }, function(err) {
+                                console.log('[AppWow] ServiceWorker registration failed: ', err);
+                            });
+                        } else {
+                            console.log('[AppWow] ServiceWorker not available (sw.js not found) - app will work without offline capability');
+                        }
+                    })
+                    .catch(() => {
+                        console.log('[AppWow] ServiceWorker not available - app will work without offline capability');
+                    });
+            });
+        }
     </script>
 </body>
 </html>
