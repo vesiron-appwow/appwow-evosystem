@@ -125,92 +125,7 @@
             color: var(--evosystem-black);
         }
 
-        .search-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .input-group label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--technical-grey);
-        }
-
-        .input-group input,
-        .input-group select {
-            padding: 0.875rem;
-            border: 2px solid var(--light-grey);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            outline: none;
-            border-color: var(--vtl-cyan);
-        }
-
-        .btn-search {
-            background: var(--vtl-blue);
-            color: white;
-            align-self: flex-end;
-        }
-
-        .btn-search:hover {
-            background: var(--vtl-cyan);
-        }
-
-        /* Filters */
-        .filters {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
-            padding: 1rem 0;
-            border-top: 1px solid var(--light-grey);
-        }
-
-        .filter-label {
-            font-weight: 600;
-            color: var(--technical-grey);
-        }
-
-        .filter-chips {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .chip {
-            padding: 0.5rem 1rem;
-            background: var(--light-grey);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .chip:hover {
-            background: #e0e0e0;
-        }
-
-        .chip.active {
-            background: var(--vtl-blue);
-            color: white;
-            border-color: var(--vtl-blue);
-        }
-
-        /* View Toggle */
+        /* View Controls */
         .view-controls {
             max-width: 1400px;
             margin: 2rem auto;
@@ -224,35 +139,6 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--technical-grey);
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 0.5rem;
-            background: white;
-            padding: 0.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .view-btn {
-            padding: 0.75rem 1.25rem;
-            background: transparent;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            color: var(--technical-grey);
-        }
-
-        .view-btn:hover {
-            background: var(--light-grey);
-        }
-
-        .view-btn.active {
-            background: var(--vtl-blue);
-            color: white;
         }
 
         /* Results Container */
@@ -385,124 +271,16 @@
             background: #e0e0e0;
         }
 
-        /* List View */
-        .list-view {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .business-list-item {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            display: grid;
-            grid-template-columns: 80px 1fr auto;
-            gap: 1.5rem;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .business-list-item:hover {
-            box-shadow: 0 4px 12px rgba(0,87,184,0.2);
-            transform: translateX(4px);
-        }
-
-        .list-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-        }
-
-        .list-content {
-            flex: 1;
-        }
-
-        .list-meta {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.9rem;
-            color: var(--technical-grey);
-        }
-
-        .list-actions {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        /* Map View */
-        .map-view {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 1.5rem;
-            height: 600px;
-        }
-
-        .map-sidebar {
-            background: white;
-            border-radius: 12px;
-            padding: 1rem;
-            overflow-y: auto;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .map-list-item {
-            padding: 1rem;
-            border-bottom: 1px solid var(--light-grey);
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .map-list-item:hover {
-            background: var(--light-grey);
-        }
-
-        .map-list-item:last-child {
-            border-bottom: none;
-        }
-
-        .map-container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #e8f4f8, #f0f0f0);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .map-placeholder {
-            text-align: center;
-            color: var(--technical-grey);
-        }
-
-        .map-placeholder h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* View Hidden States */
-        .card-view.hidden,
-        .list-view.hidden,
-        .map-view.hidden {
-            display: none;
+        /* Real App Badge */
+        .real-app-badge {
+            display: inline-block;
+            background: var(--success-green);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
         }
 
         /* Powered by AppWow */
@@ -524,35 +302,7 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .map-view {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-
-            .map-container {
-                height: 400px;
-            }
-        }
-
         @media (max-width: 768px) {
-            .search-form {
-                grid-template-columns: 1fr;
-            }
-
-            .business-list-item {
-                grid-template-columns: 1fr;
-            }
-
-            .list-icon {
-                width: 60px;
-                height: 60px;
-            }
-
-            .list-actions {
-                flex-direction: column;
-            }
-
             .card-view {
                 grid-template-columns: 1fr;
             }
@@ -572,7 +322,6 @@
             </a>
             <div class="header-actions">
                 <button class="btn btn-outline" onclick="window.location.href='./index.html'">← Back to AppWow</button>
-                <button class="btn btn-outline" onclick="installLinxLocal()">Install App</button>
             </div>
         </div>
     </header>
@@ -580,374 +329,81 @@
     <!-- Search Section -->
     <section class="search-section">
         <div class="search-container">
-            <h2 class="search-title">Find Local Businesses in Brighton & Sussex</h2>
-            
-            <form class="search-form" onsubmit="performSearch(event)">
-                <div class="input-group">
-                    <label for="location">Location</label>
-                    <input type="text" id="location" placeholder="e.g., Brighton, Shoreham-by-Sea" value="Brighton">
-                </div>
-                
-                <div class="input-group">
-                    <label for="category">Category</label>
-                    <select id="category">
-                        <option value="all">All Categories</option>
-                        <option value="plumbing">Plumbing & Heating</option>
-                        <option value="electrical">Electrical Services</option>
-                        <option value="food">Cafes & Restaurants</option>
-                        <option value="automotive">Mechanics & Garages</option>
-                        <option value="beauty">Hair & Beauty</option>
-                        <option value="home">Home Services</option>
-                        <option value="trades">Trades & Construction</option>
-                    </select>
-                </div>
-                
-                <button type="submit" class="btn btn-search">Search</button>
-            </form>
-
-            <div class="filters">
-                <span class="filter-label">Distance:</span>
-                <div class="filter-chips">
-                    <div class="chip active" onclick="setDistance(this, 5)">Within 5 miles</div>
-                    <div class="chip" onclick="setDistance(this, 10)">Within 10 miles</div>
-                    <div class="chip" onclick="setDistance(this, 25)">Within 25 miles</div>
-                </div>
-            </div>
+            <h2 class="search-title">Discover Local Businesses in Brighton & Sussex</h2>
+            <p style="color: var(--technical-grey);">Browse instant apps from local traders. All content available offline once loaded.</p>
         </div>
     </section>
 
     <!-- View Controls -->
     <div class="view-controls">
         <div class="results-count">
-            <span id="resultCount">12</span> businesses found
-        </div>
-        <div class="view-toggle">
-            <button class="view-btn active" onclick="switchView('card')">📱 Cards</button>
-            <button class="view-btn" onclick="switchView('list')">📋 List</button>
-            <button class="view-btn" onclick="switchView('map')">🗺️ Map</button>
+            <span>2</span> businesses available <span class="real-app-badge">LIVE APPS</span>
         </div>
     </div>
 
     <!-- Results Container -->
     <div class="results-container">
         <!-- Card View -->
-        <div class="card-view" id="cardView">
-            <!-- Plumber -->
-            <div class="business-card" onclick="openBusiness('Brighton Plumbing Solutions')">
-                <div class="business-image">🔧</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Brighton Plumbing Solutions</h3>
-                            <p class="business-category">Plumbing & Heating</p>
-                        </div>
-                        <span class="business-distance">2.3 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Emergency plumbing services, boiler repairs, and bathroom installations. Available 24/7.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Brighton, BN1</div>
-                        <div class="detail-item">⭐ 4.8 (127 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0123')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Electrician -->
-            <div class="business-card" onclick="openBusiness('Sussex Electrical Services')">
-                <div class="business-image">⚡</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Sussex Electrical Services</h3>
-                            <p class="business-category">Electrical Services</p>
-                        </div>
-                        <span class="business-distance">1.8 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Certified electricians for domestic and commercial projects. Rewiring, testing, and installations.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Hove, BN3</div>
-                        <div class="detail-item">⭐ 4.9 (89 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0456')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cafe -->
-            <div class="business-card" onclick="openBusiness('The Cozy Corner Cafe')">
+        <div class="card-view">
+            <!-- Brighton Cafe - REAL WORKING APP -->
+            <div class="business-card" onclick="window.location.href='./linxlocal-brightoncafe.html'">
                 <div class="business-image">☕</div>
                 <div class="business-content">
                     <div class="business-header">
                         <div>
-                            <h3 class="business-name">The Cozy Corner Cafe</h3>
-                            <p class="business-category">Cafes & Restaurants</p>
-                        </div>
-                        <span class="business-distance">0.5 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Artisan coffee, homemade cakes, and breakfast menu. Dog-friendly with outdoor seating.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Brighton, BN2</div>
-                        <div class="detail-item">⭐ 4.7 (234 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0789')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mechanic -->
-            <div class="business-card" onclick="openBusiness('Shoreham Motors')">
-                <div class="business-image">🔩</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Shoreham Motors</h3>
-                            <p class="business-category">Mechanics & Garages</p>
-                        </div>
-                        <span class="business-distance">3.2 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Full service garage offering MOT, servicing, repairs, and diagnostics for all makes and models.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Shoreham-by-Sea, BN43</div>
-                        <div class="detail-item">⭐ 4.6 (156 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0234')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hairdresser -->
-            <div class="business-card" onclick="openBusiness('Brighton Beauty Studio')">
-                <div class="business-image">💇</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Brighton Beauty Studio</h3>
-                            <p class="business-category">Hair & Beauty</p>
-                        </div>
-                        <span class="business-distance">1.2 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Experienced stylists offering cuts, color, treatments, and special occasion styling.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Brighton, BN1</div>
-                        <div class="detail-item">⭐ 4.9 (312 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0567')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Carpenter -->
-            <div class="business-card" onclick="openBusiness('Sussex Carpentry')">
-                <div class="business-image">🪚</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Sussex Carpentry</h3>
-                            <p class="business-category">Trades & Construction</p>
-                        </div>
-                        <span class="business-distance">4.1 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Bespoke carpentry and joinery. Kitchens, wardrobes, shelving, and custom furniture.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Worthing, BN11</div>
-                        <div class="detail-item">⭐ 4.8 (98 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01903 555 0890')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add 6 more businesses to reach 12 total -->
-            <div class="business-card" onclick="openBusiness('The Garden Guru')">
-                <div class="business-image">🌿</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">The Garden Guru</h3>
-                            <p class="business-category">Home Services</p>
-                        </div>
-                        <span class="business-distance">2.7 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Professional garden maintenance, landscaping, and design services across Sussex.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Hove, BN3</div>
-                        <div class="detail-item">⭐ 4.7 (176 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0345')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="business-card" onclick="openBusiness('Quick Clean Services')">
-                <div class="business-image">✨</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Quick Clean Services</h3>
-                            <p class="business-category">Home Services</p>
-                        </div>
-                        <span class="business-distance">1.5 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Domestic and commercial cleaning. Regular or one-off deep cleans available.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Brighton, BN2</div>
-                        <div class="detail-item">⭐ 4.6 (203 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0678')">📞 Call</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="business-card" onclick="openBusiness('Brighton Pizza Co')">
-                <div class="business-image">🍕</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Brighton Pizza Co</h3>
+                            <h3 class="business-name">Brighton Cafe</h3>
                             <p class="business-category">Cafes & Restaurants</p>
                         </div>
                         <span class="business-distance">0.8 mi</span>
                     </div>
                     <p class="business-description">
-                        Wood-fired pizzas made fresh daily. Takeaway and delivery available.
+                        Artisan coffee, fresh pastries, and full breakfast menu. Locally roasted beans with vegan options.
                     </p>
                     <div class="business-details">
-                        <div class="detail-item">📍 Brighton, BN1</div>
-                        <div class="detail-item">⭐ 4.8 (445 reviews)</div>
-                        <div class="detail-item">✅ ViaFrame Trader IA</div>
+                        <div class="detail-item">📍 42 North Street, Brighton, BN1 1RJ</div>
+                        <div class="detail-item">⏰ Mon-Fri 7AM-6PM, Sat-Sun 8AM-5PM</div>
+                        <div class="detail-item">✅ Full Menu Available Offline</div>
                     </div>
                     <div class="business-actions">
-                        <button class="action-btn action-btn-primary">Open App</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); callBusiness('01273 555 0901')">📞 Call</button>
+                        <button class="action-btn action-btn-primary">View Full Menu</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273555123'">📞 Call</button>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- List View (Hidden by default) -->
-        <div class="list-view hidden" id="listView">
-            <div class="business-list-item" onclick="openBusiness('Brighton Plumbing Solutions')">
-                <div class="list-icon">🔧</div>
-                <div class="list-content">
-                    <h3 class="business-name">Brighton Plumbing Solutions</h3>
-                    <p class="business-category">Plumbing & Heating</p>
-                    <div class="list-meta">
-                        <span class="meta-item">📍 2.3 mi</span>
-                        <span class="meta-item">⭐ 4.8 (127 reviews)</span>
+            <!-- Emergency Plumber - REAL WORKING APP -->
+            <div class="business-card" onclick="window.location.href='./linxlocal-plumbing.html'">
+                <div class="business-image">🔧</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Brighton Emergency Plumbing</h3>
+                            <p class="business-category">Plumbing & Heating</p>
+                        </div>
+                        <span class="business-distance">2.3 mi</span>
                     </div>
-                </div>
-                <div class="list-actions">
-                    <button class="action-btn action-btn-primary">Open App</button>
-                </div>
-            </div>
-            <!-- More list items would be here -->
-        </div>
-
-        <!-- Map View (Hidden by default) -->
-        <div class="map-view hidden" id="mapView">
-            <div class="map-sidebar">
-                <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Nearby Businesses</h3>
-                <div class="map-list-item">
-                    <h4>Brighton Plumbing Solutions</h4>
-                    <p style="font-size: 0.9rem; color: var(--technical-grey);">2.3 mi • Plumbing</p>
-                </div>
-                <!-- More map items would be here -->
-            </div>
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <h3>🗺️ Map View</h3>
-                    <p>Interactive map showing business locations</p>
-                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">(Full map integration in production)</p>
+                    <p class="business-description">
+                        24/7 emergency plumbing, boiler repairs, installations. Gas Safe registered with 15+ years experience.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton, Hove & Surrounding Areas</div>
+                        <div class="detail-item">⏰ 24 Hours • 7 Days • Bank Holidays</div>
+                        <div class="detail-item">✅ All Services Available Offline</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Services & Prices</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273999888'">📞 Emergency</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="powered-by">
-        Powered by <a href="#">AppWow</a> • Part of the VTL Evosystem
+        Powered by <a href="./index.html">AppWow</a> • Part of the VTL Evosystem
     </div>
 
     <script>
-        function switchView(view) {
-            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            document.getElementById('cardView').classList.add('hidden');
-            document.getElementById('listView').classList.add('hidden');
-            document.getElementById('mapView').classList.add('hidden');
-            
-            document.getElementById(view + 'View').classList.remove('hidden');
-        }
-
-        function setDistance(element, miles) {
-            document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
-            element.classList.add('active');
-        }
-
-        function performSearch(e) {
-            e.preventDefault();
-            alert('Searching...\nIn production, this would filter results based on your criteria.');
-        }
-
-        function openBusiness(name) {
-            alert(`Opening ${name} Instant App...\n\nThis would launch the business's individual ViaFrame Trader IA with full details, menus, booking, etc.`);
-        }
-
-        function callBusiness(phone) {
-            window.location.href = `tel:${phone}`;
-        }
-
-        function backToAppWow() {
-            alert('Returning to AppWow...');
-        }
-
-        function installLinxLocal() {
-            alert('Install LinxLocal as a standalone app on your device!\n\n(PWA installation prompt would appear here)');
-        }
-    </script>
-
-     <script>
         // PWA Manifest
         const manifest = {
             name: "LinxLocal - Local Business Discovery",
@@ -970,20 +426,6 @@
         manifestLink.rel = 'manifest';
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
-
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./linxlocal-sw.js')
-                    .then((registration) => {
-                        console.log('✅ LinxLocal: Service Worker registered successfully');
-                        console.log('Scope:', registration.scope);
-                    })
-                    .catch((error) => {
-                        console.error('❌ LinxLocal: Service Worker registration failed:', error);
-                    });
-            });
-        }
     </script>
-    </body>
+</body>
 </html>
