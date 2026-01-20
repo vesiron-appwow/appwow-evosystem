@@ -598,22 +598,26 @@
                     const searchSection = document.createElement('div');
                     searchSection.id = 'searchSection';
                     searchSection.innerHTML = `
-                        <div style="background: white; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <div style="background: white; padding: 1.5rem 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                             <div style="max-width: 1400px; margin: 0 auto;">
-                                <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--evosystem-black);">Search AppWow</h2>
-                                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                                    <input type="text" id="searchInput" placeholder="Search apps, categories, or functions..." 
-                                        style="flex: 1; padding: 1rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
-                                    <button onclick="performSearch()" style="padding: 1rem 2rem; background: var(--vtl-blue); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Search</button>
-                                    <button onclick="toggleSearch(event)" style="padding: 1rem 2rem; background: var(--technical-grey); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Close</button>
+                                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--evosystem-black);">Search AppWow</h2>
+                                <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <input type="text" id="searchInput" placeholder="Search apps, categories..." 
+                                        style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                                    <div style="display: flex; gap: 0.75rem;">
+                                        <button onclick="performSearch()" style="flex: 1; padding: 0.875rem; background: var(--vtl-blue); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">Search</button>
+                                        <button onclick="toggleSearch(event)" style="flex: 1; padding: 0.875rem; background: var(--technical-grey); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">Close</button>
+                                    </div>
                                 </div>
-                                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                                    <span style="font-weight: 600; color: var(--technical-grey);">Categories:</span>
-                                    <button onclick="filterCategory('food')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Food & Drink</button>
-                                    <button onclick="filterCategory('transport')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Transport</button>
-                                    <button onclick="filterCategory('travel')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Travel</button>
-                                    <button onclick="filterCategory('local')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Local Business</button>
-                                    <button onclick="filterCategory('shopping')" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer;">Shopping</button>
+                                <div style="border-top: 1px solid var(--light-grey); padding-top: 1rem;">
+                                    <div style="font-weight: 600; color: var(--technical-grey); margin-bottom: 0.75rem; font-size: 0.9rem;">Categories:</div>
+                                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        <button onclick="filterCategory('food')" style="padding: 0.5rem 0.875rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer; font-size: 0.85rem;">Food & Drink</button>
+                                        <button onclick="filterCategory('transport')" style="padding: 0.5rem 0.875rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer; font-size: 0.85rem;">Transport</button>
+                                        <button onclick="filterCategory('travel')" style="padding: 0.5rem 0.875rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer; font-size: 0.85rem;">Travel</button>
+                                        <button onclick="filterCategory('local')" style="padding: 0.5rem 0.875rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer; font-size: 0.85rem;">Local Business</button>
+                                        <button onclick="filterCategory('shopping')" style="padding: 0.5rem 0.875rem; background: var(--light-grey); border: none; border-radius: 20px; cursor: pointer; font-size: 0.85rem;">Shopping</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
