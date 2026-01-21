@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HomeLinx - Discover properties for sale and rent in Brighton & Sussex.">
     <title>HomeLinx - Property Discovery</title>
+    <meta name="theme-color" content="#00C8E8">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -15,6 +16,7 @@
             --black: #0A0A0A;
             --grey: #4A4A4A;
             --light-grey: #F2F2F2;
+            --success-green: #28A745;
         }
 
         body {
@@ -52,13 +54,14 @@
         .logo-icon {
             width: 50px;
             height: 50px;
-            background: rgba(255,255,255,0.2);
+            background: white;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
             font-weight: 700;
+            color: var(--homelinx-teal);
         }
 
         .logo-text h1 {
@@ -128,11 +131,11 @@
 
         .card-view {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
         }
 
-        .property-card {
+        .business-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
@@ -141,134 +144,93 @@
             cursor: pointer;
         }
 
-        .property-card:hover {
+        .business-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0,200,232,0.3);
         }
 
-        .property-image {
+        .business-image {
             width: 100%;
-            height: 220px;
+            height: 180px;
             background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            position: relative;
         }
 
-        .property-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: white;
-        }
-
-        .for-sale {
-            background: var(--homelinx-green);
-        }
-
-        .to-rent {
-            background: var(--vtl-blue);
-        }
-
-        .property-content {
+        .business-content {
             padding: 1.5rem;
         }
 
-        .property-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--homelinx-teal);
-            margin-bottom: 0.5rem;
+        .business-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
         }
 
-        .property-address {
+        .business-name {
             font-size: 1.3rem;
             font-weight: 700;
+            color: var(--black);
             margin-bottom: 0.25rem;
         }
 
-        .property-location {
-            font-size: 0.95rem;
+        .business-category {
+            font-size: 0.85rem;
             color: var(--grey);
-            margin-bottom: 1rem;
+            font-weight: 500;
         }
 
-        .property-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
+        .business-distance {
+            background: var(--homelinx-teal);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .business-description {
+            color: var(--grey);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .business-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
             margin-bottom: 1rem;
             padding: 1rem;
             background: var(--light-grey);
             border-radius: 8px;
         }
 
-        .feature-item {
-            text-align: center;
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 0.9rem;
             color: var(--grey);
         }
 
-        .feature-value {
-            display: block;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 0.25rem;
-        }
-
-        .property-agent {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            background: var(--light-grey);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .agent-icon {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .agent-info h4 {
-            font-size: 0.95rem;
-            color: var(--black);
-        }
-
-        .agent-info p {
-            font-size: 0.85rem;
-            color: var(--grey);
-        }
-
-        .property-actions {
+        .business-actions {
             display: flex;
             gap: 0.75rem;
         }
 
         .action-btn {
             flex: 1;
-            padding: 0.875rem;
+            padding: 0.75rem;
             border-radius: 8px;
             text-align: center;
             font-weight: 600;
             cursor: pointer;
-            border: none;
-            font-size: 1rem;
             transition: all 0.3s;
+            border: none;
+            font-size: 0.95rem;
         }
 
         .action-btn-primary {
@@ -285,6 +247,21 @@
             color: var(--grey);
         }
 
+        .action-btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .real-app-badge {
+            display: inline-block;
+            background: var(--success-green);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
         .powered-by {
             text-align: center;
             padding: 2rem;
@@ -292,9 +269,13 @@
         }
 
         .powered-by a {
-            color: var(--vtl-blue);
+            color: var(--homelinx-teal);
             text-decoration: none;
             font-weight: 600;
+        }
+
+        .powered-by a:hover {
+            color: var(--homelinx-green);
         }
 
         @media (max-width: 768px) {
@@ -308,7 +289,7 @@
     <header class="header">
         <div class="header-content">
             <a href="#" class="logo">
-                <div class="logo-icon">🏠</div>
+                <div class="logo-icon">H</div>
                 <div class="logo-text">
                     <h1>HomeLinx</h1>
                     <p>Property Discovery</p>
@@ -316,14 +297,13 @@
             </a>
             <div style="display: flex; gap: 1rem;">
                 <button class="btn" onclick="window.location.href='./index.html'">← Back to AppWow</button>
-                <button class="btn" onclick="alert('Install HomeLinx')">Install App</button>
             </div>
         </div>
     </header>
 
     <section class="search-section">
         <div class="search-container">
-            <h2 class="search-title">Find Your Perfect Property in Brighton & Sussex</h2>
+            <h2 class="search-title">Find Properties & Agents in Brighton & Sussex</h2>
             
             <form style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
                 <div>
@@ -333,7 +313,7 @@
                         <option>To Rent</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Property Type</label>
                     <select style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
@@ -341,6 +321,18 @@
                         <option>Flats</option>
                         <option>Houses</option>
                         <option>Bungalows</option>
+                        <option>Commercial</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Agent Type</label>
+                    <select id="agentTypeSelect" onchange="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>All Agents</option>
+                        <option>Estate Agent</option>
+                        <option>Lettings Agent</option>
+                        <option>Valuation Service</option>
+                        <option>Private</option>
                     </select>
                 </div>
 
@@ -378,353 +370,320 @@
                 </div>
                 
                 <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Search</label>
+                    <input type="text" id="keywordSearch" placeholder="Agent or area..." oninput="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                </div>
+
+                <div>
                     <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Location</label>
                     <input type="text" value="Brighton" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
                 </div>
                 
-                <button type="button" onclick="alert('Searching properties...')" style="align-self: end; padding: 0.875rem; background: var(--homelinx-teal); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">Search</button>
+                <button type="button" onclick="performSearch()" style="align-self: end; padding: 0.875rem; background: var(--homelinx-teal); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">Search</button>
             </form>
 
             <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid var(--light-grey);">
                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                     <span style="font-weight: 600; color: var(--grey);">Distance:</span>
-                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--homelinx-teal)';" style="padding: 0.5rem 1rem; background: var(--homelinx-teal); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600; color: white;">5 miles</button>
-                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--homelinx-teal)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">10 miles</button>
-                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--homelinx-teal)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">25 miles</button>
+                    <button class="distance-btn" onclick="setMaxDistance(5)" style="padding: 0.5rem 1rem; background: var(--light-grey); color: var(--grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">5 miles</button>
+                    <button class="distance-btn" onclick="setMaxDistance(10)" style="padding: 0.5rem 1rem; background: var(--homelinx-teal); color: white; border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">10 miles</button>
+                    <button class="distance-btn" onclick="setMaxDistance(25)" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">25 miles</button>
                 </div>
             </div>
         </div>
     </section>
 
     <div class="view-controls">
-        <div class="results-count"><span>8</span> properties found</div>
+        <div class="results-count">
+            <span id="resultsCount">11</span> properties & agents available • <span class="real-app-badge">3 LIVE APPS</span>
+        </div>
     </div>
 
     <div class="results-container">
         <div class="card-view">
-            <!-- Property 1: Brighton Flat For Sale -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏢
-                    <div class="property-badge for-sale">For Sale</div>
+            <!-- Coastal Properties - REAL WORKING APP -->
+            <div class="business-card" onclick="window.location.href='./homelinx-coastal.html'">
+                <div class="business-image">🏖️</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Coastal Properties</h3>
+                            <p class="business-category">Estate Agent</p>
+                        </div>
+                        <span class="business-distance">1.2 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Seaside specialists with exclusive listings along Brighton Marina and seafront. Expert local knowledge since 1995.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton Marina Village, BN2 5WA</div>
+                        <div class="detail-item">⏰ Mon-Fri 9AM-6PM, Sat 9AM-5PM</div>
+                        <div class="detail-item">✅ Current Listings Available Offline</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Properties</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273876543'">📞 Call</button>
+                    </div>
                 </div>
-                <div class="property-content">
-                    <div class="property-price">£325,000</div>
-                    <h3 class="property-address">Modern 2 Bed Apartment</h3>
-                    <p class="property-location">📍 Brighton Marina, BN2 • 1.2 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">2</span>
-                            Bedrooms
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">1</span>
-                            Bathroom
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Parking
-                        </div>
-                    </div>
+            </div>
 
-                    <div class="property-agent">
-                        <div class="agent-icon">🏢</div>
-                        <div class="agent-info">
-                            <h4>Coastal Properties</h4>
-                            <p>HomeLinx Trader IA</p>
+            <!-- Sussex Rentals - REAL WORKING APP -->
+            <div class="business-card" onclick="window.location.href='./homelinx-rentals.html'">
+                <div class="business-image">🔑</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Sussex Rentals</h3>
+                            <p class="business-category">Lettings Agent</p>
                         </div>
+                        <span class="business-distance">0.8 mi</span>
                     </div>
+                    <p class="business-description">
+                        Professional lettings with tenant find, fully managed, and rent collection services. No upfront fees for tenants.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Church Road, Hove, BN3 2FL</div>
+                        <div class="detail-item">⏰ Mon-Fri 9AM-5:30PM, Sat 10AM-4PM</div>
+                        <div class="detail-item">✅ Available Rentals Offline</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Rentals</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273445566'">📞 Enquire</button>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+            <!-- Property Valuations - REAL WORKING APP -->
+            <div class="business-card" onclick="window.location.href='./homelinx-valuations.html'">
+                <div class="business-image">📊</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Property Valuations</h3>
+                            <p class="business-category">Valuation Service</p>
+                        </div>
+                        <span class="business-distance">2.1 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Independent RICS chartered surveyors providing accurate market valuations for sales, purchases, and remortgages.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Western Road, Brighton, BN1 2AA</div>
+                        <div class="detail-item">⏰ Mon-Fri 9AM-5PM (By appointment)</div>
+                        <div class="detail-item">✅ Service Info Available Offline</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Services</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273998877'">📞 Book</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORIGINAL PROPERTY EXAMPLES BELOW -->
+
+            <!-- Property 1: Brighton Flat For Sale -->
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏢</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Modern 2 Bed Apartment</h3>
+                            <p class="business-category">For Sale • £325,000</p>
+                        </div>
+                        <span class="business-distance">1.2 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Brighton Marina, BN2 • 2 bed • 1 bath • Parking
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton Marina</div>
+                        <div class="detail-item">🏢 Coastal Properties</div>
+                        <div class="detail-item">✅ Details available</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
                     </div>
                 </div>
             </div>
 
             <!-- Property 2: Hove House For Sale -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏡
-                    <div class="property-badge for-sale">For Sale</div>
-                </div>
-                <div class="property-content">
-                    <div class="property-price">£625,000</div>
-                    <h3 class="property-address">Victorian Terrace House</h3>
-                    <p class="property-location">📍 Hove, BN3 • 2.8 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">3</span>
-                            Bedrooms
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏡</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Victorian Terrace House</h3>
+                            <p class="business-category">For Sale • £625,000</p>
                         </div>
-                        <div class="feature-item">
-                            <span class="feature-value">2</span>
-                            Bathrooms
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Garden
-                        </div>
+                        <span class="business-distance">2.8 mi</span>
                     </div>
-
-                    <div class="property-agent">
-                        <div class="agent-icon">🏢</div>
-                        <div class="agent-info">
-                            <h4>Sussex Heritage Homes</h4>
-                            <p>HomeLinx Trader IA</p>
-                        </div>
+                    <p class="business-description">
+                        Hove, BN3 • 3 bed • 2 bath • Garden
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Hove</div>
+                        <div class="detail-item">🏢 Sussex Heritage Homes</div>
+                        <div class="detail-item">✅ Details available</div>
                     </div>
-
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
                     </div>
                 </div>
             </div>
 
             <!-- Property 3: Brighton Flat To Rent -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏢
-                    <div class="property-badge to-rent">To Rent</div>
-                </div>
-                <div class="property-content">
-                    <div class="property-price">£1,450 <span style="font-size: 0.6em; font-weight: 400;">pcm</span></div>
-                    <h3 class="property-address">City Centre Studio</h3>
-                    <p class="property-location">📍 Brighton, BN1 • 0.5 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">1</span>
-                            Bedroom
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏢</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">City Centre Studio</h3>
+                            <p class="business-category">To Rent • £1,450 pcm</p>
                         </div>
-                        <div class="feature-item">
-                            <span class="feature-value">1</span>
-                            Bathroom
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Furnished
-                        </div>
+                        <span class="business-distance">0.5 mi</span>
                     </div>
-
-                    <div class="property-agent">
-                        <div class="agent-icon">👤</div>
-                        <div class="agent-info">
-                            <h4>Private Landlord</h4>
-                            <p>mylynx Profile</p>
-                        </div>
+                    <p class="business-description">
+                        Brighton, BN1 • 1 bed • 1 bath • Furnished
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton City Centre</div>
+                        <div class="detail-item">👤 Private Landlord</div>
+                        <div class="detail-item">✅ Details available</div>
                     </div>
-
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Enquire</button>
                     </div>
                 </div>
             </div>
 
             <!-- Property 4: Worthing House For Sale -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏡
-                    <div class="property-badge for-sale">For Sale</div>
-                </div>
-                <div class="property-content">
-                    <div class="property-price">£475,000</div>
-                    <h3 class="property-address">Detached Family Home</h3>
-                    <p class="property-location">📍 Worthing, BN11 • 9.2 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">4</span>
-                            Bedrooms
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏡</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Detached Family Home</h3>
+                            <p class="business-category">For Sale • £475,000</p>
                         </div>
-                        <div class="feature-item">
-                            <span class="feature-value">2</span>
-                            Bathrooms
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Garage
-                        </div>
+                        <span class="business-distance">9.2 mi</span>
                     </div>
-
-                    <div class="property-agent">
-                        <div class="agent-icon">🏢</div>
-                        <div class="agent-info">
-                            <h4>Worthing Estate Agents</h4>
-                            <p>HomeLinx Trader IA</p>
-                        </div>
+                    <p class="business-description">
+                        Worthing, BN11 • 4 bed • 2 bath • Garage
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Worthing</div>
+                        <div class="detail-item">🏢 Worthing Estate Agents</div>
+                        <div class="detail-item">✅ Details available</div>
                     </div>
-
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
                     </div>
                 </div>
             </div>
 
             <!-- Property 5: Shoreham Flat To Rent -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏢
-                    <div class="property-badge to-rent">To Rent</div>
-                </div>
-                <div class="property-content">
-                    <div class="property-price">£1,095 <span style="font-size: 0.6em; font-weight: 400;">pcm</span></div>
-                    <h3 class="property-address">Seafront 2 Bed Flat</h3>
-                    <p class="property-location">📍 Shoreham-by-Sea, BN43 • 3.5 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">2</span>
-                            Bedrooms
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏢</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Seafront 2 Bed Flat</h3>
+                            <p class="business-category">To Rent • £1,095 pcm</p>
                         </div>
-                        <div class="feature-item">
-                            <span class="feature-value">1</span>
-                            Bathroom
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Balcony
-                        </div>
+                        <span class="business-distance">3.5 mi</span>
                     </div>
-
-                    <div class="property-agent">
-                        <div class="agent-icon">🏢</div>
-                        <div class="agent-info">
-                            <h4>Shoreham Lettings</h4>
-                            <p>HomeLinx Trader IA</p>
-                        </div>
+                    <p class="business-description">
+                        Shoreham-by-Sea, BN43 • 2 bed • 1 bath • Balcony
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Shoreham-by-Sea</div>
+                        <div class="detail-item">🏢 Shoreham Lettings</div>
+                        <div class="detail-item">✅ Details available</div>
                     </div>
-
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Enquire</button>
                     </div>
                 </div>
             </div>
 
             <!-- Property 6: Brighton Luxury Flat -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏢
-                    <div class="property-badge for-sale">For Sale</div>
-                </div>
-                <div class="property-content">
-                    <div class="property-price">£725,000</div>
-                    <h3 class="property-address">Penthouse Apartment</h3>
-                    <p class="property-location">📍 Brighton Seafront, BN2 • 1.8 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">3</span>
-                            Bedrooms
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏢</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Penthouse Apartment</h3>
+                            <p class="business-category">For Sale • £725,000</p>
                         </div>
-                        <div class="feature-item">
-                            <span class="feature-value">2</span>
-                            Bathrooms
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Terrace
-                        </div>
+                        <span class="business-distance">1.8 mi</span>
                     </div>
-
-                    <div class="property-agent">
-                        <div class="agent-icon">🏢</div>
-                        <div class="agent-info">
-                            <h4>Prestige Properties Brighton</h4>
-                            <p>HomeLinx Trader IA</p>
-                        </div>
+                    <p class="business-description">
+                        Brighton Seafront, BN2 • 3 bed • 2 bath • Terrace
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton Seafront</div>
+                        <div class="detail-item">🏢 Prestige Properties</div>
+                        <div class="detail-item">✅ Details available</div>
                     </div>
-
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
                     </div>
                 </div>
             </div>
 
             <!-- Property 7: Lewes Cottage -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏡
-                    <div class="property-badge for-sale">For Sale</div>
-                </div>
-                <div class="property-content">
-                    <div class="property-price">£395,000</div>
-                    <h3 class="property-address">Character Cottage</h3>
-                    <p class="property-location">📍 Lewes, BN7 • 12.5 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">2</span>
-                            Bedrooms
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏡</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Character Cottage</h3>
+                            <p class="business-category">For Sale • £395,000</p>
                         </div>
-                        <div class="feature-item">
-                            <span class="feature-value">1</span>
-                            Bathroom
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Garden
-                        </div>
+                        <span class="business-distance">12.5 mi</span>
                     </div>
-
-                    <div class="property-agent">
-                        <div class="agent-icon">👤</div>
-                        <div class="agent-info">
-                            <h4>Private Seller</h4>
-                            <p>mylynx Profile</p>
-                        </div>
+                    <p class="business-description">
+                        Lewes, BN7 • 2 bed • 1 bath • Garden
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Lewes</div>
+                        <div class="detail-item">👤 Private Seller</div>
+                        <div class="detail-item">✅ Details available</div>
                     </div>
-
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
                     </div>
                 </div>
             </div>
 
             <!-- Property 8: Brighton House Share -->
-            <div class="property-card" onclick="alert('Opening property details...')">
-                <div class="property-image">
-                    🏠
-                    <div class="property-badge to-rent">To Rent</div>
-                </div>
-                <div class="property-content">
-                    <div class="property-price">£695 <span style="font-size: 0.6em; font-weight: 400;">pcm</span></div>
-                    <h3 class="property-address">Double Room in House Share</h3>
-                    <p class="property-location">📍 Brighton, BN1 • 0.8 miles</p>
-                    
-                    <div class="property-features">
-                        <div class="feature-item">
-                            <span class="feature-value">1</span>
-                            Bedroom
+            <div class="business-card" onclick="alert('This is a demo property listing')">
+                <div class="business-image">🏠</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Double Room in House Share</h3>
+                            <p class="business-category">To Rent • £695 pcm</p>
                         </div>
-                        <div class="feature-item">
-                            <span class="feature-value">Shared</span>
-                            Facilities
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-value">✓</span>
-                            Bills Inc
-                        </div>
+                        <span class="business-distance">0.8 mi</span>
                     </div>
-
-                    <div class="property-agent">
-                        <div class="agent-icon">👤</div>
-                        <div class="agent-info">
-                            <h4>Current Tenant</h4>
-                            <p>mylynx Profile</p>
-                        </div>
+                    <p class="business-description">
+                        Brighton, BN1 • 1 room • Shared facilities • Bills Inc
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton</div>
+                        <div class="detail-item">👤 Current Tenant</div>
+                        <div class="detail-item">✅ Details available</div>
                     </div>
-
-                    <div class="property-actions">
-                        <button class="action-btn action-btn-primary">View Property IA</button>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Details</button>
                         <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Enquire</button>
                     </div>
                 </div>
@@ -733,7 +692,84 @@
     </div>
 
     <div class="powered-by">
-        Powered by <a href="#">AppWow</a> • Part of the VTL Evosystem
+        Powered by <a href="./index.html">AppWow</a> • Part of the VTL Evosystem
     </div>
+
+    <script>
+        // Search functionality
+        let currentMaxDistance = 10; // Default max distance in miles
+
+        function performSearch() {
+            const agentType = document.getElementById('agentTypeSelect').value.toLowerCase();
+            const keyword = document.getElementById('keywordSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.business-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.querySelector('.business-name').textContent.toLowerCase();
+                const category = card.querySelector('.business-category').textContent.toLowerCase();
+                const distanceText = card.querySelector('.business-distance')?.textContent || '0 mi';
+                const distance = parseFloat(distanceText);
+
+                // Check agent type match
+                const agentTypeMatch = agentType === 'all agents' || 
+                    category.includes(agentType);
+
+                // Check keyword match (searches in name and category)
+                const keywordMatch = keyword === '' || 
+                    name.includes(keyword) || 
+                    category.includes(keyword);
+
+                // Check distance match
+                const distanceMatch = distance <= currentMaxDistance;
+
+                // Show/hide card based on all criteria
+                if (agentTypeMatch && keywordMatch && distanceMatch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update count
+            document.getElementById('resultsCount').textContent = visibleCount;
+        }
+
+        function setMaxDistance(miles) {
+            currentMaxDistance = miles;
+            // Update button styles
+            document.querySelectorAll('.distance-btn').forEach(btn => {
+                btn.style.background = 'var(--light-grey)';
+                btn.style.color = 'var(--grey)';
+            });
+            event.target.style.background = 'var(--homelinx-teal)';
+            event.target.style.color = 'white';
+            performSearch();
+        }
+
+        // PWA Manifest
+        const manifest = {
+            name: "HomeLinx - Property Discovery",
+            short_name: "HomeLinx",
+            description: "Discover properties and agents in Brighton & Sussex",
+            start_url: "./homelinx.html",
+            display: "standalone",
+            background_color: "#00C8E8",
+            theme_color: "#00C8E8",
+            icons: [{
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%2300C8E8'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>H</text></svg>",
+                sizes: "192x192",
+                type: "image/svg+xml"
+            }]
+        };
+
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = manifestURL;
+        document.head.appendChild(manifestLink);
+    </script>
 </body>
 </html>

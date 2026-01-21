@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LinxMart - Community Display Centre</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
+  <title>LinxMart - Marketplace Discovery</title>
+  <meta name="theme-color" content="#28A745">
   <style>
     * {
       margin: 0;
@@ -16,1662 +13,743 @@
     }
 
     :root {
-      --bg-primary: #0a0e1a;
-      --bg-secondary: #111827;
-      --bg-tertiary: #1f2937;
-      --bg-card: #1a1f2e;
-      --bg-hover: #252b3f;
-      --text-primary: #f9fafb;
-      --text-secondary: #d1d5db;
-      --text-muted: #9ca3af;
-      --accent-primary: #00d9ff;
-      --accent-secondary: #00a8ff;
-      --accent-gold: #FFD700;
-      --accent-glow: rgba(0, 217, 255, 0.1);
-      --border-color: rgba(255, 255, 255, 0.1);
-      --border-accent: rgba(0, 217, 255, 0.3);
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --info: #3b82f6;
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 20px rgba(0, 217, 255, 0.15);
-      --radius-sm: 0.375rem;
-      --radius-md: 0.5rem;
-      --radius-lg: 0.75rem;
-      --transition: all 0.2s ease;
+      --linxmart-green: #28A745;
+      --linxmart-teal: #00C8E8;
+      --evosystem-black: #0A0A0A;
+      --technical-grey: #4A4A4A;
+      --light-grey: #F2F2F2;
+      --success-green: #28A745;
     }
 
     body {
-      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--light-grey);
+      color: var(--evosystem-black);
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: 600;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-    }
-
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.25rem; }
-
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: -0.01em;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    .page {
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
-
-    /* AUTH STATUS BANNER */
-    .auth-banner {
-      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-      border-bottom: 1px solid var(--border-color);
-      padding: 0.75rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      backdrop-filter: blur(10px);
-      animation: slideIn 0.3s ease;
-    }
-
-    .auth-banner.gold {
-      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
-    }
-
-    .auth-banner-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .auth-status {
-      font-size: 0.875rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
     .header {
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-color);
-      padding: 1rem 0;
-      position: sticky;
-      top: 48px;
-      z-index: 100;
-      backdrop-filter: blur(10px);
+      background: linear-gradient(135deg, var(--linxmart-green), var(--linxmart-teal));
+      padding: 1.5rem 2rem;
+      color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.03em;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-    }
-
-    .nav-bottom {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border-color);
-      padding: 0.5rem;
-      z-index: 100;
-      backdrop-filter: blur(10px);
-    }
-
-    .nav-items {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.5rem 1rem;
-      color: var(--text-muted);
+      gap: 0.75rem;
+      color: white;
       text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 500;
-      transition: var(--transition);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      background: transparent;
-      border: none;
     }
 
-    .nav-item:hover {
-      background: var(--bg-hover);
-      color: var(--text-secondary);
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--linxmart-green);
     }
 
-    .nav-item.active {
-      color: var(--accent-primary);
-      background: var(--accent-glow);
+    .logo-text h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
     }
 
-    .nav-item.locked {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .nav-icon {
-      font-size: 1.5rem;
+    .logo-text p {
+      font-size: 0.9rem;
+      opacity: 0.9;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
+      border-radius: 8px;
       font-weight: 600;
-      font-family: 'Outfit', sans-serif;
       cursor: pointer;
-      transition: var(--transition);
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      color: var(--bg-primary);
-      box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
-    }
-
-    .btn-secondary {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-    }
-
-    .btn-secondary:hover {
-      background: var(--bg-hover);
-      border-color: var(--border-accent);
-    }
-
-    .btn-ghost {
+      border: 2px solid white;
       background: transparent;
-      color: var(--text-secondary);
-    }
-
-    .btn-ghost:hover {
-      background: var(--bg-hover);
-      color: var(--text-primary);
-    }
-
-    .btn-sm {
-      padding: 0.5rem 1rem;
-      font-size: 0.75rem;
-    }
-
-    .btn-danger {
-      background: var(--danger);
       color: white;
+      text-decoration: none;
+      transition: all 0.3s;
     }
 
-    .btn-danger:hover {
-      background: #dc2626;
+    .btn:hover {
+      background: white;
+      color: var(--linxmart-green);
     }
 
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      transition: var(--transition);
+    .search-section {
+      background: white;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    .card:hover {
-      border-color: var(--border-accent);
-      box-shadow: var(--shadow-glow);
+    .search-container {
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      padding: 0.375rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .badge-success {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--success);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .badge-gold {
-      background: rgba(255, 215, 0, 0.15);
-      color: var(--accent-gold);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-    }
-
-    .badge-info {
-      background: rgba(0, 217, 255, 0.15);
-      color: var(--accent-primary);
-      border: 1px solid rgba(0, 217, 255, 0.3);
-    }
-
-    .badge-secondary {
-      background: rgba(160, 174, 192, 0.15);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-color);
-    }
-
-    /* LISTING GRID */
-    .listing-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-
-    .listing-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    .listing-card:hover {
-      border-color: var(--border-accent);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .listing-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: var(--text-muted);
-    }
-
-    .listing-content {
-      padding: 1.25rem;
-    }
-
-    .listing-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 1rem;
-    }
-
-    .listing-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
-    }
-
-    .listing-category {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
-
-    .listing-price {
+    .search-title {
       font-size: 1.5rem;
       font-weight: 700;
-      color: var(--accent-primary);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .listing-details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin: 1rem 0;
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    .listing-detail-item {
-      display: flex;
-      align-items: center;
-      gap: 0.375rem;
-    }
-
-    .listing-badges {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-
-    .listing-description {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    /* SEARCH & FILTERS */
-    .search-bar {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 0.75rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: var(--text-primary);
-      font-family: 'Outfit', sans-serif;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-
-    .filter-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .filter-select {
-      padding: 0.75rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: var(--text-primary);
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.875rem;
-      transition: var(--transition);
-    }
-
-    .filter-select:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-    }
-
-    /* FORM */
-    .form-group {
       margin-bottom: 1.5rem;
     }
 
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-      color: var(--text-secondary);
+    .view-controls {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 0.75rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: var(--text-primary);
-      font-family: 'Outfit', sans-serif;
-      font-size: 1rem;
-      transition: var(--transition);
+    .results-count {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--technical-grey);
     }
 
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 0 3px var(--accent-glow);
+    .results-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
     }
 
-    .form-textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .form-row {
+    .card-view {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
     }
 
-    .form-help {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-    }
-
-    .image-upload-area {
-      border: 2px dashed var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 2rem;
-      text-align: center;
-      background: var(--bg-secondary);
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    .image-upload-area:hover {
-      border-color: var(--accent-primary);
-      background: var(--accent-glow);
-    }
-
-    .image-preview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .image-preview {
-      position: relative;
-      aspect-ratio: 1;
-      border-radius: var(--radius-sm);
+    .business-card {
+      background: white;
+      border-radius: 12px;
       overflow: hidden;
-      border: 1px solid var(--border-color);
-      background: var(--bg-tertiary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-    }
-
-    .image-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .image-preview-remove {
-      position: absolute;
-      top: 0.25rem;
-      right: 0.25rem;
-      background: var(--danger);
-      color: white;
-      border: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s;
       cursor: pointer;
-      font-size: 0.75rem;
+    }
+
+    .business-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(40,167,69,0.3);
+    }
+
+    .business-image {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 4rem;
     }
 
-    /* CONTACT SECTION */
-    .contact-section {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
+    .business-content {
       padding: 1.5rem;
-      margin-top: 2rem;
     }
 
-    .contact-section.locked {
-      background: var(--bg-card);
-      border: 2px dashed var(--border-color);
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-
-    .contact-item {
+    .business-header {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem;
-      background: var(--bg-card);
-      border-radius: var(--radius-md);
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 0.75rem;
     }
 
-    .contact-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      flex-shrink: 0;
+    .business-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--evosystem-black);
+      margin-bottom: 0.25rem;
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--text-muted);
+    .business-category {
+      font-size: 0.85rem;
+      color: var(--technical-grey);
+      font-weight: 500;
     }
 
-    .empty-state-icon {
-      font-size: 3rem;
+    .business-distance {
+      background: var(--linxmart-green);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .business-description {
+      color: var(--technical-grey);
       margin-bottom: 1rem;
-      opacity: 0.3;
+      line-height: 1.5;
+      font-size: 0.9rem;
     }
 
-    .auth-prompt {
-      background: var(--bg-card);
-      border: 2px solid var(--accent-primary);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
+    .business-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: var(--light-grey);
+      border-radius: 8px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--technical-grey);
+    }
+
+    .business-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 8px;
       text-align: center;
-      margin: 2rem 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      font-size: 0.95rem;
     }
 
-    .hidden {
-      display: none !important;
+    .action-btn-primary {
+      background: var(--linxmart-green);
+      color: white;
     }
 
-    .mt-2 { margin-top: 1rem; }
-    .mt-3 { margin-top: 1.5rem; }
-    .mb-2 { margin-bottom: 1rem; }
-
-    @media (min-width: 768px) {
-      .listing-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .action-btn-primary:hover {
+      background: var(--linxmart-teal);
     }
 
-    @media (min-width: 1024px) {
-      .listing-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+    .action-btn-secondary {
+      background: var(--light-grey);
+      color: var(--technical-grey);
     }
 
-    ::-webkit-scrollbar {
-      width: 8px;
+    .action-btn-secondary:hover {
+      background: #e0e0e0;
     }
 
-    ::-webkit-scrollbar-track {
-      background: var(--bg-secondary);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--bg-tertiary);
+    .real-app-badge {
+      display: inline-block;
+      background: var(--success-green);
+      color: white;
+      padding: 0.25rem 0.5rem;
       border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--bg-hover);
+    .powered-by {
+      text-align: center;
+      padding: 2rem;
+      color: var(--technical-grey);
     }
 
-    ::selection {
-      background: var(--accent-primary);
-      color: var(--bg-primary);
+    .powered-by a {
+      color: var(--linxmart-green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .powered-by a:hover {
+      color: var(--linxmart-teal);
+    }
+
+    @media (max-width: 768px) {
+      .card-view {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Auth Status Banner -->
-  <div class="auth-banner" id="auth-banner">
-    <div class="auth-banner-content">
-      <span class="auth-status" id="auth-status">
-        <span>👤</span>
-        <span id="auth-text">Anonymous Visitor</span>
-      </span>
-      <div>
-        <button class="btn btn-ghost btn-sm" id="auth-btn">Sign In</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header -->
   <header class="header">
     <div class="header-content">
-      <div class="logo">
-        <span style="font-size: 2rem;">🛍️</span>
-        <span>LinxMart</span>
-      </div>
-      <div>
-        <button class="btn btn-ghost btn-sm" onclick="window.location.href='./index.html'">← AppWow</button>
+      <a href="#" class="logo">
+        <div class="logo-icon">M</div>
+        <div class="logo-text">
+          <h1>LinxMart</h1>
+          <p>Marketplace Discovery</p>
+        </div>
+      </a>
+      <div style="display: flex; gap: 1rem;">
+        <button class="btn" onclick="window.location.href='./index.html'">← Back to AppWow</button>
       </div>
     </div>
   </header>
 
-  <!-- Main Content Area -->
-  <main id="app-content" class="page">
-    <!-- Content will be dynamically loaded here -->
-  </main>
+  <section class="search-section">
+    <div class="search-container">
+      <h2 class="search-title">Find Marketplace Traders & Products</h2>
+      
+      <form style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Seller Type</label>
+          <select id="sellerTypeSelect" onchange="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+            <option>All Sellers</option>
+            <option>Furniture & Decor</option>
+            <option>Local Crafts</option>
+            <option>Electronics Trader</option>
+            <option>Private Sellers</option>
+          </select>
+        </div>
+        
+        <div>
+          <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Search</label>
+          <input type="text" id="keywordSearch" placeholder="Item or seller name..." oninput="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+        </div>
 
-  <!-- Bottom Navigation -->
-  <nav class="nav-bottom" id="main-nav">
-    <div class="nav-items">
-      <button class="nav-item active" data-view="browse">
-        <span class="nav-icon">🏪</span>
-        <span>Browse</span>
-      </button>
-      <button class="nav-item locked" data-view="my-listings">
-        <span class="nav-icon">📦</span>
-        <span>My Listings</span>
-      </button>
-      <button class="nav-item locked" data-view="post">
-        <span class="nav-icon">➕</span>
-        <span>Post</span>
-      </button>
+        <div>
+          <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Location</label>
+          <input type="text" value="Brighton" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+        </div>
+        
+        <button type="button" onclick="performSearch()" style="align-self: end; padding: 0.875rem; background: var(--linxmart-green); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">Search</button>
+      </form>
+
+      <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid var(--light-grey);">
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <span style="font-weight: 600; color: var(--technical-grey);">Distance:</span>
+          <button class="distance-btn" onclick="setMaxDistance(5)" style="padding: 0.5rem 1rem; background: var(--light-grey); color: var(--technical-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">5 miles</button>
+          <button class="distance-btn" onclick="setMaxDistance(10)" style="padding: 0.5rem 1rem; background: var(--linxmart-green); color: white; border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">10 miles</button>
+          <button class="distance-btn" onclick="setMaxDistance(25)" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">25 miles</button>
+        </div>
+      </div>
     </div>
-  </nav>
+  </section>
+
+  <div class="view-controls">
+    <div class="results-count">
+      <span id="resultsCount">13</span> sellers & products available • <span class="real-app-badge">3 LIVE APPS</span>
+    </div>
+  </div>
+
+  <div class="results-container">
+    <div class="card-view">
+      <!-- Vintage Interiors - REAL WORKING APP -->
+      <div class="business-card" onclick="window.location.href='./linxmart-vintage.html'">
+        <div class="business-image">🛋️</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Vintage Interiors</h3>
+              <p class="business-category">Furniture & Decor</p>
+            </div>
+            <span class="business-distance">1.8 mi</span>
+          </div>
+          <p class="business-description">
+            Curated vintage and antique furniture. Mid-century modern specialists with unique pieces.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">📍 Gardner Street, Brighton, BN1 1UP</div>
+            <div class="detail-item">⏰ Wed-Sun 10AM-6PM</div>
+            <div class="detail-item">✅ Catalogue Available Offline</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Catalogue</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273334455'">📞 Call</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sussex Artisans - REAL WORKING APP -->
+      <div class="business-card" onclick="window.location.href='./linxmart-artisans.html'">
+        <div class="business-image">🎨</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Sussex Artisans</h3>
+              <p class="business-category">Local Crafts</p>
+            </div>
+            <span class="business-distance">0.6 mi</span>
+          </div>
+          <p class="business-description">
+            Handmade crafts by local artists. Pottery, textiles, jewelry, and unique gifts.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">📍 North Laine, Brighton, BN1 1JE</div>
+            <div class="detail-item">⏰ Mon-Sat 10AM-6PM, Sun 11AM-5PM</div>
+            <div class="detail-item">✅ Products Available Offline</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">Browse Products</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273556677'">📞 Visit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TechTrader - REAL WORKING APP -->
+      <div class="business-card" onclick="window.location.href='./linxmart-tech.html'">
+        <div class="business-image">💻</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">TechTrader</h3>
+              <p class="business-category">Electronics Trader</p>
+            </div>
+            <span class="business-distance">2.3 mi</span>
+          </div>
+          <p class="business-description">
+            Quality used electronics. Fully tested devices with warranty. Trade-ins accepted.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">📍 London Road, Brighton, BN1 4JA</div>
+            <div class="detail-item">⏰ Mon-Sat 9AM-6PM</div>
+            <div class="detail-item">✅ Stock List Available Offline</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Stock</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273778899'">📞 Enquire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example Product Listings Below -->
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">🚗</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">2019 Ford Focus Titanium</h3>
+              <p class="business-category">Vehicles • Private Seller</p>
+            </div>
+            <span class="business-distance">3.5 mi</span>
+          </div>
+          <p class="business-description">
+            Full service history, one owner, low mileage. MOT until Dec 2026.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £12,500</div>
+            <div class="detail-item">📍 Hove</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">🛋️</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Vintage Leather Chesterfield Sofa</h3>
+              <p class="business-category">Furniture • Private Seller</p>
+            </div>
+            <span class="business-distance">5.2 mi</span>
+          </div>
+          <p class="business-description">
+            Beautiful mid-century leather in tan. Minor wear consistent with age.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £450</div>
+            <div class="detail-item">📍 Lewes</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">📱</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">iPhone 14 Pro 256GB Space Black</h3>
+              <p class="business-category">Electronics • Private Seller</p>
+            </div>
+            <span class="business-distance">1.2 mi</span>
+          </div>
+          <p class="business-description">
+            Unlocked, excellent condition. Includes box, charger, and case.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £750</div>
+            <div class="detail-item">📍 Brighton</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">📷</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Professional Photography Services</h3>
+              <p class="business-category">Services • Private Seller</p>
+            </div>
+            <span class="business-distance">2.1 mi</span>
+          </div>
+          <p class="business-description">
+            Experienced photographer for events, portraits, and commercial work.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £150/session</div>
+            <div class="detail-item">📍 Brighton</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">🚴</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Mountain Bike - Trek X-Caliber</h3>
+              <p class="business-category">Sports • Private Seller</p>
+            </div>
+            <span class="business-distance">4.8 mi</span>
+          </div>
+          <p class="business-description">
+            2021 model, size large. Recently serviced with new tires.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £380</div>
+            <div class="detail-item">📍 Portslade</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">💿</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Vintage Vinyl Record Collection</h3>
+              <p class="business-category">Books & Media • Private Seller</p>
+            </div>
+            <span class="business-distance">6.5 mi</span>
+          </div>
+          <p class="business-description">
+            200+ records from 60s-80s. Mix of rock, jazz, and soul.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £250</div>
+            <div class="detail-item">📍 Worthing</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">👜</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Designer Handbag - Michael Kors</h3>
+              <p class="business-category">Fashion • Private Seller</p>
+            </div>
+            <span class="business-distance">1.9 mi</span>
+          </div>
+          <p class="business-description">
+            Genuine leather tote bag in navy. Excellent condition, barely used.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £95</div>
+            <div class="detail-item">📍 Brighton</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">🌿</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Garden Furniture Set - 6 Seater</h3>
+              <p class="business-category">Home & Garden • Private Seller</p>
+            </div>
+            <span class="business-distance">3.7 mi</span>
+          </div>
+          <p class="business-description">
+            Rattan effect table and chairs with cushions. Weather-resistant.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £220</div>
+            <div class="detail-item">📍 Hove</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">🎮</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">PlayStation 5 with Controllers</h3>
+              <p class="business-category">Gaming • Private Seller</p>
+            </div>
+            <span class="business-distance">2.8 mi</span>
+          </div>
+          <p class="business-description">
+            PS5 console with 2 controllers and 5 games. Excellent condition.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £425</div>
+            <div class="detail-item">📍 Brighton</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="business-card" onclick="alert('This is a demo product listing')">
+        <div class="business-image">🪞</div>
+        <div class="business-content">
+          <div class="business-header">
+            <div>
+              <h3 class="business-name">Victorian Gilt Mirror - Large</h3>
+              <p class="business-category">Antiques • Private Seller</p>
+            </div>
+            <span class="business-distance">1.4 mi</span>
+          </div>
+          <p class="business-description">
+            Stunning antique mirror with ornate gilt frame. Circa 1890s.
+          </p>
+          <div class="business-details">
+            <div class="detail-item">💷 £180</div>
+            <div class="detail-item">📍 Brighton</div>
+            <div class="detail-item">✅ Details available</div>
+          </div>
+          <div class="business-actions">
+            <button class="action-btn action-btn-primary">View Details</button>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="powered-by">
+    Powered by <a href="./index.html">AppWow</a> • Part of the VTL Evosystem
+  </div>
 
   <script>
-    // ===== USER STATES =====
-    const USER_STATE = {
-      ANONYMOUS: 'anonymous',
-      REGISTERED: 'registered',
-      GOLD: 'gold'
-    };
+    // Search functionality
+    let currentMaxDistance = 10;
 
-    // ===== CATEGORIES =====
-    const CATEGORIES = [
-      'Vehicles',
-      'Property',
-      'Electronics',
-      'Furniture',
-      'Home & Garden',
-      'Fashion',
-      'Sports & Leisure',
-      'Books & Media',
-      'Services',
-      'Other'
-    ];
+    function performSearch() {
+      const sellerType = document.getElementById('sellerTypeSelect').value.toLowerCase();
+      const keyword = document.getElementById('keywordSearch').value.toLowerCase();
+      const cards = document.querySelectorAll('.business-card');
+      let visibleCount = 0;
 
-    const CONDITIONS = [
-      'New',
-      'Excellent',
-      'Good',
-      'Fair',
-      'For Parts'
-    ];
+      cards.forEach(card => {
+        const name = card.querySelector('.business-name').textContent.toLowerCase();
+        const category = card.querySelector('.business-category').textContent.toLowerCase();
+        const distanceText = card.querySelector('.business-distance')?.textContent || '0 mi';
+        const distance = parseFloat(distanceText);
 
-    // ===== DATA =====
-    const appData = {
-      // Public LINK3 Stage 3 listings
-      listings: [
-        {
-          id: 'list-001',
-          title: '2019 Ford Focus Titanium',
-          category: 'Vehicles',
-          description: 'Excellent condition, full service history. One owner, low mileage. MOT until Dec 2026.',
-          price: 12500,
-          condition: 'Excellent',
-          location: 'Brighton',
-          sellerId: 'seller-001',
-          sellerName: 'Brighton Motors',
-          sellerType: 'trader',
-          contactPhone: '01273 123456',
-          contactEmail: 'sales@brightonmotors.co.uk',
-          link3Stage: 3,
-          images: [],
-          datePosted: new Date(Date.now() - 86400000 * 5).toISOString()
-        },
-        {
-          id: 'list-002',
-          title: 'Vintage Leather Chesterfield Sofa',
-          category: 'Furniture',
-          description: 'Beautiful mid-century leather sofa in tan. Minor wear consistent with age. Incredibly comfortable.',
-          price: 450,
-          condition: 'Good',
-          location: 'London',
-          sellerId: 'seller-002',
-          sellerName: 'Sarah Thompson',
-          sellerType: 'gold-user',
-          contactPhone: '07700 900123',
-          contactEmail: 'sarah@example.com',
-          link3Stage: 3,
-          images: [],
-          datePosted: new Date(Date.now() - 86400000 * 3).toISOString()
-        },
-        {
-          id: 'list-003',
-          title: 'iPhone 14 Pro 256GB Space Black',
-          category: 'Electronics',
-          description: 'Unlocked, excellent condition. Includes original box, charger, and case. Battery health 96%.',
-          price: 750,
-          condition: 'Excellent',
-          location: 'Manchester',
-          sellerId: 'seller-003',
-          sellerName: 'Tech Trade UK',
-          sellerType: 'trader',
-          contactPhone: '0161 234567',
-          contactEmail: 'info@techtrade.co.uk',
-          link3Stage: 3,
-          images: [],
-          datePosted: new Date(Date.now() - 86400000 * 1).toISOString()
-        },
-        {
-          id: 'list-004',
-          title: 'Professional Photography Services',
-          category: 'Services',
-          description: 'Experienced photographer available for events, portraits, and commercial work. Flexible packages.',
-          price: 150,
-          condition: 'New',
-          location: 'Brighton',
-          sellerId: 'seller-002',
-          sellerName: 'Sarah Thompson',
-          sellerType: 'gold-user',
-          contactPhone: '07700 900123',
-          contactEmail: 'sarah@example.com',
-          link3Stage: 3,
-          images: [],
-          datePosted: new Date(Date.now() - 86400000 * 7).toISOString()
-        },
-        {
-          id: 'list-005',
-          title: 'Mountain Bike - Trek X-Caliber',
-          category: 'Sports & Leisure',
-          description: '2021 model, size large. Recently serviced with new tires. Perfect for trails and commuting.',
-          price: 380,
-          condition: 'Good',
-          location: 'Bristol',
-          sellerId: 'seller-004',
-          sellerName: 'Mike Johnson',
-          sellerType: 'gold-user',
-          contactPhone: '07888 456789',
-          contactEmail: 'mike.j@email.com',
-          link3Stage: 3,
-          images: [],
-          datePosted: new Date(Date.now() - 86400000 * 2).toISOString()
-        },
-        {
-          id: 'list-006',
-          title: 'Vintage Vinyl Record Collection',
-          category: 'Books & Media',
-          description: '200+ records from 60s-80s. Mix of rock, jazz, and soul. All in good playable condition.',
-          price: 250,
-          condition: 'Good',
-          location: 'Edinburgh',
-          sellerId: 'seller-005',
-          sellerName: 'Record Haven',
-          sellerType: 'trader',
-          contactPhone: '0131 567890',
-          contactEmail: 'shop@recordhaven.co.uk',
-          link3Stage: 3,
-          images: [],
-          datePosted: new Date(Date.now() - 86400000 * 4).toISOString()
-        }
-      ],
-      userListings: [] // User's own listings
-    };
+        // Check seller type match
+        const sellerTypeMatch = sellerType === 'all sellers' || 
+          category.includes(sellerType.replace('trader', '').trim()) ||
+          (sellerType === 'electronics trader' && category.includes('electronics'));
 
-    // ===== APP LOGIC =====
-    class LinxMartApp {
-      constructor() {
-        this.userState = USER_STATE.ANONYMOUS;
-        this.currentView = 'browse';
-        this.currentListing = null;
-        this.editingListing = null;
-        this.uploadedImages = null;
-        this.searchQuery = '';
-        this.filterCategory = '';
-        this.filterCondition = '';
-      }
+        // Check keyword match
+        const keywordMatch = keyword === '' || 
+          name.includes(keyword) || 
+          category.includes(keyword);
 
-      init() {
-        this.setupAuth();
-        this.updateUI();
-        this.setupNavigation();
-        this.renderView('browse');
-      }
+        // Check distance match
+        const distanceMatch = distance <= currentMaxDistance;
 
-      setupAuth() {
-        const authBtn = document.getElementById('auth-btn');
-        authBtn.addEventListener('click', () => {
-          if (this.userState === USER_STATE.ANONYMOUS) {
-            this.authenticate();
-          } else {
-            this.signOut();
-          }
-        });
-      }
-
-      authenticate() {
-        const choice = prompt('Sign in as:\n\n1. Registered User (browse & contact)\n2. Gold User (+ post listings)\n\nEnter 1 or 2:');
-        
-        if (choice === '1') {
-          this.userState = USER_STATE.REGISTERED;
-          alert('✓ Signed in as Registered User\n\nYou can now:\n• View seller contact details\n• Contact sellers directly');
-        } else if (choice === '2') {
-          this.userState = USER_STATE.GOLD;
-          alert('✓ Signed in as Gold User\n\nYou can now:\n• View seller contact details\n• Contact sellers\n• Post your own listings');
+        if (sellerTypeMatch && keywordMatch && distanceMatch) {
+          card.style.display = 'block';
+          visibleCount++;
         } else {
-          return;
+          card.style.display = 'none';
         }
-        
-        this.updateUI();
-        this.renderView(this.currentView);
-      }
+      });
 
-      signOut() {
-        if (confirm('Sign out of LinxMart?')) {
-          this.userState = USER_STATE.ANONYMOUS;
-          alert('✓ Signed out');
-          this.updateUI();
-          this.navigateTo('browse');
-        }
-      }
-
-      updateUI() {
-        const authBanner = document.getElementById('auth-banner');
-        const authText = document.getElementById('auth-text');
-        const authBtn = document.getElementById('auth-btn');
-
-        // Update banner
-        if (this.userState === USER_STATE.GOLD) {
-          authBanner.classList.add('gold');
-          authText.innerHTML = '<span>💎</span> Gold User';
-          authBtn.textContent = 'Sign Out';
-        } else if (this.userState === USER_STATE.REGISTERED) {
-          authBanner.classList.remove('gold');
-          authText.innerHTML = '<span>✓</span> Registered User';
-          authBtn.textContent = 'Sign Out';
-        } else {
-          authBanner.classList.remove('gold');
-          authText.innerHTML = '<span>👤</span> Anonymous Visitor';
-          authBtn.textContent = 'Sign In';
-        }
-
-        // Update navigation
-        document.querySelectorAll('.nav-item').forEach(item => {
-          const view = item.dataset.view;
-          const requiresAuth = view === 'my-listings' || view === 'post';
-          
-          if (requiresAuth) {
-            if (this.userState === USER_STATE.GOLD) {
-              item.classList.remove('locked');
-            } else {
-              item.classList.add('locked');
-            }
-          }
-        });
-      }
-
-      setupNavigation() {
-        document.querySelectorAll('.nav-item').forEach(item => {
-          item.addEventListener('click', () => {
-            const view = item.dataset.view;
-            const requiresAuth = view === 'my-listings' || view === 'post';
-
-            if (requiresAuth && this.userState !== USER_STATE.GOLD) {
-              this.promptUpgrade();
-            } else {
-              this.navigateTo(view);
-            }
-          });
-        });
-      }
-
-      promptUpgrade() {
-        alert('🔒 Gold User Required\n\nPosting listings requires myLynx Gold\n\n✓ Post unlimited items\n✓ Manage your listings\n✓ Reach thousands of buyers\n\nUpgrade for just £2.40/month');
-      }
-
-      navigateTo(view, data = {}) {
-        document.querySelectorAll('.nav-item').forEach(item => {
-          item.classList.remove('active');
-          if (item.dataset.view === view) {
-            item.classList.add('active');
-          }
-        });
-
-        this.currentView = view;
-        if (data.listingId) this.currentListing = data.listingId;
-        if (data.editListingId !== undefined) this.editingListing = data.editListingId;
-
-        this.renderView(view, data);
-        window.scrollTo(0, 0);
-      }
-
-      renderView(view, data = {}) {
-        const content = document.getElementById('app-content');
-        
-        switch(view) {
-          case 'browse':
-            content.innerHTML = this.renderBrowse();
-            this.attachBrowseHandlers();
-            break;
-          case 'listing-detail':
-            content.innerHTML = this.renderListingDetail(this.currentListing);
-            break;
-          case 'my-listings':
-            content.innerHTML = this.renderMyListings();
-            this.attachMyListingsHandlers();
-            break;
-          case 'post':
-            content.innerHTML = this.renderPostListing(this.editingListing);
-            this.attachPostHandlers();
-            break;
-        }
-      }
-
-      renderBrowse() {
-        const listings = this.getFilteredListings();
-
-        return `
-          <div class="container">
-            <section style="margin: 2rem 0;">
-              <h1>🛍️ LinxMart Display Centre</h1>
-              <p style="color: var(--text-muted);">Browse private sales from the community</p>
-              <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">
-                ${this.userState === USER_STATE.ANONYMOUS ? '🔒 Sign in to view seller contact details' : ''}
-                ${this.userState === USER_STATE.REGISTERED ? '✓ Signed in - Contact sellers directly' : ''}
-                ${this.userState === USER_STATE.GOLD ? '💎 Gold User - Post your own listings' : ''}
-              </p>
-            </section>
-
-            <!-- Search & Filters -->
-            <div class="search-bar">
-              <input 
-                type="text" 
-                class="search-input" 
-                placeholder="🔍 Search listings..."
-                id="search-input"
-                value="${this.searchQuery}"
-              >
-              
-              <div class="filter-row">
-                <select class="filter-select" id="filter-category">
-                  <option value="">All Categories</option>
-                  ${CATEGORIES.map(cat => 
-                    `<option value="${cat}" ${this.filterCategory === cat ? 'selected' : ''}>${cat}</option>`
-                  ).join('')}
-                </select>
-
-                <select class="filter-select" id="filter-condition">
-                  <option value="">All Conditions</option>
-                  ${CONDITIONS.map(cond => 
-                    `<option value="${cond}" ${this.filterCondition === cond ? 'selected' : ''}>${cond}</option>`
-                  ).join('')}
-                </select>
-
-                <button class="btn btn-secondary btn-sm" onclick="app.clearFilters()">
-                  Clear Filters
-                </button>
-              </div>
-            </div>
-
-            ${this.userState === USER_STATE.GOLD ? `
-              <div style="margin-bottom: 2rem;">
-                <button class="btn btn-primary" onclick="app.navigateTo('post')">
-                  ➕ Post New Listing
-                </button>
-              </div>
-            ` : ''}
-
-            <!-- Listings -->
-            <section>
-              <div style="margin-bottom: 1rem;">
-                <h2>${listings.length} Listings Available</h2>
-              </div>
-
-              ${listings.length > 0 ? `
-                <div class="listing-grid">
-                  ${listings.map(listing => this.renderListingCard(listing)).join('')}
-                </div>
-              ` : `
-                <div class="empty-state">
-                  <div class="empty-state-icon">🔍</div>
-                  <h3>No listings found</h3>
-                  <p>Try adjusting your filters</p>
-                </div>
-              `}
-            </section>
-          </div>
-        `;
-      }
-
-      renderListingCard(listing) {
-        const daysAgo = Math.floor((Date.now() - new Date(listing.datePosted).getTime()) / 86400000);
-        const dateText = daysAgo === 0 ? 'Today' : daysAgo === 1 ? 'Yesterday' : `${daysAgo} days ago`;
-
-        return `
-          <div class="listing-card" onclick="app.viewListing('${listing.id}')">
-            <div class="listing-image">
-              ${this.getCategoryIcon(listing.category)}
-            </div>
-            
-            <div class="listing-content">
-              <div class="listing-header">
-                <div>
-                  <div class="listing-title">${listing.title}</div>
-                  <div class="listing-category">${listing.category}</div>
-                </div>
-                <div style="text-align: right;">
-                  <div class="listing-price">£${listing.price.toLocaleString()}</div>
-                </div>
-              </div>
-
-              <div class="listing-description">
-                ${listing.description.substring(0, 100)}${listing.description.length > 100 ? '...' : ''}
-              </div>
-
-              <div class="listing-details">
-                <div class="listing-detail-item">📍 ${listing.location}</div>
-                <div class="listing-detail-item">⭐ ${listing.condition}</div>
-                <div class="listing-detail-item">🕒 ${dateText}</div>
-              </div>
-
-              <div class="listing-badges">
-                <span class="badge badge-info">LINK3 Stage 3</span>
-                ${listing.sellerType === 'trader' ? 
-                  '<span class="badge badge-success">Verified Trader</span>' : 
-                  '<span class="badge badge-gold">Gold User</span>'
-                }
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      renderListingDetail(listingId) {
-        const listing = appData.listings.find(l => l.id === listingId) || 
-                       appData.userListings.find(l => l.id === listingId);
-        
-        if (!listing) {
-          return this.renderEmptyState('Listing not found', 'This listing may have been removed');
-        }
-
-        const isOwnListing = appData.userListings.some(l => l.id === listingId);
-        const canViewContact = this.userState !== USER_STATE.ANONYMOUS;
-
-        return `
-          <div class="container">
-            <section style="margin: 1.5rem 0;">
-              <button class="btn btn-ghost btn-sm" onclick="app.navigateTo('browse')">
-                ← Back to Listings
-              </button>
-            </section>
-
-            <section>
-              <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
-                  <div>
-                    <h1 style="margin-bottom: 0.5rem;">${listing.title}</h1>
-                    <div style="color: var(--text-muted); font-size: 0.875rem;">
-                      ${listing.category} • ${listing.location}
-                    </div>
-                  </div>
-                  <div class="listing-price" style="font-size: 2rem;">
-                    £${listing.price.toLocaleString()}
-                  </div>
-                </div>
-
-                <div class="listing-image" style="height: 400px; margin-bottom: 1.5rem; border-radius: var(--radius-lg);">
-                  ${this.getCategoryIcon(listing.category)}
-                </div>
-
-                <div class="listing-badges" style="margin-bottom: 1.5rem;">
-                  <span class="badge badge-info">LINK3 Stage 3</span>
-                  <span class="badge badge-secondary">${listing.condition}</span>
-                  ${listing.sellerType === 'trader' ? 
-                    '<span class="badge badge-success">Verified Trader</span>' : 
-                    '<span class="badge badge-gold">Gold User</span>'
-                  }
-                </div>
-
-                <div style="margin-bottom: 2rem;">
-                  <h3 style="margin-bottom: 1rem;">Description</h3>
-                  <p style="color: var(--text-secondary); line-height: 1.8;">${listing.description}</p>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; padding: 1.5rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
-                  <div>
-                    <div style="color: var(--text-muted); font-size: 0.875rem;">Category</div>
-                    <div style="font-weight: 600; margin-top: 0.25rem;">${listing.category}</div>
-                  </div>
-                  <div>
-                    <div style="color: var(--text-muted); font-size: 0.875rem;">Condition</div>
-                    <div style="font-weight: 600; margin-top: 0.25rem;">${listing.condition}</div>
-                  </div>
-                  <div>
-                    <div style="color: var(--text-muted); font-size: 0.875rem;">Location</div>
-                    <div style="font-weight: 600; margin-top: 0.25rem;">${listing.location}</div>
-                  </div>
-                  <div>
-                    <div style="color: var(--text-muted); font-size: 0.875rem;">Posted</div>
-                    <div style="font-weight: 600; margin-top: 0.25rem;">${new Date(listing.datePosted).toLocaleDateString()}</div>
-                  </div>
-                </div>
-
-                ${isOwnListing ? `
-                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <button class="btn btn-secondary" onclick="app.editListing('${listing.id}')">
-                      ✏️ Edit Listing
-                    </button>
-                    <button class="btn btn-danger" onclick="app.deleteListing('${listing.id}')">
-                      🗑️ Delete Listing
-                    </button>
-                  </div>
-                ` : ''}
-              </div>
-
-              <!-- Seller Contact Section -->
-              ${canViewContact ? `
-                <div class="contact-section">
-                  <h3 style="margin-bottom: 1rem;">📞 Contact Seller</h3>
-                  <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                    All transactions are private between buyer and seller. LinxMart does not process payments.
-                  </p>
-                  
-                  <div class="contact-grid">
-                    <div class="contact-item">
-                      <div class="contact-icon">👤</div>
-                      <div>
-                        <div style="font-weight: 600;">${listing.sellerName}</div>
-                        <div style="font-size: 0.875rem; color: var(--text-muted);">
-                          ${listing.sellerType === 'trader' ? 'Verified Trader' : 'Private Seller'}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="contact-item">
-                      <div class="contact-icon">📱</div>
-                      <div>
-                        <div style="font-weight: 600;">Phone</div>
-                        <div style="font-size: 0.875rem; color: var(--text-muted);">${listing.contactPhone}</div>
-                      </div>
-                    </div>
-
-                    <div class="contact-item">
-                      <div class="contact-icon">📧</div>
-                      <div>
-                        <div style="font-weight: 600;">Email</div>
-                        <div style="font-size: 0.875rem; color: var(--text-muted);">${listing.contactEmail}</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-                    <p style="font-size: 0.875rem; color: var(--text-muted);">
-                      ⚠️ <strong>Safety Tips:</strong> Meet in public places, inspect items before payment, trust your instincts.
-                    </p>
-                  </div>
-                </div>
-              ` : `
-                <div class="contact-section locked">
-                  <div style="font-size: 2rem; margin-bottom: 1rem;">🔒</div>
-                  <h3 style="margin-bottom: 0.5rem;">Sign In to Contact Seller</h3>
-                  <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                    Register with AppWow to view seller contact details
-                  </p>
-                  <button class="btn btn-primary" onclick="app.authenticate()">
-                    Sign In to View Contact Details
-                  </button>
-                </div>
-              `}
-            </section>
-          </div>
-        `;
-      }
-
-      renderMyListings() {
-        const listings = appData.userListings;
-
-        return `
-          <div class="container">
-            <section style="margin: 2rem 0;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h1>📦 My Listings</h1>
-                <button class="btn btn-primary btn-sm" onclick="app.navigateTo('post')">
-                  ➕ New Listing
-                </button>
-              </div>
-              <p style="color: var(--text-muted);">Manage your posted items</p>
-            </section>
-
-            ${listings.length === 0 ? `
-              <div class="empty-state">
-                <div class="empty-state-icon">📦</div>
-                <h3>No Listings Yet</h3>
-                <p>Post your first item to get started</p>
-                <button class="btn btn-primary mt-3" onclick="app.navigateTo('post')">
-                  ➕ Post First Listing
-                </button>
-              </div>
-            ` : `
-              <section>
-                <div class="listing-grid">
-                  ${listings.map(listing => this.renderListingCard(listing)).join('')}
-                </div>
-              </section>
-            `}
-          </div>
-        `;
-      }
-
-      renderPostListing(listingId) {
-        const listing = listingId ? appData.userListings.find(l => l.id === listingId) : null;
-        const isEdit = !!listing;
-        const pageTitle = isEdit ? 'Edit Listing' : 'Post New Listing';
-
-        const formData = listing || {
-          title: '',
-          category: '',
-          description: '',
-          price: '',
-          condition: '',
-          location: '',
-          contactPhone: '',
-          contactEmail: ''
-        };
-
-        return `
-          <div class="container">
-            <section style="margin: 1.5rem 0;">
-              <button class="btn btn-ghost btn-sm" onclick="app.navigateTo('my-listings')">
-                ← Back to My Listings
-              </button>
-            </section>
-
-            <section style="margin-bottom: 2rem;">
-              <h1>${pageTitle}</h1>
-              <p style="color: var(--text-muted);">Fill in the details below. All transactions are private.</p>
-            </section>
-
-            <form id="listing-form" onsubmit="app.saveListing(event, '${listingId || ''}')">
-              <div class="card">
-                <h2 style="margin-bottom: 1.5rem;">Listing Details</h2>
-                
-                <div class="form-group">
-                  <label class="form-label">Title *</label>
-                  <input type="text" name="title" class="form-input" value="${formData.title}" required placeholder="e.g. 2019 Ford Focus Titanium">
-                  <div class="form-help">Be clear and specific</div>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label">Category *</label>
-                    <select name="category" class="form-select" required>
-                      <option value="">Select category</option>
-                      ${CATEGORIES.map(cat => 
-                        `<option value="${cat}" ${formData.category === cat ? 'selected' : ''}>${cat}</option>`
-                      ).join('')}
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="form-label">Condition *</label>
-                    <select name="condition" class="form-select" required>
-                      <option value="">Select condition</option>
-                      ${CONDITIONS.map(cond => 
-                        `<option value="${cond}" ${formData.condition === cond ? 'selected' : ''}>${cond}</option>`
-                      ).join('')}
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Description *</label>
-                  <textarea name="description" class="form-textarea" required placeholder="Describe your item in detail...">${formData.description}</textarea>
-                  <div class="form-help">Include key features, condition details, and any flaws</div>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label">Price (£) *</label>
-                    <input type="number" name="price" class="form-input" value="${formData.price}" required placeholder="0" min="0" step="0.01">
-                  </div>
-
-                  <div class="form-group">
-                    <label class="form-label">Location *</label>
-                    <input type="text" name="location" class="form-input" value="${formData.location}" required placeholder="e.g. Brighton">
-                  </div>
-                </div>
-              </div>
-
-              <div class="card mt-3">
-                <h2 style="margin-bottom: 1.5rem;">Contact Information</h2>
-                <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.875rem;">
-                  This information will be visible to registered AppWow users only
-                </p>
-
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label">Phone Number *</label>
-                    <input type="tel" name="contactPhone" class="form-input" value="${formData.contactPhone}" required placeholder="07700 900123">
-                  </div>
-
-                  <div class="form-group">
-                    <label class="form-label">Email Address *</label>
-                    <input type="email" name="contactEmail" class="form-input" value="${formData.contactEmail}" required placeholder="your@email.com">
-                  </div>
-                </div>
-              </div>
-
-              <div class="card mt-3">
-                <h2 style="margin-bottom: 1.5rem;">Images</h2>
-                <div class="form-group">
-                  <div class="image-upload-area" onclick="document.getElementById('image-upload').click()">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📸</div>
-                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Upload Images</div>
-                    <div style="font-size: 0.875rem; color: var(--text-muted);">Click to select images (optional)</div>
-                  </div>
-                  <input type="file" id="image-upload" accept="image/*" multiple style="display: none;" onchange="app.handleImageUpload(event)">
-                  
-                  <div id="image-preview-container" class="image-preview-grid"></div>
-                </div>
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
-                <button type="button" class="btn btn-secondary" onclick="app.navigateTo('my-listings')">
-                  Cancel
-                </button>
-                <button type="submit" class="btn btn-primary">
-                  ${isEdit ? '💾 Update Listing' : '📤 Post Listing'}
-                </button>
-              </div>
-            </form>
-
-            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg);">
-              <h3 style="margin-bottom: 1rem;">📋 Posting Guidelines</h3>
-              <ul style="list-style: none; padding: 0; color: var(--text-secondary); font-size: 0.875rem;">
-                <li style="margin-bottom: 0.5rem;">✓ Be honest about condition</li>
-                <li style="margin-bottom: 0.5rem;">✓ Use clear, descriptive titles</li>
-                <li style="margin-bottom: 0.5rem;">✓ Provide accurate contact information</li>
-                <li style="margin-bottom: 0.5rem;">✓ Price fairly and competitively</li>
-                <li style="margin-bottom: 0.5rem;">⚠️ All sales are private - LinxMart does not process payments</li>
-              </ul>
-            </div>
-          </div>
-        `;
-      }
-
-      renderEmptyState(title, message) {
-        return `
-          <div class="container">
-            <div class="empty-state">
-              <div class="empty-state-icon">🛍️</div>
-              <h3>${title}</h3>
-              <p>${message}</p>
-            </div>
-          </div>
-        `;
-      }
-
-      getCategoryIcon(category) {
-        const icons = {
-          'Vehicles': '🚗',
-          'Property': '🏠',
-          'Electronics': '📱',
-          'Furniture': '🛋️',
-          'Home & Garden': '🌿',
-          'Fashion': '👔',
-          'Sports & Leisure': '⚽',
-          'Books & Media': '📚',
-          'Services': '🔧',
-          'Other': '📦'
-        };
-        return icons[category] || '📦';
-      }
-
-      // Event Handlers
-      attachBrowseHandlers() {
-        const searchInput = document.getElementById('search-input');
-        const filterCategory = document.getElementById('filter-category');
-        const filterCondition = document.getElementById('filter-condition');
-
-        if (searchInput) {
-          searchInput.addEventListener('input', (e) => {
-            this.searchQuery = e.target.value;
-            this.renderView('browse');
-          });
-        }
-
-        if (filterCategory) {
-          filterCategory.addEventListener('change', (e) => {
-            this.filterCategory = e.target.value;
-            this.renderView('browse');
-          });
-        }
-
-        if (filterCondition) {
-          filterCondition.addEventListener('change', (e) => {
-            this.filterCondition = e.target.value;
-            this.renderView('browse');
-          });
-        }
-      }
-
-      attachMyListingsHandlers() {}
-      
-      attachPostHandlers() {}
-
-      getFilteredListings() {
-        let listings = [...appData.listings];
-
-        // Search query
-        if (this.searchQuery) {
-          const query = this.searchQuery.toLowerCase();
-          listings = listings.filter(l => 
-            l.title.toLowerCase().includes(query) ||
-            l.description.toLowerCase().includes(query) ||
-            l.category.toLowerCase().includes(query)
-          );
-        }
-
-        // Category filter
-        if (this.filterCategory) {
-          listings = listings.filter(l => l.category === this.filterCategory);
-        }
-
-        // Condition filter
-        if (this.filterCondition) {
-          listings = listings.filter(l => l.condition === this.filterCondition);
-        }
-
-        return listings;
-      }
-
-      clearFilters() {
-        this.searchQuery = '';
-        this.filterCategory = '';
-        this.filterCondition = '';
-        this.renderView('browse');
-      }
-
-      viewListing(listingId) {
-        this.currentListing = listingId;
-        this.navigateTo('listing-detail', { listingId });
-      }
-
-      editListing(listingId) {
-        this.editingListing = listingId;
-        this.navigateTo('post', { editListingId: listingId });
-      }
-
-      deleteListing(listingId) {
-        if (confirm('Are you sure you want to delete this listing?')) {
-          const index = appData.userListings.findIndex(l => l.id === listingId);
-          if (index !== -1) {
-            appData.userListings.splice(index, 1);
-            alert('✓ Listing deleted');
-            this.navigateTo('my-listings');
-          }
-        }
-      }
-
-      handleImageUpload(event) {
-        const files = Array.from(event.target.files);
-        this.uploadedImages = [];
-
-        files.forEach(file => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            this.uploadedImages.push({
-              name: file.name,
-              dataUrl: e.target.result
-            });
-            this.renderImagePreviews();
-          };
-          reader.readAsDataURL(file);
-        });
-      }
-
-      renderImagePreviews() {
-        const container = document.getElementById('image-preview-container');
-        if (!container || !this.uploadedImages) return;
-
-        container.innerHTML = this.uploadedImages.map((img, index) => `
-          <div class="image-preview">
-            <img src="${img.dataUrl}" alt="${img.name}">
-            <button type="button" class="image-preview-remove" onclick="app.removeImage(${index})">✕</button>
-          </div>
-        `).join('');
-      }
-
-      removeImage(index) {
-        if (this.uploadedImages) {
-          this.uploadedImages.splice(index, 1);
-          this.renderImagePreviews();
-        }
-      }
-
-      saveListing(event, listingId) {
-        event.preventDefault();
-        
-        const form = event.target;
-        const formData = new FormData(form);
-        
-        const listing = {
-          title: formData.get('title'),
-          category: formData.get('category'),
-          description: formData.get('description'),
-          price: parseFloat(formData.get('price')),
-          condition: formData.get('condition'),
-          location: formData.get('location'),
-          contactPhone: formData.get('contactPhone'),
-          contactEmail: formData.get('contactEmail'),
-          link3Stage: 3,
-          sellerType: 'gold-user',
-          sellerName: 'You',
-          sellerId: 'user-current'
-        };
-
-        if (this.uploadedImages && this.uploadedImages.length > 0) {
-          listing.images = this.uploadedImages.map(img => img.dataUrl);
-        }
-
-        if (listingId) {
-          // Update existing
-          const index = appData.userListings.findIndex(l => l.id === listingId);
-          if (index !== -1) {
-            appData.userListings[index] = {
-              ...appData.userListings[index],
-              ...listing
-            };
-            alert('✓ Listing updated successfully');
-            this.uploadedImages = null;
-            this.viewListing(listingId);
-          }
-        } else {
-          // Create new
-          const newListing = {
-            id: `list-${Date.now()}`,
-            ...listing,
-            datePosted: new Date().toISOString(),
-            images: []
-          };
-          
-          appData.userListings.push(newListing);
-          appData.listings.push(newListing); // Also add to public listings
-          
-          alert('✓ Listing posted successfully!\n\nYour item is now visible to all LinxMart users');
-          this.uploadedImages = null;
-          this.viewListing(newListing.id);
-        }
-      }
+      document.getElementById('resultsCount').textContent = visibleCount;
     }
 
-    // Initialize app globally and after DOM loads
-    let app;
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        app = new LinxMartApp();
-        app.init();
+    function setMaxDistance(miles) {
+      currentMaxDistance = miles;
+      document.querySelectorAll('.distance-btn').forEach(btn => {
+        btn.style.background = 'var(--light-grey)';
+        btn.style.color = 'var(--technical-grey)';
       });
-    } else {
-      app = new LinxMartApp();
-      app.init();
+      event.target.style.background = 'var(--linxmart-green)';
+      event.target.style.color = 'white';
+      performSearch();
     }
 
     // PWA Manifest
     const manifest = {
-      name: "LinxMart",
+      name: "LinxMart - Marketplace Discovery",
       short_name: "LinxMart",
-      start_url: "./",
+      description: "Discover marketplace traders and products",
+      start_url: "./linxmart.html",
       display: "standalone",
-      background_color: "#0a0e1a",
-      theme_color: "#00d9ff",
+      background_color: "#28A745",
+      theme_color: "#28A745",
       icons: [{
-        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%230a0e1a'/><text x='96' y='135' font-size='80' text-anchor='middle' fill='%2300d9ff'>🛍️</text></svg>",
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%2328A745'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='white'>M</text></svg>",
         sizes: "192x192",
         type: "image/svg+xml"
       }]

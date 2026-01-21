@@ -330,14 +330,59 @@
     <section class="search-section">
         <div class="search-container">
             <h2 class="search-title">Discover Local Businesses in Brighton & Sussex</h2>
-            <p style="color: var(--technical-grey);">Browse instant apps from local traders. All content available offline once loaded.</p>
+            
+            <form style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Category</label>
+                    <select id="categorySelect" onchange="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>All Categories</option>
+                        <option>Cafes & Restaurants</option>
+                        <option>Food & Drink</option>
+                        <option>Health & Beauty</option>
+                        <option>Barbershops & Grooming</option>
+                        <option>Home Services</option>
+                        <option>Plumbing & Heating</option>
+                        <option>Retail & Shopping</option>
+                        <option>Wellness & Fitness</option>
+                        <option>Professional Services</option>
+                        <option>Pet Services</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Search</label>
+                    <input type="text" id="keywordSearch" placeholder="Business name or keyword..." oninput="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Location</label>
+                    <input type="text" value="Brighton" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <button type="button" onclick="performSearch()" style="align-self: end; padding: 0.875rem; background: var(--vtl-blue); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">Search</button>
+            </form>
+
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid var(--light-grey);">
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--technical-grey);">Distance:</span>
+                    <button class="distance-btn" onclick="setMaxDistance(1)" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600; color: var(--technical-grey);">1 mile</button>
+                    <button class="distance-btn" onclick="setMaxDistance(3)" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">3 miles</button>
+                    <button class="distance-btn" onclick="setMaxDistance(5)" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">5 miles</button>
+                    <button class="distance-btn" onclick="setMaxDistance(10)" style="padding: 0.5rem 1rem; background: var(--vtl-cyan); color: white; border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">10 miles</button>
+                </div>
+                
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--technical-grey);">Open Now:</span>
+                    <button onclick="this.style.background = this.style.background === 'rgb(0, 200, 232)' ? 'var(--light-grey)' : 'var(--vtl-cyan)'; this.style.color = this.style.background === 'rgb(0, 200, 232)' ? 'white' : 'var(--technical-grey)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">Only Open</button>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- View Controls -->
     <div class="view-controls">
         <div class="results-count">
-            <span>2</span> businesses available <span class="real-app-badge">LIVE APPS</span>
+            <span id="resultsCount">12</span> businesses available • <span class="real-app-badge">3 LIVE APPS</span>
         </div>
     </div>
 
@@ -396,6 +441,268 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Brighton Barber - REAL WORKING APP -->
+            <div class="business-card" onclick="window.location.href='./linxlocal-barber.html'">
+                <div class="business-image">✂️</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Brighton Barber</h3>
+                            <p class="business-category">Barbershops & Grooming</p>
+                        </div>
+                        <span class="business-distance">1.2 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Classic cuts, hot towel shaves, and modern styling. Walk-ins welcome or book ahead online.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 156 Western Road, Brighton, BN1 2LA</div>
+                        <div class="detail-item">⏰ Tue-Sat 9AM-7PM, Sun 10AM-4PM</div>
+                        <div class="detail-item">✅ Services & Prices Available Offline</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Services & Prices</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273444567'">📞 Book</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXAMPLE BUSINESSES BELOW -->
+
+            <!-- Example 1: Italian Restaurant -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">🍝</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">La Taverna</h3>
+                            <p class="business-category">Italian Restaurant</p>
+                        </div>
+                        <span class="business-distance">1.5 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Authentic Italian cuisine with fresh pasta made daily. Family-run restaurant with warm atmosphere.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton Lanes</div>
+                        <div class="detail-item">⏰ Tue-Sun 12PM-10PM</div>
+                        <div class="detail-item">📋 Bookings recommended</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Menu</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Reserve</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 2: Yoga Studio -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">🧘</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Brighton Yoga Studio</h3>
+                            <p class="business-category">Wellness & Fitness</p>
+                        </div>
+                        <span class="business-distance">0.6 mi</span>
+                    </div>
+                    <p class="business-description">
+                        All levels welcome. Morning and evening classes including hot yoga, vinyasa, and meditation.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Kemptown</div>
+                        <div class="detail-item">⏰ Mon-Sun 6AM-9PM</div>
+                        <div class="detail-item">🎯 First class free</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Timetable</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Join</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 3: Florist -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">💐</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Bloom & Co</h3>
+                            <p class="business-category">Florist</p>
+                        </div>
+                        <span class="business-distance">1.1 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Fresh flowers daily. Bouquets, arrangements, and event floristry. Same-day delivery available.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Seven Dials</div>
+                        <div class="detail-item">⏰ Mon-Sat 9AM-6PM</div>
+                        <div class="detail-item">🚚 Local delivery</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">Browse Flowers</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 4: Electrician -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">⚡</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Bright Spark Electrical</h3>
+                            <p class="business-category">Electricians</p>
+                        </div>
+                        <span class="business-distance">3.2 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Qualified electricians for domestic and commercial work. Rewiring, installations, and PAT testing.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Brighton & Hove</div>
+                        <div class="detail-item">⏰ Mon-Fri 8AM-6PM</div>
+                        <div class="detail-item">✅ Fully insured & certified</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Services</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Quote</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 5: Pet Grooming -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">🐕</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Paws & Claws Grooming</h3>
+                            <p class="business-category">Pet Services</p>
+                        </div>
+                        <span class="business-distance">2.8 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Professional dog and cat grooming. Baths, clips, nail trimming. Calm, stress-free environment.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Portslade</div>
+                        <div class="detail-item">⏰ Tue-Sat 9AM-5PM</div>
+                        <div class="detail-item">🐾 All breeds welcome</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Packages</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Book</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 6: Bakery -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">🥖</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">The Daily Bread</h3>
+                            <p class="business-category">Bakery</p>
+                        </div>
+                        <span class="business-distance">1.0 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Artisan bakery with sourdough, pastries, and specialty breads. All baked fresh on site daily.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Hanover</div>
+                        <div class="detail-item">⏰ Mon-Sat 7AM-4PM</div>
+                        <div class="detail-item">🌾 Organic flour used</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Products</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Pre-order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 7: Personal Trainer -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">💪</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">FitForce PT</h3>
+                            <p class="business-category">Personal Training</p>
+                        </div>
+                        <span class="business-distance">1.8 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Qualified personal trainer specializing in weight loss and strength training. Home or gym sessions.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Mobile service</div>
+                        <div class="detail-item">⏰ Flexible hours 6AM-8PM</div>
+                        <div class="detail-item">🎯 Free consultation</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Programs</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 8: Dry Cleaners -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">👔</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Prestige Dry Cleaning</h3>
+                            <p class="business-category">Dry Cleaners</p>
+                        </div>
+                        <span class="business-distance">0.9 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Expert dry cleaning and alterations. Same-day service available. Eco-friendly cleaning methods.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Preston Circus</div>
+                        <div class="detail-item">⏰ Mon-Fri 8AM-6PM, Sat 9AM-5PM</div>
+                        <div class="detail-item">♻️ Eco-friendly</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Services</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Drop-off</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 9: Car Wash -->
+            <div class="business-card" onclick="alert('This is a demo business listing')">
+                <div class="business-image">🚗</div>
+                <div class="business-content">
+                    <div class="business-header">
+                        <div>
+                            <h3 class="business-name">Shine Auto Detailing</h3>
+                            <p class="business-category">Car Wash & Valeting</p>
+                        </div>
+                        <span class="business-distance">2.5 mi</span>
+                    </div>
+                    <p class="business-description">
+                        Professional car valeting, wash, and detailing. Interior and exterior packages from £15.
+                    </p>
+                    <div class="business-details">
+                        <div class="detail-item">📍 Shoreham Road</div>
+                        <div class="detail-item">⏰ Daily 8AM-6PM</div>
+                        <div class="detail-item">💧 Eco-wash available</div>
+                    </div>
+                    <div class="business-actions">
+                        <button class="action-btn action-btn-primary">View Packages</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📞 Book</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -404,6 +711,58 @@
     </div>
 
     <script>
+        // Search functionality
+        let currentMaxDistance = 10; // Default max distance in miles
+
+        function performSearch() {
+            const category = document.getElementById('categorySelect').value.toLowerCase();
+            const keyword = document.getElementById('keywordSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.business-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.querySelector('.business-name').textContent.toLowerCase();
+                const cardCategory = card.querySelector('.business-category').textContent.toLowerCase();
+                const distanceText = card.querySelector('.business-distance')?.textContent || '0 mi';
+                const distance = parseFloat(distanceText);
+
+                // Check category match
+                const categoryMatch = category === 'all categories' || 
+                    cardCategory.includes(category.replace(' & ', ' '));
+
+                // Check keyword match (searches in name and category)
+                const keywordMatch = keyword === '' || 
+                    name.includes(keyword) || 
+                    cardCategory.includes(keyword);
+
+                // Check distance match
+                const distanceMatch = distance <= currentMaxDistance;
+
+                // Show/hide card based on all criteria
+                if (categoryMatch && keywordMatch && distanceMatch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update count
+            document.getElementById('resultsCount').textContent = visibleCount;
+        }
+
+        function setMaxDistance(miles) {
+            currentMaxDistance = miles;
+            // Update button styles
+            document.querySelectorAll('.distance-btn').forEach(btn => {
+                btn.style.background = 'var(--light-grey)';
+                btn.style.color = 'var(--technical-grey)';
+            });
+            event.target.style.background = 'var(--vtl-cyan)';
+            event.target.style.color = 'white';
+            performSearch();
+        }
+
         // PWA Manifest
         const manifest = {
             name: "LinxLocal - Local Business Discovery",
