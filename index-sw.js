@@ -52,6 +52,12 @@ self.addEventListener('fetch', event => {
     const request = event.request;
     const url = new URL(request.url);
 
+    // --- PDF BYPASS RULE (critical for PWAs) ---
+if (event.request.url.endsWith('.pdf')) {
+    event.respondWith(fetch(event.request));
+    return;
+}
+
     // Strategy:
     // 1) Serve from cache if available
     // 2) Fetch from network
