@@ -451,7 +451,7 @@
 
         <!-- ACTIONS -->
         <div class="business-actions">
-            <a href="assets/cars/mercedes-c63/brochure.pdf" class="action-btn action-btn-primary">📄 Specs PDF</a>
+            <a href="assets/cars/mercedes-c63/brochure.pdf" target="_blank" class="action-btn action-btn-primary">📄 Specs PDF</a>
             <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01201201234'">📞 Call</button>
         </div>
 
@@ -863,6 +863,11 @@ function setMainImage(imgElement) {
 
     card.querySelectorAll('.car-gallery img').forEach(img => img.classList.remove('active'));
     imgElement.classList.add('active');
+}
+</script>
+<script>
+function setMainImage(targetId, thumb) {
+    document.getElementById(targetId).src = thumb.src;
 }
 </script>
 
