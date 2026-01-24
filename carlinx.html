@@ -329,6 +329,10 @@
 .car-gallery img:hover {
     transform: scale(1.05);
 }
+.car-gallery img.active {
+    outline: 2px solid #FFC107;
+}
+
     </style>
 </head>
 <body>
@@ -408,9 +412,9 @@
 
     <!-- IMAGE STRIP -->
     <div class="car-gallery">
-        <<img src="./assets/cars/mercedes-c63/image1.jpg" onclick="setMainImage(this)">
-<img src="./assets/cars/mercedes-c63/image2.jpg" onclick="setMainImage(this)">
-<img src="./assets/cars/mercedes-c63/image3.jpg" onclick="setMainImage(this)">
+        <img src="./assets/cars/mercedes-c63/image1.jpg" onclick="setMainImage(this)">
+        <img src="./assets/cars/mercedes-c63/image2.jpg" onclick="setMainImage(this)">
+        <img src="./assets/cars/mercedes-c63/image3.jpg" onclick="setMainImage(this)">
 
     </div>
 
@@ -850,12 +854,18 @@
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
     </script>
-   <script>
+ <script>
 function setMainImage(imgElement) {
-    const mainImg = imgElement.closest('.business-card').querySelector('.business-image img');
+    const card = imgElement.closest('.business-card');
+    const mainImg = card.querySelector('.business-image img');
+
     mainImg.src = imgElement.src;
+
+    card.querySelectorAll('.car-gallery img').forEach(img => img.classList.remove('active'));
+    imgElement.classList.add('active');
 }
 </script>
+
  
 </body>
 </html>
