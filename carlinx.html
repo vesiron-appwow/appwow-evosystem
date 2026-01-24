@@ -408,9 +408,10 @@
 
     <!-- IMAGE STRIP -->
     <div class="car-gallery">
-        <img src="assets/cars/mercedes-c63/image1.jpg" alt="Mercedes AMG C63 S photo 1">
-        <img src="assets/cars/mercedes-c63/image2.jpg" alt="Mercedes AMG C63 S photo 2">
-        <img src="assets/cars/mercedes-c63/image3.jpg" alt="Mercedes AMG C63 S photo 3">
+        <<img src="./assets/cars/mercedes-c63/image1.jpg" onclick="setMainImage(this)">
+<img src="./assets/cars/mercedes-c63/image2.jpg" onclick="setMainImage(this)">
+<img src="./assets/cars/mercedes-c63/image3.jpg" onclick="setMainImage(this)">
+
     </div>
 
     <div class="business-content">
@@ -849,5 +850,12 @@
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
     </script>
+   <script>
+function setMainImage(imgElement) {
+    const mainImg = imgElement.closest('.business-card').querySelector('.business-image img');
+    mainImg.src = imgElement.src;
+}
+</script>
+ 
 </body>
 </html>
