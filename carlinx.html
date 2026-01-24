@@ -308,6 +308,27 @@
                 grid-template-columns: 1fr;
             }
         }
+
+/* CarLinx Multi-Image Gallery */
+.car-gallery {
+    display: flex;
+    gap: 6px;
+    padding: 8px 10px;
+    background: #f5f5f5;
+}
+
+.car-gallery img {
+    width: 64px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.car-gallery img:hover {
+    transform: scale(1.05);
+}
     </style>
 </head>
 <body>
@@ -378,6 +399,60 @@
     <div class="results-container">
         <!-- Card View -->
         <div class="card-view">
+          <div class="business-card">
+
+    <!-- MAIN IMAGE -->
+    <div class="business-image">
+        <img src="assets/cars/Mercedes-c63/cover.jpg" alt="Mercedes AMG C63 S">
+    </div>
+
+    <!-- IMAGE STRIP -->
+    <div class="asset-gallery">
+        <img src="assets/cars Mercedes-c63/image1.jpg" alt="Mercedes AMG C63 S” photo 1">
+        <img src="assets/cars Mercedes-c63/image2.jpg" alt="Mercedes AMG C63 S” photo 2">
+        <img src="assets/cars Mercedes-c63/image3.jpg" alt="Mercedes AMG C63 S” photo 3">
+    </div>
+
+    <div class="business-content">
+
+        <!-- HEADER -->
+        <div class="business-header">
+            <div>
+                <h3 class="business-name">Mercedes AMG C63 S</h3>
+                <p class="business-category">Performance Saloon</p>
+            </div>
+            <span class="real-badge">REAL</span>
+        </div>
+
+        <!-- CORE VEHICLE DATA -->
+        <p class="business-description">
+£27,495 • 4.0L Petrol • 53,000
+        </p>
+
+        <!-- TECH DETAILS -->
+        <div class="business-details">
+            <div class="detail-item">Colour: Black</div>
+            <div class="detail-item">Gearbox: Automatic</div>
+        </div>
+
+        <!-- SELLER BLOCK -->
+        <div class="seller-info">
+            <div class="detail-item">
+                👤 Seller: <a href="volt-automotive">Volt Auto</a>
+            </div>
+            <div class="detail-item">📍 Birmingham</div>
+            <div class="detail-item">📞 <a href="tel:01201201234">01201201234</a></div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="business-actions">
+            <a href="assets/cars/[[FOLDER-NAME]]/brochure.pdf" class="action-btn action-btn-primary">📄 Specs PDF</a>
+            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01201201234'">📞 Call</button>
+        </div>
+
+    </div>
+</div>
+  
             <!-- Premium Motors - REAL WORKING APP -->
             <div class="business-card" onclick="window.location.href='./carlinx-premiummotors.html'">
                 <div class="business-image">🚗</div>

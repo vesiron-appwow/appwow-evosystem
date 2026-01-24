@@ -1,88 +1,87 @@
-const CACHE_NAME = 'appwow-v1';
-const urlsToCache = [
+// ================================
+// VTL UNIVERSAL SERVICE WORKER
+// AppWow + Linx Asset Engine
+// ================================
+
+const CACHE_NAME = 'vtl-evosystem-v1';
+
+// Core App Shell (HTML pages only)
+const CORE_FILES = [
     './',
     './index.html',
-    './linxlocal.html',
     './carlinx.html',
+    './linxlocal.html',
     './linxmart.html',
     './homelinx.html',
     './arcadia.html',
     './mylynx.html'
 ];
 
-self.addEventListener('install', (event) => {
-    console.log('[AppWow SW] Installing...');
+// Install Event - Pre-cache core pages
+self.addEventListener('install', event => {
+    console.log('[VTL SW] Installing...');
+    
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            console.log('[AppWow SW] Caching app shell');
-            return cache.addAll(urlsToCache.map(url => {
-                return new Request(url, { cache: 'reload' });
-            })).catch((error) => {
-                console.log('[AppWow SW] Cache addAll error:', error);
-                // Try to cache individual files even if some fail
-                return Promise.allSettled(
-                    urlsToCache.map(url => cache.add(url).catch(err => {
-                        console.log('[AppWow SW] Failed to cache:', url, err);
-                    }))
-                );
-            });
-        }).then(() => {
-            console.log('[AppWow SW] Installation complete');
-            return self.skipWaiting();
-        })
+        caches.open(CACHE_NAME).then(cache => {
+            console.log('[VTL SW] Caching core pages');
+            return cache.addAll(CORE_FILES);
+        }).then(() => self.skipWaiting())
     );
 });
 
-self.addEventListener('activate', (event) => {
-    console.log('[AppWow SW] Activating...');
+// Activate Event - Clean old caches
+self.addEventListener('activate', event => {
+    console.log('[VTL SW] Activating...');
+    
     event.waitUntil(
-        caches.keys().then((cacheNames) => {
+        caches.keys().then(names => {
             return Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== CACHE_NAME) {
-                        console.log('[AppWow SW] Deleting old cache:', cacheName);
-                        return caches.delete(cacheName);
+                names.map(name => {
+                    if (name !== CACHE_NAME) {
+                        console.log('[VTL SW] Removing old cache:', name);
+                        return caches.delete(name);
                     }
                 })
             );
-        }).then(() => {
-            console.log('[AppWow SW] Activation complete');
-            return self.clients.claim();
-        })
+        }).then(() => self.clients.claim())
     );
 });
 
-self.addEventListener('fetch', (event) => {
+// Fetch Event - Universal Asset Caching
+self.addEventListener('fetch', event => {
+    const request = event.request;
+    const url = new URL(request.url);
+
+    // Strategy:
+    // 1) Serve from cache if available
+    // 2) Fetch from network
+    // 3) Auto-cache anything under /assets/
+
     event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) {
-                console.log('[AppWow SW] Serving from cache:', event.request.url);
-                return cachedResponse;
+        caches.match(request).then(cached => {
+            if (cached) {
+                return cached;
             }
-            
-            console.log('[AppWow SW] Fetching from network:', event.request.url);
-            return fetch(event.request).then((response) => {
-                // Don't cache non-successful responses
-                if (!response || response.status !== 200 || response.type === 'error') {
-                    return response;
-                }
-                
-                // Only cache same-origin requests
-                if (event.request.url.startsWith(self.location.origin)) {
-                    const responseClone = response.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, responseClone);
-                        console.log('[AppWow SW] Cached new resource:', event.request.url);
+
+            return fetch(request).then(response => {
+                // Only cache successful responses from same origin
+                if (
+                    response.status === 200 &&
+                    url.origin === self.location.origin &&
+                    url.pathname.startsWith('/assets/')
+                ) {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(request, clone);
+                        console.log('[VTL SW] Cached asset:', url.pathname);
                     });
                 }
-                
+
                 return response;
+            }).catch(() => {
+                // Optional fallback: return homepage if offline
+                return caches.match('./index.html');
             });
-        }).catch((error) => {
-            console.log('[AppWow SW] Fetch failed:', error);
-            // Try to return cached index.html as fallback
-            return caches.match('./index.html');
         })
     );
 });
-
