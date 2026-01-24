@@ -460,6 +460,40 @@
     </style>
 </head>
 <body>
+    <body>
+
+<!-- App Update Banner -->
+<div id="updateBanner" style="
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+">
+    🔔 New version available
+    <button onclick="updateApp()" style="
+        margin-left: 12px;
+        background: #FFC107;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+    ">
+        Refresh
+    </button>
+</div>
+
+<!-- Menu Backdrop -->
+<div id="menuBackdrop" class="menu-backdrop" onclick="closeMenu()"></div>
+
     <!-- Menu Backdrop -->
     <div id="menuBackdrop" class="menu-backdrop" onclick="closeMenu()"></div>
 
@@ -880,5 +914,36 @@
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
     </script>
+    <script>
+let newWorker;
+
+if ('serviceWorker' in navigator) {
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
+    });
+
+    navigator.serviceWorker.ready.then(registration => {
+
+        registration.addEventListener('updatefound', () => {
+            newWorker = registration.installing;
+
+            newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    const banner = document.getElementById('updateBanner');
+                    if (banner) banner.style.display = 'block';
+                }
+            });
+        });
+    });
+}
+
+function updateApp() {
+    if (newWorker) {
+        newWorker.postMessage({ action: 'SKIP_WAITING' });
+    }
+}
+</script>
+
 </body>
 </html>

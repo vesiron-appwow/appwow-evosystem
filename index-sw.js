@@ -20,6 +20,9 @@ const CORE_FILES = [
 // Install Event - Pre-cache core pages
 self.addEventListener('install', event => {
     console.log('[VTL SW] Installing...');
+
+  self.addEventListener('install', event => {
+    self.skipWaiting();  
     
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
@@ -32,6 +35,9 @@ self.addEventListener('install', event => {
 // Activate Event - Clean old caches
 self.addEventListener('activate', event => {
     console.log('[VTL SW] Activating...');
+
+    self.addEventListener('activate', event => {
+    event.waitUntil(self.clients.claim());
     
     event.waitUntil(
         caches.keys().then(names => {
@@ -46,6 +52,13 @@ self.addEventListener('activate', event => {
         }).then(() => self.clients.claim())
     );
 });
+
+self.addEventListener('message', event => {
+    if (event.data === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+});
+
 
 // Fetch Event - Universal Asset Caching
 self.addEventListener('fetch', event => {
