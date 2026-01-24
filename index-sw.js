@@ -17,28 +17,28 @@ const CORE_FILES = [
     './mylynx.html'
 ];
 
-// Install Event - Pre-cache core pages
+// ================================
+// INSTALL EVENT - Cache core pages
+// ================================
 self.addEventListener('install', event => {
     console.log('[VTL SW] Installing...');
 
-  self.addEventListener('install', event => {
-    self.skipWaiting();  
-    
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
             console.log('[VTL SW] Caching core pages');
             return cache.addAll(CORE_FILES);
-        }).then(() => self.skipWaiting())
+        })
     );
+
+    self.skipWaiting();
 });
 
-// Activate Event - Clean old caches
+// ================================
+// ACTIVATE EVENT - Clean old caches
+// ================================
 self.addEventListener('activate', event => {
     console.log('[VTL SW] Activating...');
 
-    self.addEventListener('activate', event => {
-    event.waitUntil(self.clients.claim());
-    
     event.waitUntil(
         caches.keys().then(names => {
             return Promise.all(
@@ -49,32 +49,33 @@ self.addEventListener('activate', event => {
                     }
                 })
             );
-        }).then(() => self.clients.claim())
+        })
     );
+
+    self.clients.claim();
 });
 
+// ================================
+// MESSAGE EVENT - Force update
+// ================================
 self.addEventListener('message', event => {
     if (event.data === 'SKIP_WAITING') {
         self.skipWaiting();
     }
 });
 
-
-// Fetch Event - Universal Asset Caching
+// ================================
+// FETCH EVENT - Smart caching engine
+// ================================
 self.addEventListener('fetch', event => {
     const request = event.request;
     const url = new URL(request.url);
 
-    // --- PDF BYPASS RULE (critical for PWAs) ---
-if (event.request.url.endsWith('.pdf')) {
-    event.respondWith(fetch(event.request));
-    return;
-}
-
-    // Strategy:
-    // 1) Serve from cache if available
-    // 2) Fetch from network
-    // 3) Auto-cache anything under /assets/
+    // IMPORTANT: Never cache PDFs (prevents grey-screen bug)
+    if (url.pathname.endsWith('.pdf')) {
+        event.respondWith(fetch(request));
+        return;
+    }
 
     event.respondWith(
         caches.match(request).then(cached => {
@@ -83,7 +84,8 @@ if (event.request.url.endsWith('.pdf')) {
             }
 
             return fetch(request).then(response => {
-                // Only cache successful responses from same origin
+
+                // Cache only same-origin assets (/assets/)
                 if (
                     response.status === 200 &&
                     url.origin === self.location.origin &&
@@ -98,7 +100,7 @@ if (event.request.url.endsWith('.pdf')) {
 
                 return response;
             }).catch(() => {
-                // Optional fallback: return homepage if offline
+                // Offline fallback
                 return caches.match('./index.html');
             });
         })
