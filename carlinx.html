@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CarLinx - Discover vehicles in Brighton & Sussex. Browse dealers, private sales, and automotive services.">
-    <title>CarLinx - Vehicle Discovery</title>
-    <meta name="theme-color" content="#FFC107">
+    <meta name="description" content="Generate professional PWA apps for 60+ UK trades in under 5 minutes">
+    <meta name="theme-color" content="#667eea">
+    <title>Instant Trade App Generator | AppWow Agent Tool</title>
+    <link rel="apple-touch-icon" href="linxlocal-whitelabel-icon.png">
     <style>
         * {
             margin: 0;
@@ -13,961 +14,922 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --carlinx-orange: #FFC107;
-            --carlinx-red: #DC3545;
-            --evosystem-black: #0A0A0A;
-            --technical-grey: #4A4A4A;
-            --light-grey: #F2F2F2;
-            --success-green: #28A745;
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--light-grey);
-            color: var(--evosystem-black);
-            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--carlinx-orange), var(--carlinx-red));
-            padding: 1.5rem 2rem;
-            color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
+        .container {
             max-width: 1400px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: white;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
             background: white;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--carlinx-orange);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
 
-        .logo-text h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
         }
 
-        .logo-text p {
-            font-size: 0.9rem;
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
             opacity: 0.9;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--carlinx-orange);
-        }
-
-        /* Search Section */
-        .search-section {
-            background: white;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .search-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .search-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--evosystem-black);
-        }
-
-        /* View Controls */
-        .view-controls {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .results-count {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--technical-grey);
-        }
-
-        /* Results Container */
-        .results-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem 2rem;
-        }
-
-        /* Card View */
-        .card-view {
+        .main-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 800px;
         }
 
-        .business-card {
+        .configurator-panel {
+            padding: 40px;
+            background: #f8f9fa;
+            border-right: 2px solid #e0e0e0;
+            overflow-y: auto;
+            max-height: 800px;
+        }
+
+        .preview-panel {
+            padding: 40px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        select:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .trade-preview {
+            display: none;
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin-top: 15px;
+        }
+
+        .trade-preview-icon {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .trade-preview-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .trade-preview-desc {
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+        }
+
+        .feature-checkbox {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .feature-checkbox:hover {
+            background: #f0f4ff;
+            border-color: #667eea;
+        }
+
+        .feature-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .color-picker-group {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .color-option {
+            width: 100%;
+            height: 50px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+            transform: scale(1.1);
+        }
+
+        .phone-preview {
+            width: 375px;
+            height: 667px;
+            border: 16px solid #333;
+            border-radius: 40px;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .phone-notch {
+            width: 150px;
+            height: 30px;
+            background: #333;
+            margin: 0 auto;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .phone-screen {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+            background: white;
+        }
+
+        .app-header {
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .app-content {
+            padding: 20px;
+        }
+
+        .app-section {
             background: white;
             border-radius: 12px;
-            overflow: hidden;
+            padding: 15px;
+            margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
         }
 
-        .business-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(255,193,7,0.2);
+        .app-section h3 {
+            margin-bottom: 10px;
+            color: #333;
         }
 
-        .business-image {
+        .contact-button {
+            display: block;
             width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .generate-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            background: #4caf50;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: white;
+            margin: 20px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .business-content {
-            padding: 1.5rem;
-        }
-
-        .business-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 0.75rem;
-        }
-
-        .business-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--evosystem-black);
-            margin-bottom: 0.25rem;
-        }
-
-        .business-category {
-            font-size: 0.85rem;
-            color: var(--technical-grey);
-            font-weight: 500;
-        }
-
-        .business-distance {
-            background: var(--carlinx-orange);
-            color: var(--evosystem-black);
-            padding: 0.25rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .business-description {
-            color: var(--technical-grey);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .business-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: var(--light-grey);
-            border-radius: 8px;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--technical-grey);
-        }
-
-        .business-actions {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 0.95rem;
-        }
-
-        .action-btn-primary {
-            background: var(--carlinx-orange);
-            color: var(--evosystem-black);
-        }
-
-        .action-btn-primary:hover {
-            background: var(--carlinx-red);
-            color: white;
-        }
-
-        .action-btn-secondary {
-            background: var(--light-grey);
-            color: var(--technical-grey);
-        }
-
-        .action-btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        /* Real App Badge */
-        .real-app-badge {
+        .premium-badge {
             display: inline-block;
-            background: var(--success-green);
-            color: white;
-            padding: 0.25rem 0.5rem;
+            background: #ffc107;
+            color: #333;
+            padding: 4px 8px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.75em;
             font-weight: 600;
-            margin-left: 0.5rem;
+            margin-left: 8px;
         }
 
-        /* Powered by AppWow */
-        .powered-by {
-            text-align: center;
-            padding: 2rem;
-            color: var(--technical-grey);
-            font-size: 0.9rem;
-        }
-
-        .powered-by a {
-            color: var(--carlinx-orange);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .powered-by a:hover {
-            color: var(--carlinx-red);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .card-view {
+        @media (max-width: 1024px) {
+            .main-layout {
                 grid-template-columns: 1fr;
             }
+
+            .configurator-panel {
+                border-right: none;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .phone-preview {
+                transform: scale(0.8);
+            }
         }
-
-/* CarLinx Multi-Image Gallery */
-.car-gallery {
-    display: flex;
-    gap: 6px;
-    padding: 8px 10px;
-    background: #f5f5f5;
-}
-
-.car-gallery img {
-    width: 64px;
-    height: 44px;
-    object-fit: cover;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.car-gallery img:hover {
-    transform: scale(1.05);
-}
-.car-gallery img.active {
-    outline: 2px solid #FFC107;
-}
-/* ============================= */
-/* VTL VEHICLE CARD STYLING */
-/* ============================= */
-
-.vehicle-card {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  overflow: hidden;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.vehicle-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(0,87,184,0.18);
-}
-
-.vehicle-images img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.vehicle-content {
-  padding: 1rem 1.1rem 1.2rem;
-}
-
-.vehicle-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-  color: #0A0A0A;
-}
-
-.vehicle-meta {
-  font-size: 0.85rem;
-  color: #4A4A4A;
-  margin-bottom: 0.5rem;
-}
-
-.vehicle-price {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #0057B8;
-  margin-bottom: 0.5rem;
-}
-
-.vehicle-description {
-  font-size: 0.9rem;
-  color: #4A4A4A;
-  margin-bottom: 0.9rem;
-}
-
-.vehicle-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.action-btn {
-  flex: 1;
-  text-align: center;
-  padding: 0.55rem 0.6rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
-}
-
-.action-btn-primary {
-  background: #0057B8;
-  color: white;
-}
-
-.action-btn-primary:hover {
-  background: #003f86;
-}
-
-.action-btn-secondary {
-  background: #F2F2F2;
-  color: #0057B8;
-  border: 1px solid #0057B8;
-}
-
-.action-btn-secondary:hover {
-  background: #0057B8;
-  color: white;
-}
-
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo">
-                <div class="logo-icon">C</div>
-                <div class="logo-text">
-                    <h1>CarLinx</h1>
-                    <p>Vehicle Discovery</p>
-                </div>
-            </a>
-            <div class="header-actions">
-                <button class="btn btn-outline" onclick="window.location.href='./index.html'">← Back to AppWow</button>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ Instant Trade App Generator</h1>
+            <p>Create professional PWAs for 60+ trades in under 5 minutes</p>
         </div>
-    </header>
 
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="search-container">
-            <h2 class="search-title">Discover Vehicles & Dealers in Brighton & Sussex</h2>
-            
-            <form style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-                <div>
-                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Seller Type</label>
-                    <select id="sellerTypeSelect" onchange="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
-                        <option>All Sellers</option>
-                        <option>Used Car Dealer</option>
-                        <option>Classic & Collector Vehicles</option>
-                        <option>Commercial Vehicles</option>
-                    </select>
-                </div>
+        <div class="main-layout">
+            <!-- CONFIGURATOR PANEL -->
+            <div class="configurator-panel">
                 
-                <div>
-                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Search</label>
-                    <input type="text" id="keywordSearch" placeholder="Dealer name, make, or model..." oninput="performSearch()" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                <!-- STEP 1: SELECT TRADE TYPE -->
+                <div class="section">
+                    <div class="section-title">1️⃣ Select Trade Category & Type</div>
+                    
+                    <div class="form-group">
+                        <label>Trade Category</label>
+                        <select id="categorySelect">
+                            <option value="">-- Select Category --</option>
+                            <option value="building">🏗️ Building & Property Trades</option>
+                            <option value="home">🏡 Home Improvement & Maintenance</option>
+                            <option value="automotive">🚗 Automotive Trades</option>
+                            <option value="specialist">🔧 Specialist Trades</option>
+                            <option value="fb">🍽️ Food & Beverage</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Specific Trade</label>
+                        <select id="tradeSelect" disabled>
+                            <option value="">-- Select Trade --</option>
+                        </select>
+                    </div>
+
+                    <div class="trade-preview" id="tradePreview">
+                        <div class="trade-preview-icon" id="tradeIcon">🔧</div>
+                        <div class="trade-preview-name" id="tradeName">Trade Name</div>
+                        <div class="trade-preview-desc" id="tradeDescription">Description</div>
+                    </div>
                 </div>
 
-                <div>
-                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--technical-grey); margin-bottom: 0.5rem;">Location</label>
-                    <input type="text" value="Brighton" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                <!-- STEP 2: BUSINESS DETAILS -->
+                <div class="section">
+                    <div class="section-title">2️⃣ Business Details</div>
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input type="text" id="businessName" placeholder="e.g., Smith Plumbing Services">
+                    </div>
+                    <div class="form-group">
+                        <label>Tagline</label>
+                        <input type="text" id="tagline" placeholder="e.g., Fast, Reliable, 24/7">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" placeholder="07700 900123">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="email" placeholder="info@business.co.uk">
+                    </div>
+                    <div class="form-group">
+                        <label>Service Area</label>
+                        <input type="text" id="serviceArea" placeholder="e.g., Greater Manchester">
+                    </div>
                 </div>
-                
-                <button type="button" onclick="performSearch()" style="align-self: end; padding: 0.875rem; background: var(--carlinx-orange); color: var(--evosystem-black); border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">Search</button>
-            </form>
 
-            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid var(--light-grey);">
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                    <span style="font-weight: 600; color: var(--technical-grey);">Distance:</span>
-                    <button class="distance-btn" onclick="setMaxDistance(10)" style="padding: 0.5rem 1rem; background: var(--carlinx-orange); color: var(--evosystem-black); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">10 miles</button>
-                    <button class="distance-btn" onclick="setMaxDistance(25)" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">25 miles</button>
-                    <button class="distance-btn" onclick="setMaxDistance(50)" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">50 miles</button>
+                <!-- STEP 3: CHOOSE COLOR THEME -->
+                <div class="section">
+                    <div class="section-title">3️⃣ Choose Color Theme</div>
+                    <div class="color-picker-group">
+                        <div class="color-option" data-color="#1976d2" style="background: #1976d2;"></div>
+                        <div class="color-option" data-color="#d32f2f" style="background: #d32f2f;"></div>
+                        <div class="color-option" data-color="#388e3c" style="background: #388e3c;"></div>
+                        <div class="color-option" data-color="#f57c00" style="background: #f57c00;"></div>
+                        <div class="color-option" data-color="#7b1fa2" style="background: #7b1fa2;"></div>
+                        <div class="color-option" data-color="#0097a7" style="background: #0097a7;"></div>
+                        <div class="color-option" data-color="#5d4037" style="background: #5d4037;"></div>
+                        <div class="color-option" data-color="#455a64" style="background: #455a64;"></div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- View Controls -->
-    <div class="view-controls">
-        <div class="results-count">
-            <span id="resultsCount">12</span> vehicles & dealers available • <span class="real-app-badge">3 LIVE APPS</span>
-        </div>
-    </div>
-
-    <!-- Results Container -->
-    <div class="results-container">
-        <!-- Card View -->
-        <div class="card-view">
-          <div class="business-card">
-
-    <!-- MAIN IMAGE -->
-    <div class="business-image">
-        <img src="assets/cars/mercedes-c63/cover.jpg" alt="Mercedes AMG C63 S">
-    </div>
-
-    <!-- IMAGE STRIP -->
-    <div class="car-gallery">
-        <img src="./assets/cars/mercedes-c63/image1.jpg" onclick="setMainImage(this)">
-        <img src="./assets/cars/mercedes-c63/image2.jpg" onclick="setMainImage(this)">
-        <img src="./assets/cars/mercedes-c63/image3.jpg" onclick="setMainImage(this)">
-
-    </div>
-
-    <div class="business-content">
-
-        <!-- HEADER -->
-        <div class="business-header">
-            <div>
-                <h3 class="business-name">Mercedes AMG C63 S</h3>
-                <p class="business-category">Performance Saloon</p>
-            </div>
-            <span class="real-badge">REAL</span>
-        </div>
-
-        <!-- CORE VEHICLE DATA -->
-        <p class="business-description">
-£27,495 • 4.0L Petrol • 53,000
-        </p>
-
-        <!-- TECH DETAILS -->
-        <div class="business-details">
-            <div class="detail-item">Colour: Black</div>
-            <div class="detail-item">Gearbox: Automatic</div>
-        </div>
-
-        <!-- SELLER BLOCK -->
-        <div class="seller-info">
-            <div class="detail-item">
-                👤 Seller: <a href="volt-automotive">Volt Auto</a>
-            </div>
-            <div class="detail-item">📍 Birmingham</div>
-            <div class="detail-item">📞 <a href="tel:01201201234">01201201234</a></div>
-        </div>
-
-        <!-- ACTIONS -->
-        <div class="business-actions">
-            <a href="assets/cars/mercedes-c63/brochure.pdf" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   class="action-btn action-btn-primary">
-📄 Specs PDF
-</a>
-
-            <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01201201234'">📞 Call</button>
-        </div>
-
-    </div>
-</div>
-  
-            <!-- Premium Motors - REAL WORKING APP -->
-            <div class="business-card" onclick="window.location.href='./carlinx-premiummotors.html'">
-                <div class="business-image">🚗</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Premium Motors</h3>
-                            <p class="business-category">Used Car Dealer</p>
+                <!-- STEP 4: SELECT FEATURES -->
+                <div class="section">
+                    <div class="section-title">4️⃣ Select Features</div>
+                    
+                    <!-- TRADE FEATURES -->
+                    <div id="tradeFeatures">
+                        <div class="feature-checkbox">
+                            <input type="checkbox" id="feature-booking" checked>
+                            <label for="feature-booking">📅 Instant Booking / Quote Request</label>
                         </div>
-                        <span class="business-distance">2.1 mi</span>
+                        <div class="feature-checkbox">
+                            <input type="checkbox" id="feature-gallery" checked>
+                            <label for="feature-gallery">📸 Work Gallery / Portfolio</label>
+                        </div>
+                        <div class="feature-checkbox">
+                            <input type="checkbox" id="feature-testimonials" checked>
+                            <label for="feature-testimonials">⭐ Customer Testimonials</label>
+                        </div>
+                        <div class="feature-checkbox">
+                            <input type="checkbox" id="feature-emergency">
+                            <label for="feature-emergency">🚨 Emergency Call Button</label>
+                        </div>
+                        <div class="feature-checkbox">
+                            <input type="checkbox" id="feature-pricing">
+                            <label for="feature-pricing">💷 Pricing Guide</label>
+                        </div>
                     </div>
-                    <p class="business-description">
-                        Quality used cars from premium brands. Full service history, comprehensive warranty, and finance options available.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 88 London Road, Brighton, BN1 4JF</div>
-                        <div class="detail-item">⏰ Mon-Sat 9AM-6PM, Sun 10AM-4PM</div>
-                        <div class="detail-item">✅ Full Inventory Available Offline</div>
+
+                    <!-- F&B PREMIUM FEATURES -->
+                    <div id="fbFeatures" style="display: none;">
+                        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ffc107;">
+                            <strong>🍽️ Food & Beverage Premium Features</strong>
+                        </div>
+                        
+                        <div class="feature-checkbox" style="background: #e8f5e9; border-color: #4caf50;">
+                            <input type="checkbox" id="feature-menulinx">
+                            <div>
+                                <label for="feature-menulinx" style="font-weight: 600; color: #2e7d32;">
+                                    🍽️ MenuLinx Integration<span class="premium-badge">+£30/month</span>
+                                </label>
+                                <div style="font-size: 0.85em; color: #555; margin-top: 5px;">
+                                    Full menu display, online ordering, payment processing<br>
+                                    <strong>Bypasses Just Eat/Deliveroo 30% commission</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-checkbox" style="background: #e3f2fd; border-color: #2196f3;" id="preorderCheckbox">
+                            <input type="checkbox" id="feature-preorder">
+                            <div>
+                                <label for="feature-preorder" style="font-weight: 600; color: #1565c0;">
+                                    📦 Pre-Order Mode<span class="premium-badge">Included</span>
+                                </label>
+                                <div style="font-size: 0.85em; color: #555; margin-top: 5px;">
+                                    <strong>Perfect for: Bakeries, Butchers, Delis, Fishmongers</strong><br>
+                                    • Next-day advance orders with payment<br>
+                                    • Know exact quantities before production<br>
+                                    • Eliminate 60-70% waste, guarantee revenue
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: #f3e5f5; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 0.9em;">
+                            <strong>💰 ROI Example:</strong><br>
+                            £3,000/month via Just Eat = <strong style="color: #d32f2f;">£900 lost (30%)</strong><br>
+                            MenuLinx subscription = <strong style="color: #388e3c;">£30/month = £870 saved!</strong>
+                        </div>
                     </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Stock</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273123456'">📞 Call</button>
+                </div>
+
+                <!-- PRICING SUMMARY -->
+                <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <div class="section-title" style="color: white; border-color: white;">💷 Subscription Pricing</div>
+                    <div style="font-size: 1.5em; font-weight: 600; margin-bottom: 10px;">
+                        <span id="totalPrice">£20</span>/month
                     </div>
+                    <div id="pricingBreakdown">
+                        <div>✓ Basic Trade App: £20/month</div>
+                    </div>
+                </div>
+
+                <!-- GENERATE BUTTON -->
+                <button class="generate-button" onclick="generateApp()">
+                    🚀 Generate Instant App
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    <h3>✅ App Generated Successfully!</h3>
+                    <p>Your Instant App is ready to deploy</p>
+                    <div class="qr-code">
+                        <div style="font-size: 100px;">📱</div>
+                    </div>
+                    <p><strong>Scan QR to install on customer's phone</strong></p>
                 </div>
             </div>
 
-            <!-- Classic Cars Sussex - REAL WORKING APP -->
-            <div class="business-card" onclick="window.location.href='./carlinx-classiccars.html'">
-                <div class="business-image">🏎️</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Classic Cars Sussex</h3>
-                            <p class="business-category">Classic & Collector Vehicles</p>
+            <!-- PREVIEW PANEL -->
+            <div class="preview-panel">
+                <h2 style="margin-bottom: 20px; color: #333;">Live Preview</h2>
+                <div class="phone-preview">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="app-header" id="appHeader" style="background: #1976d2;">
+                            <h2 id="previewBusinessName">Your Business Name</h2>
+                            <p id="previewTagline">Your tagline here</p>
                         </div>
-                        <span class="business-distance">4.5 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Specialists in classic and collector vehicles. Expert restoration, sales, and sourcing service for enthusiasts.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Unit 12, Lewes Road, Brighton, BN2 3QB</div>
-                        <div class="detail-item">⏰ Tue-Sat 10AM-5PM (Appointments preferred)</div>
-                        <div class="detail-item">✅ Collection Available Offline</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Collection</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273789456'">📞 Enquire</button>
-                    </div>
-                </div>
-            </div>
+                        <div class="app-content">
+                            <div class="app-section">
+                                <h3>📞 Get In Touch</h3>
+                                <button class="contact-button" style="background: #4caf50; color: white;">
+                                    📞 Call Now
+                                </button>
+                                <button class="contact-button" style="background: #2196f3; color: white;">
+                                    ✉️ Email Us
+                                </button>
+                            </div>
 
-            <!-- Van & Truck Sales - REAL WORKING APP -->
-            <div class="business-card" onclick="window.location.href='./carlinx-vans.html'">
-                <div class="business-image">🚐</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">Van & Truck Sales</h3>
-                            <p class="business-category">Commercial Vehicles</p>
-                        </div>
-                        <span class="business-distance">3.8 mi</span>
-                    </div>
-                    <p class="business-description">
-                        Brighton's largest commercial vehicle specialist. Vans, pickups, and light trucks with commercial warranties.
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📍 Conway Street Industrial Estate, Hove, BN3 3LW</div>
-                        <div class="detail-item">⏰ Mon-Fri 8AM-6PM, Sat 9AM-5PM</div>
-                        <div class="detail-item">✅ Full Stock List Available Offline</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Commercial Stock</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); window.location.href='tel:01273456789'">📞 Trade</button>
-                    </div>
-                </div>
-            </div>
+                            <div class="app-section" id="bookingSection" style="display: none;">
+                                <h3>📅 Book A Service</h3>
+                                <p style="color: #666; font-size: 0.9em;">Quick quote request</p>
+                            </div>
 
-            <!-- EXAMPLE VEHICLES BELOW -->
-            
-            <!-- Example 1: BMW 3 Series -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚗</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2021 BMW 3 Series</h3>
-                            <p class="business-category">320d M Sport Saloon</p>
-                        </div>
-                        <span class="business-distance">7.2 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £28,995 • 2021 (73 plate) • Diesel • 24,500 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 Full service history</div>
-                        <div class="detail-item">✅ 12 months warranty included</div>
-                        <div class="detail-item">💳 Finance available</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
-                    </div>
-                </div>
-            </div>
+                            <div class="app-section" id="gallerySection" style="display: none;">
+                                <h3>📸 Our Work</h3>
+                                <p style="color: #666; font-size: 0.9em;">Before & after gallery</p>
+                            </div>
 
-            <!-- Example 2: Audi A4 -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚙</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2019 Audi A4</h3>
-                            <p class="business-category">35 TFSI S Line Avant</p>
-                        </div>
-                        <span class="business-distance">3.8 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £21,450 • 2019 (69 plate) • Petrol • 38,200 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 One previous owner</div>
-                        <div class="detail-item">✅ Recently serviced</div>
-                        <div class="detail-item">💳 Part exchange welcome</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Make Offer</button>
-                    </div>
-                </div>
-            </div>
+                            <div class="app-section" id="testimonialsSection" style="display: none;">
+                                <h3>⭐ Reviews</h3>
+                                <p style="color: #666; font-size: 0.9em;">5-star testimonials</p>
+                            </div>
 
-            <!-- Example 3: VW Golf -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚗</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2018 Volkswagen Golf</h3>
-                            <p class="business-category">1.5 TSI EVO GT Edition</p>
-                        </div>
-                        <span class="business-distance">8.5 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £15,995 • 2018 (18 plate) • Petrol • 42,100 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 Full VW service history</div>
-                        <div class="detail-item">✅ Excellent condition</div>
-                        <div class="detail-item">💳 Low rate finance available</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
-                    </div>
-                </div>
-            </div>
+                            <div class="app-section" id="emergencySection" style="display: none;">
+                                <h3>🚨 Emergency</h3>
+                                <button class="contact-button" style="background: #f44336; color: white;">
+                                    🚨 Emergency Call
+                                </button>
+                            </div>
 
-            <!-- Example 4: Mercedes C-Class -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚘</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2017 Mercedes C-Class</h3>
-                            <p class="business-category">C220d AMG Line Premium</p>
-                        </div>
-                        <span class="business-distance">5.2 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £18,750 or best offer • 2017 (67 plate) • Diesel • 55,800 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 Mercedes main dealer history</div>
-                        <div class="detail-item">✅ Premium spec with extras</div>
-                        <div class="detail-item">💳 Open to sensible offers</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Make Offer</button>
-                    </div>
-                </div>
-            </div>
+                            <div class="app-section" id="menulinxSection" style="display: none;">
+                                <h3>🍽️ Our Menu</h3>
+                                <div style="background: #f5f5f5; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <div>
+                                            <strong>Sourdough Loaf</strong><br>
+                                            <span style="font-size: 0.85em; color: #666;">Fresh daily</span>
+                                        </div>
+                                        <strong style="color: #4caf50;">£4.50</strong>
+                                    </div>
+                                </div>
+                                <button class="contact-button" style="background: #4caf50; color: white;">
+                                    🛒 Order Now
+                                </button>
+                            </div>
 
-            <!-- Example 5: Porsche 718 -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🏎️</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2020 Porsche 718 Cayman</h3>
-                            <p class="business-category">2.0 T 300 PS PDK</p>
-                        </div>
-                        <span class="business-distance">12.3 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £44,995 • 2020 (20 plate) • Petrol • 8,900 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 As new condition</div>
-                        <div class="detail-item">✅ Full Porsche warranty remaining</div>
-                        <div class="detail-item">💳 Viewing by appointment</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
-                    </div>
-                </div>
-            </div>
+                            <div class="app-section" id="preorderSection" style="display: none;">
+                                <h3>📦 Pre-Order Tomorrow</h3>
+                                <div style="background: #e3f2fd; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #2196f3;">
+                                    <strong>Order by 8pm tonight</strong><br>
+                                    <span style="font-size: 0.85em;">Fresh for tomorrow</span>
+                                </div>
+                                <button class="contact-button" style="background: #2196f3; color: white;">
+                                    📅 Pre-Order
+                                </button>
+                                <p style="font-size: 0.85em; color: #666; text-align: center; margin-top: 10px;">
+                                    Pay now • Collect tomorrow • Zero waste
+                                </p>
+                            </div>
 
-            <!-- Example 6: Toyota RAV4 -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚙</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2019 Toyota RAV4</h3>
-                            <p class="business-category">2.5 VVT-i Hybrid Excel</p>
+                            <div class="app-section">
+                                <h3>📍 Service Area</h3>
+                                <p id="previewServiceArea" style="color: #666;">Your service area</p>
+                            </div>
                         </div>
-                        <span class="business-distance">4.1 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £24,750 • 2019 (69 plate) • Hybrid • 31,200 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 Toyota approved used</div>
-                        <div class="detail-item">✅ Hybrid battery warranty</div>
-                        <div class="detail-item">💳 Excellent fuel economy</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Make Offer</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Example 7: Ford Transit -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚐</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2018 Ford Transit Custom</h3>
-                            <p class="business-category">2.0 TDCi 300 L1H1 Limited</p>
-                        </div>
-                        <span class="business-distance">9.7 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £14,995 + VAT • 2018 (68 plate) • Diesel • 68,500 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 Full service history</div>
-                        <div class="detail-item">✅ Commercial warranty</div>
-                        <div class="detail-item">💳 Business lease available</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Trade Enquiry</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Example 8: Range Rover Evoque -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚙</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2021 Range Rover Evoque</h3>
-                            <p class="business-category">2.0 D180 R-Dynamic S Auto</p>
-                        </div>
-                        <span class="business-distance">6.8 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £35,950 • 2021 (71 plate) • Diesel • 18,300 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 Land Rover approved</div>
-                        <div class="detail-item">✅ Manufacturer warranty</div>
-                        <div class="detail-item">💳 Premium finance packages</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Example 9: Ford Fiesta -->
-            <div class="business-card" onclick="alert('This is a demo vehicle listing')">
-                <div class="business-image">🚗</div>
-                <div class="business-content">
-                    <div class="business-header">
-                        <div>
-                            <h3 class="business-name">2016 Ford Fiesta</h3>
-                            <p class="business-category">1.0 EcoBoost Zetec 5dr</p>
-                        </div>
-                        <span class="business-distance">3.2 mi</span>
-                    </div>
-                    <p class="business-description">
-                        £7,495 • 2016 (66 plate) • Petrol • 52,400 miles
-                    </p>
-                    <div class="business-details">
-                        <div class="detail-item">📅 Full service history</div>
-                        <div class="detail-item">✅ First car ideal</div>
-                        <div class="detail-item">💳 Low insurance group</div>
-                    </div>
-                    <div class="business-actions">
-                        <button class="action-btn action-btn-primary">View Details</button>
-                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="powered-by">
-        Powered by <a href="./index.html">AppWow</a> • Part of the VTL Evosystem
     </div>
 
     <script>
-        // Search functionality
-        let currentMaxDistance = 10; // Default max distance in miles
+        let selectedTrade = '';
+        let selectedTradeType = '';
+        let selectedColor = '#1976d2';
 
-        function performSearch() {
-            const sellerType = document.getElementById('sellerTypeSelect').value.toLowerCase();
-            const keyword = document.getElementById('keywordSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.business-card');
-            let visibleCount = 0;
-
-            cards.forEach(card => {
-                const name = card.querySelector('.business-name').textContent.toLowerCase();
-                const category = card.querySelector('.business-category').textContent.toLowerCase();
-                const distanceText = card.querySelector('.business-distance')?.textContent || '0 mi';
-                const distance = parseFloat(distanceText);
-
-                // Check seller type match
-                const sellerTypeMatch = sellerType === 'all sellers' || 
-                    category.includes(sellerType);
-
-                // Check keyword match (searches in name and category)
-                const keywordMatch = keyword === '' || 
-                    name.includes(keyword) || 
-                    category.includes(keyword);
-
-                // Check distance match
-                const distanceMatch = distance <= currentMaxDistance;
-
-                // Show/hide card based on all criteria
-                if (sellerTypeMatch && keywordMatch && distanceMatch) {
-                    card.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            // Update count
-            document.getElementById('resultsCount').textContent = visibleCount;
-        }
-
-        function setMaxDistance(miles) {
-            currentMaxDistance = miles;
-            // Update button styles
-            document.querySelectorAll('.distance-btn').forEach(btn => {
-                btn.style.background = 'var(--light-grey)';
-                btn.style.color = 'var(--technical-grey)';
-            });
-            event.target.style.background = 'var(--carlinx-orange)';
-            event.target.style.color = 'var(--evosystem-black)';
-            performSearch();
-        }
-
-        // PWA Manifest
-        const manifest = {
-            name: "CarLinx - Vehicle Discovery",
-            short_name: "CarLinx",
-            description: "Discover vehicles and dealers in Brighton & Sussex",
-            start_url: "./carlinx.html",
-            display: "standalone",
-            background_color: "#FFC107",
-            theme_color: "#FFC107",
-            icons: [{
-                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%23FFC107'/><text x='96' y='135' font-size='100' text-anchor='middle' fill='%230A0A0A'>C</text></svg>",
-                sizes: "192x192",
-                type: "image/svg+xml"
-            }]
+        // Comprehensive trade database based on UK listing
+        const tradeDatabase = {
+            building: [
+                { id: 'plumber', name: 'Plumber', icon: '🔧', type: 'trade' },
+                { id: 'electrician', name: 'Electrician', icon: '⚡', type: 'trade' },
+                { id: 'gasengineer', name: 'Gas Engineer', icon: '🔥', type: 'trade' },
+                { id: 'builder', name: 'General Builder', icon: '🏗️', type: 'trade' },
+                { id: 'bricklayer', name: 'Bricklayer', icon: '🧱', type: 'trade' },
+                { id: 'carpenter', name: 'Carpenter/Joiner', icon: '🪵', type: 'trade' },
+                { id: 'plasterer', name: 'Plasterer', icon: '🎯', type: 'trade' },
+                { id: 'roofer', name: 'Roofer', icon: '🏠', type: 'trade' },
+                { id: 'locksmith', name: 'Locksmith', icon: '🔐', type: 'trade' },
+                { id: 'glazier', name: 'Glazier', icon: '🪟', type: 'trade' },
+                { id: 'dampproof', name: 'Damp Proofing', icon: '💧', type: 'trade' },
+                { id: 'drainage', name: 'Drainage Specialist', icon: '🚰', type: 'trade' }
+            ],
+            home: [
+                { id: 'painter', name: 'Painter & Decorator', icon: '🎨', type: 'trade' },
+                { id: 'tiler', name: 'Tiler', icon: '🔲', type: 'trade' },
+                { id: 'flooring', name: 'Flooring Specialist', icon: '🪜', type: 'trade' },
+                { id: 'kitchenfitter', name: 'Kitchen Fitter', icon: '🍳', type: 'trade' },
+                { id: 'bathroomfitter', name: 'Bathroom Fitter', icon: '🚿', type: 'trade' },
+                { id: 'landscaper', name: 'Landscaper', icon: '🌳', type: 'trade' },
+                { id: 'gardener', name: 'Gardener', icon: '🌱', type: 'trade' },
+                { id: 'treesurgeon', name: 'Tree Surgeon', icon: '🪓', type: 'trade' },
+                { id: 'fencing', name: 'Fencing Contractor', icon: '🪵', type: 'trade' },
+                { id: 'driveway', name: 'Driveway Specialist', icon: '🛣️', type: 'trade' },
+                { id: 'windowcleaner', name: 'Window Cleaner', icon: '🧽', type: 'trade' }
+            ],
+            automotive: [
+                { id: 'mobilemechanic', name: 'Mobile Mechanic', icon: '🚗', type: 'trade' },
+                { id: 'mobiletyres', name: 'Mobile Tyre Fitting', icon: '🛞', type: 'trade' },
+                { id: 'mobilevaleting', name: 'Mobile Valeting', icon: '🧼', type: 'trade' },
+                { id: 'windscreen', name: 'Windscreen Repair', icon: '🪟', type: 'trade' },
+                { id: 'garage', name: 'Independent Garage', icon: '🔧', type: 'trade' },
+                { id: 'autoelectrician', name: 'Auto Electrician', icon: '🔌', type: 'trade' },
+                { id: 'bodyshop', name: 'Body Shop', icon: '🎨', type: 'trade' }
+            ],
+            specialist: [
+                { id: 'security', name: 'Security/Alarm Installer', icon: '🔒', type: 'trade' },
+                { id: 'av', name: 'Audio/Visual Installer', icon: '📺', type: 'trade' },
+                { id: 'aerial', name: 'Aerial/Satellite Engineer', icon: '📡', type: 'trade' },
+                { id: 'appliance', name: 'Appliance Repair', icon: '🔧', type: 'trade' },
+                { id: 'cleaner', name: 'Domestic Cleaner', icon: '🧹', type: 'trade' },
+                { id: 'carpet', name: 'Carpet Cleaner', icon: '🧼', type: 'trade' },
+                { id: 'oven', name: 'Oven Cleaner', icon: '🍳', type: 'trade' },
+                { id: 'pest', name: 'Pest Control', icon: '🐀', type: 'trade' },
+                { id: 'handyman', name: 'Handyman', icon: '🔨', type: 'trade' },
+                { id: 'removals', name: 'Removals/Man & Van', icon: '🚚', type: 'trade' }
+            ],
+            fb: [
+                { id: 'cafe', name: 'Café', icon: '☕', type: 'fb' },
+                { id: 'restaurant', name: 'Restaurant', icon: '🍽️', type: 'fb' },
+                { id: 'takeaway', name: 'Takeaway', icon: '🥡', type: 'fb' },
+                { id: 'bakery', name: 'Bakery', icon: '🥖', type: 'fb' },
+                { id: 'deli', name: 'Delicatessen', icon: '🧀', type: 'fb' },
+                { id: 'butcher', name: 'Butcher', icon: '🥩', type: 'fb' },
+                { id: 'greengrocer', name: 'Greengrocer', icon: '🥬', type: 'fb' },
+                { id: 'foodtruck', name: 'Food Truck', icon: '🚚', type: 'fb' },
+                { id: 'caterer', name: 'Mobile Caterer', icon: '🍱', type: 'fb' },
+                { id: 'icecream', name: 'Ice Cream Van', icon: '🍦', type: 'fb' },
+                { id: 'popup', name: 'Pop-Up Restaurant', icon: '🎪', type: 'fb' },
+                { id: 'cakemaker', name: 'Cake Maker', icon: '🎂', type: 'fb' },
+                { id: 'pub', name: 'Independent Pub', icon: '🍺', type: 'fb' },
+                { id: 'winebar', name: 'Wine Bar', icon: '🍷', type: 'fb' },
+                { id: 'fishmonger', name: 'Fishmonger', icon: '🐟', type: 'fb' }
+            ]
         };
 
-        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        // Category selection
+        document.getElementById('categorySelect').addEventListener('change', function() {
+            const category = this.value;
+            const tradeSelect = document.getElementById('tradeSelect');
+            const tradePreview = document.getElementById('tradePreview');
+            
+            tradeSelect.innerHTML = '<option value="">-- Select Trade --</option>';
+            tradePreview.style.display = 'none';
+            selectedTrade = '';
+            selectedTradeType = '';
+            
+            if (category && tradeDatabase[category]) {
+                tradeSelect.disabled = false;
+                tradeDatabase[category].forEach(trade => {
+                    const option = document.createElement('option');
+                    option.value = trade.id;
+                    option.textContent = `${trade.icon} ${trade.name}`;
+                    option.dataset.icon = trade.icon;
+                    option.dataset.name = trade.name;
+                    option.dataset.type = trade.type;
+                    tradeSelect.appendChild(option);
+                });
+            } else {
+                tradeSelect.disabled = true;
+            }
+            
+            // Hide F&B features if switching away from F&B
+            if (category !== 'fb') {
+                document.getElementById('tradeFeatures').style.display = 'block';
+                document.getElementById('fbFeatures').style.display = 'none';
+            }
+        });
+
+        // Trade selection
+        document.getElementById('tradeSelect').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            
+            if (this.value) {
+                selectedTrade = this.value;
+                selectedTradeType = selectedOption.dataset.type;
+                
+                // Show preview
+                document.getElementById('tradeIcon').textContent = selectedOption.dataset.icon;
+                document.getElementById('tradeName').textContent = selectedOption.dataset.name;
+                document.getElementById('tradePreview').style.display = 'block';
+                
+                // Auto-populate business name
+                const businessNameInput = document.getElementById('businessName');
+                if (!businessNameInput.value) {
+                    businessNameInput.value = `${selectedOption.dataset.name} Business`;
+                    updatePreview();
+                }
+                
+                // Show/hide feature sections
+                if (selectedTradeType === 'fb') {
+                    document.getElementById('tradeFeatures').style.display = 'none';
+                    document.getElementById('fbFeatures').style.display = 'block';
+                } else {
+                    document.getElementById('tradeFeatures').style.display = 'block';
+                    document.getElementById('fbFeatures').style.display = 'none';
+                }
+                
+                updatePricing();
+            } else {
+                document.getElementById('tradePreview').style.display = 'none';
+                selectedTrade = '';
+                selectedTradeType = '';
+            }
+        });
+
+        // Color selection
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedColor = this.dataset.color;
+                document.getElementById('appHeader').style.background = selectedColor;
+            });
+        });
+
+        // Feature checkboxes
+        document.querySelectorAll('.feature-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function(e) {
+                if (e.target.type === 'checkbox') return;
+                const input = this.querySelector('input[type="checkbox"]');
+                input.checked = !input.checked;
+                updateFeatures();
+                updatePricing();
+            });
+        });
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                updateFeatures();
+                updatePricing();
+            });
+        });
+
+        // MenuLinx dependency
+        document.getElementById('feature-menulinx')?.addEventListener('change', function() {
+            const preorderCheckbox = document.getElementById('preorderCheckbox');
+            const preorderInput = document.getElementById('feature-preorder');
+            
+            if (!this.checked) {
+                preorderInput.checked = false;
+                preorderCheckbox.style.opacity = '0.5';
+                preorderCheckbox.style.pointerEvents = 'none';
+            } else {
+                preorderCheckbox.style.opacity = '1';
+                preorderCheckbox.style.pointerEvents = 'auto';
+            }
+        });
+
+        // Live updates
+        document.getElementById('businessName').addEventListener('input', updatePreview);
+        document.getElementById('tagline').addEventListener('input', updatePreview);
+        document.getElementById('serviceArea').addEventListener('input', updatePreview);
+
+        function updatePreview() {
+            const businessName = document.getElementById('businessName').value || 'Your Business Name';
+            const tagline = document.getElementById('tagline').value || 'Your tagline here';
+            const serviceArea = document.getElementById('serviceArea').value || 'Your service area';
+
+            document.getElementById('previewBusinessName').textContent = businessName;
+            document.getElementById('previewTagline').textContent = tagline;
+            document.getElementById('previewServiceArea').textContent = serviceArea;
+        }
+
+        function updateFeatures() {
+            // Trade features
+            document.getElementById('bookingSection').style.display = 
+                document.getElementById('feature-booking')?.checked ? 'block' : 'none';
+            document.getElementById('gallerySection').style.display = 
+                document.getElementById('feature-gallery')?.checked ? 'block' : 'none';
+            document.getElementById('testimonialsSection').style.display = 
+                document.getElementById('feature-testimonials')?.checked ? 'block' : 'none';
+            document.getElementById('emergencySection').style.display = 
+                document.getElementById('feature-emergency')?.checked ? 'block' : 'none';
+
+            // F&B features
+            const menulinxChecked = document.getElementById('feature-menulinx')?.checked || false;
+            const preorderChecked = document.getElementById('feature-preorder')?.checked || false;
+
+            document.getElementById('menulinxSection').style.display = menulinxChecked ? 'block' : 'none';
+            document.getElementById('preorderSection').style.display = (menulinxChecked && preorderChecked) ? 'block' : 'none';
+        }
+
+        function updatePricing() {
+            let total = 20;
+            let breakdown = ['✓ Basic Trade App: £20/month'];
+
+            const menulinxChecked = document.getElementById('feature-menulinx')?.checked || false;
+            const preorderChecked = document.getElementById('feature-preorder')?.checked || false;
+
+            if (menulinxChecked) {
+                total += 30;
+                breakdown.push('✓ MenuLinx Integration: £30/month');
+                if (preorderChecked) {
+                    breakdown.push('✓ Pre-Order Mode: Included');
+                }
+            }
+
+            document.getElementById('totalPrice').textContent = '£' + total;
+            document.getElementById('pricingBreakdown').innerHTML = breakdown.join('<br>');
+        }
+
+        function generateApp() {
+            if (!selectedTrade) {
+                alert('⚠️ Please select both category and trade type!');
+                return;
+            }
+
+            const businessName = document.getElementById('businessName').value;
+            if (!businessName) {
+                alert('⚠️ Please enter a business name!');
+                return;
+            }
+
+            const phone = document.getElementById('phone').value;
+            if (!phone) {
+                alert('⚠️ Please enter a phone number!');
+                return;
+            }
+
+            let features = [];
+            const menulinxChecked = document.getElementById('feature-menulinx')?.checked || false;
+            const preorderChecked = document.getElementById('feature-preorder')?.checked || false;
+
+            if (menulinxChecked) {
+                features.push('MenuLinx Ordering System');
+                if (preorderChecked) {
+                    features.push('Pre-Order Mode (Perishables)');
+                }
+            }
+
+            let monthlyCost = 20;
+            if (menulinxChecked) monthlyCost += 30;
+
+            document.getElementById('successMessage').classList.add('show');
+
+            const tradeSelect = document.getElementById('tradeSelect');
+            const selectedOption = tradeSelect.options[tradeSelect.selectedIndex];
+            const tradeName = selectedOption.dataset.name;
+
+            setTimeout(() => {
+                let message = '✅ INSTANT APP GENERATED!\n\n' +
+                      '📱 Trade: ' + tradeName + '\n' +
+                      '🏢 Business: ' + businessName + '\n' +
+                      '🎨 Color: ' + selectedColor + '\n' +
+                      '📞 Phone: ' + phone + '\n' +
+                      '💷 Subscription: £' + monthlyCost + '/month\n';
+
+                if (features.length > 0) {
+                    message += '\n🎯 Premium Features:\n';
+                    features.forEach(f => message += '  • ' + f + '\n');
+                }
+
+                message += '\n✨ Ready to publish to AppWow!\n' +
+                          '📱 QR code generated for instant install\n' +
+                          '🚀 Deploy to marketplace now';
+
+                alert(message);
+            }, 500);
+        }
+
+        // Initialize
+        document.querySelector('.color-option[data-color="#1976d2"]').classList.add('selected');
+        updateFeatures();
+        updatePricing();
+
+        // Embedded PWA Manifest for offline functionality
+        const manifestData = {
+            "name": "LinxLocal WhiteLabel Generator",
+            "short_name": "LinxLocal WL",
+            "description": "Generate professional trade apps for 60+ UK businesses in under 5 minutes",
+            "start_url": "./",
+            "display": "standalone",
+            "background_color": "#667eea",
+            "theme_color": "#667eea",
+            "orientation": "portrait",
+            "icons": [
+                {
+                    "src": "linxlocal-whitelabel-icon-192.png",
+                    "sizes": "192x192",
+                    "type": "image/png",
+                    "purpose": "any maskable"
+                },
+                {
+                    "src": "linxlocal-whitelabel-icon-512.png",
+                    "sizes": "512x512",
+                    "type": "image/png",
+                    "purpose": "any maskable"
+                }
+            ]
+        };
+
+        // Create and inject manifest
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
         const manifestURL = URL.createObjectURL(manifestBlob);
         const manifestLink = document.createElement('link');
         manifestLink.rel = 'manifest';
         manifestLink.href = manifestURL;
         document.head.appendChild(manifestLink);
     </script>
- <script>
-function setMainImage(imgElement) {
-    const card = imgElement.closest('.business-card');
-    const mainImg = card.querySelector('.business-image img');
-
-    mainImg.src = imgElement.src;
-
-    card.querySelectorAll('.car-gallery img').forEach(img => img.classList.remove('active'));
-    imgElement.classList.add('active');
-}
-</script>
-<script>
-function setMainImage(targetId, thumb) {
-    document.getElementById(targetId).src = thumb.src;
-}
-</script>
-
- 
 </body>
 </html>
+
