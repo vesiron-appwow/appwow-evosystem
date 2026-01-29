@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate professional PWA apps for 60+ UK trades in under 5 minutes">
+    <meta name="theme-color" content="#667eea">
     <title>Instant Trade App Generator | AppWow Agent Tool</title>
+    <link rel="apple-touch-icon" href="linxlocal-whitelabel-icon.png">
     <style>
         * {
             margin: 0;
@@ -66,6 +69,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+        }
+
+        .preview-panel h2 {
+            text-align: center;
+            width: 100%;
         }
 
         .section {
@@ -320,10 +328,74 @@
             .configurator-panel {
                 border-right: none;
                 border-bottom: 2px solid #e0e0e0;
+                max-height: none;
+            }
+
+            .preview-panel {
+                padding: 20px;
+                justify-content: flex-start;
             }
 
             .phone-preview {
-                transform: scale(0.8);
+                transform: scale(0.85);
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .configurator-panel {
+                padding: 20px;
+            }
+
+            .preview-panel {
+                padding: 20px 10px;
+            }
+
+            .phone-preview {
+                transform: scale(0.75);
+            }
+
+            .trade-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .color-picker-group {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 10px;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .phone-preview {
+                transform: scale(0.65);
             }
         }
     </style>
@@ -892,6 +964,40 @@
         document.querySelector('.color-option[data-color="#1976d2"]').classList.add('selected');
         updateFeatures();
         updatePricing();
+
+        // Embedded PWA Manifest for offline functionality
+        const manifestData = {
+            "name": "LinxLocal WhiteLabel Generator",
+            "short_name": "LinxLocal WL",
+            "description": "Generate professional trade apps for 60+ UK businesses in under 5 minutes",
+            "start_url": "./",
+            "display": "standalone",
+            "background_color": "#667eea",
+            "theme_color": "#667eea",
+            "orientation": "portrait",
+            "icons": [
+                {
+                    "src": "linxlocal-whitelabel-icon-192.png",
+                    "sizes": "192x192",
+                    "type": "image/png",
+                    "purpose": "any maskable"
+                },
+                {
+                    "src": "linxlocal-whitelabel-icon-512.png",
+                    "sizes": "512x512",
+                    "type": "image/png",
+                    "purpose": "any maskable"
+                }
+            ]
+        };
+
+        // Create and inject manifest
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = manifestURL;
+        document.head.appendChild(manifestLink);
     </script>
 </body>
 </html>
