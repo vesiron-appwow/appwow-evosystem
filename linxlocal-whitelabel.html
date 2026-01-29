@@ -514,6 +514,31 @@
                         <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ffc107;">
                             <strong>🍽️ Food & Beverage Premium Features</strong>
                         </div>
+
+                        <!-- MENU IMPORT FEATURE -->
+                        <div class="feature-checkbox" style="background: #fff3e0; border-color: #ff9800;">
+                            <input type="checkbox" id="feature-menuimport" checked>
+                            <div style="width: 100%;">
+                                <label for="feature-menuimport" style="font-weight: 600; color: #e65100;">
+                                    📸 Quick Menu Import<span class="premium-badge">AI Powered</span>
+                                </label>
+                                <div style="font-size: 0.85em; color: #555; margin-top: 5px;">
+                                    <strong>Snap your menu, we'll do the typing!</strong><br>
+                                    • Take photo of existing menu or upload PDF<br>
+                                    • AI extracts items, descriptions, prices automatically<br>
+                                    • Review and approve in seconds - No manual data entry!
+                                </div>
+                                <div style="margin-top: 10px;" id="menuImportControls">
+                                    <input type="file" id="menuUpload" accept="image/*,application/pdf" style="display: none;">
+                                    <button onclick="triggerMenuUpload()" class="contact-button" style="background: #ff9800; color: white; padding: 10px; font-size: 0.9em; margin-bottom: 5px;">
+                                        📷 Upload Menu Photo/PDF
+                                    </button>
+                                    <button onclick="simulateMenuExtraction()" class="contact-button" style="background: #4caf50; color: white; padding: 10px; font-size: 0.9em;">
+                                        ✨ Demo: Auto-Extract Menu
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         
                         <div class="feature-checkbox" style="background: #e8f5e9; border-color: #4caf50;">
                             <input type="checkbox" id="feature-menulinx">
@@ -964,6 +989,81 @@
         document.querySelector('.color-option[data-color="#1976d2"]').classList.add('selected');
         updateFeatures();
         updatePricing();
+
+        // Menu Import Functions
+        function triggerMenuUpload() {
+            document.getElementById('menuUpload').click();
+        }
+
+        document.getElementById('menuUpload')?.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                alert('📸 Menu uploaded: ' + fileName + '\n\nProcessing with AI...\n\n(In production, this would extract menu items automatically)');
+                // Simulate extraction after upload
+                setTimeout(() => {
+                    simulateMenuExtraction();
+                }, 1000);
+            }
+        });
+
+        function simulateMenuExtraction() {
+            // Simulated menu items that would be extracted from OCR
+            const extractedMenu = [
+                { name: 'Full English Breakfast', desc: 'Eggs, bacon, sausage, beans, toast', price: '£8.95' },
+                { name: 'Eggs Benedict', desc: 'Poached eggs, ham, hollandaise', price: '£7.50' },
+                { name: 'Avocado Toast', desc: 'Smashed avocado, poached egg, chilli', price: '£6.95' },
+                { name: 'Pancake Stack', desc: 'Buttermilk pancakes, maple syrup, berries', price: '£7.95' },
+                { name: 'Caesar Salad', desc: 'Romaine, parmesan, croutons, dressing', price: '£6.50' },
+                { name: 'Club Sandwich', desc: 'Triple decker, chicken, bacon, mayo', price: '£8.50' }
+            ];
+
+            // Show processing animation
+            const menuSection = document.getElementById('menulinxSection');
+            menuSection.innerHTML = '<h3>🍽️ Our Menu</h3><p style="color: #ff9800; font-weight: 600;">⚡ AI Extracting Menu Items...</p>';
+            menuSection.style.display = 'block';
+
+            // Simulate item-by-item extraction
+            let itemIndex = 0;
+            const extractInterval = setInterval(() => {
+                if (itemIndex < extractedMenu.length) {
+                    const item = extractedMenu[itemIndex];
+                    const itemHTML = `
+                        <div style="background: #f5f5f5; padding: 10px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #4caf50;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <strong>${item.name}</strong><br>
+                                    <span style="font-size: 0.85em; color: #666;">${item.desc}</span>
+                                </div>
+                                <strong style="color: #4caf50;">${item.price}</strong>
+                            </div>
+                        </div>
+                    `;
+                    
+                    if (itemIndex === 0) {
+                        menuSection.innerHTML = '<h3>🍽️ Our Menu <span style="font-size: 0.7em; color: #4caf50;">✓ Auto-Extracted</span></h3>';
+                    }
+                    menuSection.innerHTML += itemHTML;
+                    itemIndex++;
+                } else {
+                    clearInterval(extractInterval);
+                    menuSection.innerHTML += `
+                        <button class="contact-button" style="background: #4caf50; color: white; margin-top: 10px;">
+                            🛒 Order Now
+                        </button>
+                        <p style="font-size: 0.8em; color: #666; text-align: center; margin-top: 10px;">
+                            ✨ 6 items extracted in 3 seconds
+                        </p>
+                    `;
+                    
+                    // Show success alert
+                    alert('✅ Menu Import Complete!\n\n' +
+                          '📸 Scanned: 6 menu items\n' +
+                          '⚡ Extracted: Names, descriptions, prices\n' +
+                          '✓ Ready to review and publish\n\n' +
+                          'Total time: 3 seconds vs 30 minutes manual entry!');
+                }
+            }, 500); // Add item every 0.5 seconds for demo effect
+        }
 
         // Embedded PWA Manifest for offline functionality
         const manifestData = {
