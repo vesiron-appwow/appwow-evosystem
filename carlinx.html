@@ -3,933 +3,738 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generate professional PWA apps for 60+ UK trades in under 5 minutes">
-    <meta name="theme-color" content="#667eea">
-    <title>Instant Trade App Generator | AppWow Agent Tool</title>
-    <link rel="apple-touch-icon" href="linxlocal-whitelabel-icon.png">
+    <meta name="description" content="CarLinx - Discover vehicles with Link3 staged selling in Brighton & Sussex.">
+    <title>CarLinx - Vehicle Discovery with Link3</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --carlinx-orange: #FFC107;
+            --carlinx-red: #DC3545;
+            --vtl-blue: #0057B8;
+            --vtl-cyan: #00C8E8;
+            --black: #0A0A0A;
+            --grey: #4A4A4A;
+            --light-grey: #F2F2F2;
+            --green: #28A745;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light-grey);
+            color: var(--black);
+            line-height: 1.6;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--carlinx-orange), var(--carlinx-red));
+            padding: 1.5rem 2rem;
             color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            min-height: 800px;
-        }
-
-        .configurator-panel {
-            padding: 40px;
-            background: #f8f9fa;
-            border-right: 2px solid #e0e0e0;
-            overflow-y: auto;
-            max-height: 800px;
-        }
-
-        .preview-panel {
-            padding: 40px;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .section {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .section-title {
-            font-size: 1.3em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #555;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        select:disabled {
-            background: #f5f5f5;
-            cursor: not-allowed;
-        }
-
-        .trade-preview {
-            display: none;
-            background: #f0f4ff;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            margin-top: 15px;
-        }
-
-        .trade-preview-icon {
-            font-size: 3em;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .trade-preview-name {
-            font-size: 1.2em;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        .trade-preview-desc {
-            font-size: 0.9em;
-            color: #666;
-            text-align: center;
-        }
-
-        .feature-checkbox {
-            display: flex;
-            align-items: flex-start;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .feature-checkbox:hover {
-            background: #f0f4ff;
-            border-color: #667eea;
-        }
-
-        .feature-checkbox input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-            margin-top: 2px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .color-picker-group {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .color-option {
-            width: 100%;
-            height: 50px;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-
-        .color-option.selected {
-            border-color: #333;
-            transform: scale(1.1);
-        }
-
-        .phone-preview {
-            width: 375px;
-            height: 667px;
-            border: 16px solid #333;
-            border-radius: 40px;
-            background: white;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .phone-notch {
-            width: 150px;
-            height: 30px;
-            background: #333;
-            margin: 0 auto;
-            border-radius: 0 0 20px 20px;
-        }
-
-        .phone-screen {
-            height: calc(100% - 30px);
-            overflow-y: auto;
-            background: white;
-        }
-
-        .app-header {
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-
-        .app-content {
-            padding: 20px;
-        }
-
-        .app-section {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .app-section h3 {
-            margin-bottom: 10px;
-            color: #333;
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .contact-button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-
-        .generate-button {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             color: white;
-            border: none;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.3);
             border-radius: 12px;
-            font-size: 1.2em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
-        }
-
-        .generate-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .success-message {
-            display: none;
-            background: #4caf50;
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            background: white;
-            margin: 20px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 1.8rem;
+            font-weight: 700;
         }
 
-        .premium-badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #333;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75em;
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
             font-weight: 600;
-            margin-left: 8px;
+            cursor: pointer;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
         }
 
-        @media (max-width: 1024px) {
-            .main-layout {
+        .btn:hover {
+            background: white;
+            color: var(--carlinx-orange);
+        }
+
+        .link3-banner {
+            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .link3-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .link3-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 1.5rem auto 0;
+        }
+
+        .stage-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .stage-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stage-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-section {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-controls {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .results-count {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--grey);
+        }
+
+        .results-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 2rem;
+        }
+
+        .card-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .vehicle-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(255,193,7,0.3);
+        }
+
+        .vehicle-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--light-grey), #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .link3-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--vtl-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .stage-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+        }
+
+        .stage-1 { background: var(--carlinx-red); }
+        .stage-2 { background: var(--carlinx-orange); color: var(--black); }
+        .stage-3 { background: var(--green); }
+
+        .vehicle-content {
+            padding: 1.5rem;
+        }
+
+        .vehicle-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--carlinx-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .vehicle-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .vehicle-subtitle {
+            font-size: 0.95rem;
+            color: var(--grey);
+            margin-bottom: 1rem;
+        }
+
+        .vehicle-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 8px;
+        }
+
+        .spec-item {
+            font-size: 0.9rem;
+            color: var(--grey);
+        }
+
+        .link3-status {
+            background: linear-gradient(135deg, var(--vtl-blue), var(--vtl-cyan));
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .link3-status-title {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .link3-status-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .vehicle-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.875rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .action-btn-primary {
+            background: var(--carlinx-orange);
+            color: var(--black);
+        }
+
+        .action-btn-primary:hover {
+            background: var(--carlinx-red);
+            color: white;
+        }
+
+        .action-btn-secondary {
+            background: var(--light-grey);
+            color: var(--grey);
+        }
+
+        .powered-by {
+            text-align: center;
+            padding: 2rem;
+            color: var(--grey);
+        }
+
+        .powered-by a {
+            color: var(--vtl-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .card-view {
                 grid-template-columns: 1fr;
-            }
-
-            .configurator-panel {
-                border-right: none;
-                border-bottom: 2px solid #e0e0e0;
-            }
-
-            .phone-preview {
-                transform: scale(0.8);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>⚡ Instant Trade App Generator</h1>
-            <p>Create professional PWAs for 60+ trades in under 5 minutes</p>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">C</div>
+                <div class="logo-text">
+                    <h1>CarLinx</h1>
+                    <p>Vehicle Discovery with Link3</p>
+                </div>
+            </a>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn" onclick="alert('Back to AppWow')">← Back to AppWow</button>
+                <button class="btn" onclick="alert('Install CarLinx')">Install App</button>
+            </div>
         </div>
+    </header>
 
-        <div class="main-layout">
-            <!-- CONFIGURATOR PANEL -->
-            <div class="configurator-panel">
+    <section class="link3-banner">
+        <h2>🔗 Powered by Link3 Staged Selling</h2>
+        <p>CarLinx uses Link3 to give sellers maximum exposure and buyers better opportunities</p>
+        
+        <div class="link3-stages">
+            <div class="stage-card">
+                <div class="stage-number">Stage 1</div>
+                <div class="stage-title">Trade Priority</div>
+                <p style="font-size: 0.95rem; opacity: 0.9;">3 days exclusive for registered commercial buyers. Silent bidding.</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Stage 2</div>
+                <div class="stage-title">Extended Buyers</div>
+                <p style="font-size: 0.95rem; opacity: 0.9;">3 days for registered enthusiasts and private buyers.</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Stage 3</div>
+                <div class="stage-title">Public Market</div>
+                <p style="font-size: 0.95rem; opacity: 0.9;">28 days general availability. Fixed price or best offer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="search-container">
+            <h2 class="search-title">Find Your Next Vehicle in Brighton & Sussex</h2>
+            
+            <form style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Make</label>
+                    <select style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>Any Make</option>
+                        <option>Audi</option>
+                        <option>BMW</option>
+                        <option>Ford</option>
+                        <option>Mercedes-Benz</option>
+                        <option>Toyota</option>
+                        <option>Volkswagen</option>
+                    </select>
+                </div>
                 
-                <!-- STEP 1: SELECT TRADE TYPE -->
-                <div class="section">
-                    <div class="section-title">1️⃣ Select Trade Category & Type</div>
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Model</label>
+                    <input type="text" placeholder="e.g., Golf, Corolla" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Min Price</label>
+                    <select style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>No Min</option>
+                        <option>£5,000</option>
+                        <option>£10,000</option>
+                        <option>£15,000</option>
+                        <option>£20,000</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Max Price</label>
+                    <select style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                        <option>No Max</option>
+                        <option>£15,000</option>
+                        <option>£20,000</option>
+                        <option>£30,000</option>
+                        <option>£50,000</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-weight: 600; font-size: 0.9rem; color: var(--grey); margin-bottom: 0.5rem;">Location</label>
+                    <input type="text" value="Brighton" style="width: 100%; padding: 0.875rem; border: 2px solid var(--light-grey); border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <button type="button" onclick="alert('Searching vehicles...')" style="align-self: end; padding: 0.875rem; background: var(--carlinx-orange); color: var(--black); border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">Search</button>
+            </form>
+
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid var(--light-grey);">
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--grey);">Distance:</span>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--carlinx-orange); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">10 miles</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">25 miles</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">50 miles</button>
+                </div>
+                
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--grey);">Link3 Stage:</span>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--carlinx-orange); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: 600;">All Stages</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">Trade Only</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">Extended</button>
+                    <button onclick="this.parentElement.querySelectorAll('button').forEach(b => b.style.background = 'var(--light-grey)'); this.style.background = 'var(--carlinx-orange)';" style="padding: 0.5rem 1rem; background: var(--light-grey); border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer;">Public</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="view-controls">
+        <div class="results-count"><span>9</span> vehicles found</div>
+    </div>
+
+    <div class="results-container">
+        <div class="card-view">
+            <!-- Vehicle 1: Stage 1 BMW -->
+            <div class="vehicle-card" onclick="alert('Opening BMW 3 Series...')">
+                <div class="vehicle-image">
+                    🚗
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-1">Stage 1: Trade</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£28,995</div>
+                    <h3 class="vehicle-name">2021 BMW 3 Series</h3>
+                    <p class="vehicle-subtitle">320d M Sport Saloon</p>
                     
-                    <div class="form-group">
-                        <label>Trade Category</label>
-                        <select id="categorySelect">
-                            <option value="">-- Select Category --</option>
-                            <option value="building">🏗️ Building & Property Trades</option>
-                            <option value="home">🏡 Home Improvement & Maintenance</option>
-                            <option value="automotive">🚗 Automotive Trades</option>
-                            <option value="specialist">🔧 Specialist Trades</option>
-                            <option value="fb">🍽️ Food & Beverage</option>
-                        </select>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2021 (73 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 24,500 miles</div>
+                        <div class="spec-item">📍 7.2 miles</div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Specific Trade</label>
-                        <select id="tradeSelect" disabled>
-                            <option value="">-- Select Trade --</option>
-                        </select>
+                    <div class="link3-status">
+                        <div class="link3-status-title">⏰ Trade Priority (Day 2 of 3)</div>
+                        <div class="link3-status-desc">Available to registered commercial buyers only.</div>
                     </div>
 
-                    <div class="trade-preview" id="tradePreview">
-                        <div class="trade-preview-icon" id="tradeIcon">🔧</div>
-                        <div class="trade-preview-name" id="tradeName">Trade Name</div>
-                        <div class="trade-preview-desc" id="tradeDescription">Description</div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
                     </div>
-                </div>
-
-                <!-- STEP 2: BUSINESS DETAILS -->
-                <div class="section">
-                    <div class="section-title">2️⃣ Business Details</div>
-                    <div class="form-group">
-                        <label>Business Name</label>
-                        <input type="text" id="businessName" placeholder="e.g., Smith Plumbing Services">
-                    </div>
-                    <div class="form-group">
-                        <label>Tagline</label>
-                        <input type="text" id="tagline" placeholder="e.g., Fast, Reliable, 24/7">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" id="phone" placeholder="07700 900123">
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" id="email" placeholder="info@business.co.uk">
-                    </div>
-                    <div class="form-group">
-                        <label>Service Area</label>
-                        <input type="text" id="serviceArea" placeholder="e.g., Greater Manchester">
-                    </div>
-                </div>
-
-                <!-- STEP 3: CHOOSE COLOR THEME -->
-                <div class="section">
-                    <div class="section-title">3️⃣ Choose Color Theme</div>
-                    <div class="color-picker-group">
-                        <div class="color-option" data-color="#1976d2" style="background: #1976d2;"></div>
-                        <div class="color-option" data-color="#d32f2f" style="background: #d32f2f;"></div>
-                        <div class="color-option" data-color="#388e3c" style="background: #388e3c;"></div>
-                        <div class="color-option" data-color="#f57c00" style="background: #f57c00;"></div>
-                        <div class="color-option" data-color="#7b1fa2" style="background: #7b1fa2;"></div>
-                        <div class="color-option" data-color="#0097a7" style="background: #0097a7;"></div>
-                        <div class="color-option" data-color="#5d4037" style="background: #5d4037;"></div>
-                        <div class="color-option" data-color="#455a64" style="background: #455a64;"></div>
-                    </div>
-                </div>
-
-                <!-- STEP 4: SELECT FEATURES -->
-                <div class="section">
-                    <div class="section-title">4️⃣ Select Features</div>
-                    
-                    <!-- TRADE FEATURES -->
-                    <div id="tradeFeatures">
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-booking" checked>
-                            <label for="feature-booking">📅 Instant Booking / Quote Request</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-gallery" checked>
-                            <label for="feature-gallery">📸 Work Gallery / Portfolio</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-testimonials" checked>
-                            <label for="feature-testimonials">⭐ Customer Testimonials</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-emergency">
-                            <label for="feature-emergency">🚨 Emergency Call Button</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-pricing">
-                            <label for="feature-pricing">💷 Pricing Guide</label>
-                        </div>
-                    </div>
-
-                    <!-- F&B PREMIUM FEATURES -->
-                    <div id="fbFeatures" style="display: none;">
-                        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ffc107;">
-                            <strong>🍽️ Food & Beverage Premium Features</strong>
-                        </div>
-                        
-                        <div class="feature-checkbox" style="background: #e8f5e9; border-color: #4caf50;">
-                            <input type="checkbox" id="feature-menulinx">
-                            <div>
-                                <label for="feature-menulinx" style="font-weight: 600; color: #2e7d32;">
-                                    🍽️ MenuLinx Integration<span class="premium-badge">+£30/month</span>
-                                </label>
-                                <div style="font-size: 0.85em; color: #555; margin-top: 5px;">
-                                    Full menu display, online ordering, payment processing<br>
-                                    <strong>Bypasses Just Eat/Deliveroo 30% commission</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="feature-checkbox" style="background: #e3f2fd; border-color: #2196f3;" id="preorderCheckbox">
-                            <input type="checkbox" id="feature-preorder">
-                            <div>
-                                <label for="feature-preorder" style="font-weight: 600; color: #1565c0;">
-                                    📦 Pre-Order Mode<span class="premium-badge">Included</span>
-                                </label>
-                                <div style="font-size: 0.85em; color: #555; margin-top: 5px;">
-                                    <strong>Perfect for: Bakeries, Butchers, Delis, Fishmongers</strong><br>
-                                    • Next-day advance orders with payment<br>
-                                    • Know exact quantities before production<br>
-                                    • Eliminate 60-70% waste, guarantee revenue
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="background: #f3e5f5; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 0.9em;">
-                            <strong>💰 ROI Example:</strong><br>
-                            £3,000/month via Just Eat = <strong style="color: #d32f2f;">£900 lost (30%)</strong><br>
-                            MenuLinx subscription = <strong style="color: #388e3c;">£30/month = £870 saved!</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PRICING SUMMARY -->
-                <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                    <div class="section-title" style="color: white; border-color: white;">💷 Subscription Pricing</div>
-                    <div style="font-size: 1.5em; font-weight: 600; margin-bottom: 10px;">
-                        <span id="totalPrice">£20</span>/month
-                    </div>
-                    <div id="pricingBreakdown">
-                        <div>✓ Basic Trade App: £20/month</div>
-                    </div>
-                </div>
-
-                <!-- GENERATE BUTTON -->
-                <button class="generate-button" onclick="generateApp()">
-                    🚀 Generate Instant App
-                </button>
-
-                <div class="success-message" id="successMessage">
-                    <h3>✅ App Generated Successfully!</h3>
-                    <p>Your Instant App is ready to deploy</p>
-                    <div class="qr-code">
-                        <div style="font-size: 100px;">📱</div>
-                    </div>
-                    <p><strong>Scan QR to install on customer's phone</strong></p>
                 </div>
             </div>
 
-            <!-- PREVIEW PANEL -->
-            <div class="preview-panel">
-                <h2 style="margin-bottom: 20px; color: #333;">Live Preview</h2>
-                <div class="phone-preview">
-                    <div class="phone-notch"></div>
-                    <div class="phone-screen">
-                        <div class="app-header" id="appHeader" style="background: #1976d2;">
-                            <h2 id="previewBusinessName">Your Business Name</h2>
-                            <p id="previewTagline">Your tagline here</p>
-                        </div>
-                        <div class="app-content">
-                            <div class="app-section">
-                                <h3>📞 Get In Touch</h3>
-                                <button class="contact-button" style="background: #4caf50; color: white;">
-                                    📞 Call Now
-                                </button>
-                                <button class="contact-button" style="background: #2196f3; color: white;">
-                                    ✉️ Email Us
-                                </button>
-                            </div>
+            <!-- Vehicle 2: Stage 2 Audi -->
+            <div class="vehicle-card" onclick="alert('Opening Audi A4...')">
+                <div class="vehicle-image">
+                    🚙
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-2">Stage 2: Extended</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£21,450</div>
+                    <h3 class="vehicle-name">2019 Audi A4</h3>
+                    <p class="vehicle-subtitle">35 TFSI S Line Avant</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2019 (69 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 38,200 miles</div>
+                        <div class="spec-item">📍 3.8 miles</div>
+                    </div>
 
-                            <div class="app-section" id="bookingSection" style="display: none;">
-                                <h3>📅 Book A Service</h3>
-                                <p style="color: #666; font-size: 0.9em;">Quick quote request</p>
-                            </div>
+                    <div class="link3-status">
+                        <div class="link3-status-title">🎯 Extended Buyers (Day 1 of 3)</div>
+                        <div class="link3-status-desc">Available to registered buyers. Make your offer now.</div>
+                    </div>
 
-                            <div class="app-section" id="gallerySection" style="display: none;">
-                                <h3>📸 Our Work</h3>
-                                <p style="color: #666; font-size: 0.9em;">Before & after gallery</p>
-                            </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Offer</button>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="app-section" id="testimonialsSection" style="display: none;">
-                                <h3>⭐ Reviews</h3>
-                                <p style="color: #666; font-size: 0.9em;">5-star testimonials</p>
-                            </div>
+            <!-- Vehicle 3: Stage 3 VW -->
+            <div class="vehicle-card" onclick="alert('Opening VW Golf...')">
+                <div class="vehicle-image">
+                    🚗
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£15,995</div>
+                    <h3 class="vehicle-name">2018 Volkswagen Golf</h3>
+                    <p class="vehicle-subtitle">1.5 TSI EVO GT Edition</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2018 (18 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 42,100 miles</div>
+                        <div class="spec-item">📍 8.5 miles</div>
+                    </div>
 
-                            <div class="app-section" id="emergencySection" style="display: none;">
-                                <h3>🚨 Emergency</h3>
-                                <button class="contact-button" style="background: #f44336; color: white;">
-                                    🚨 Emergency Call
-                                </button>
-                            </div>
+                    <div class="link3-status">
+                        <div class="link3-status-title">✅ Public Sale - Fixed Price (Day 12 of 28)</div>
+                        <div class="link3-status-desc">Available to everyone at fixed price.</div>
+                    </div>
 
-                            <div class="app-section" id="menulinxSection" style="display: none;">
-                                <h3>🍽️ Our Menu</h3>
-                                <div style="background: #f5f5f5; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                                    <div style="display: flex; justify-content: space-between;">
-                                        <div>
-                                            <strong>Sourdough Loaf</strong><br>
-                                            <span style="font-size: 0.85em; color: #666;">Fresh daily</span>
-                                        </div>
-                                        <strong style="color: #4caf50;">£4.50</strong>
-                                    </div>
-                                </div>
-                                <button class="contact-button" style="background: #4caf50; color: white;">
-                                    🛒 Order Now
-                                </button>
-                            </div>
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="app-section" id="preorderSection" style="display: none;">
-                                <h3>📦 Pre-Order Tomorrow</h3>
-                                <div style="background: #e3f2fd; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #2196f3;">
-                                    <strong>Order by 8pm tonight</strong><br>
-                                    <span style="font-size: 0.85em;">Fresh for tomorrow</span>
-                                </div>
-                                <button class="contact-button" style="background: #2196f3; color: white;">
-                                    📅 Pre-Order
-                                </button>
-                                <p style="font-size: 0.85em; color: #666; text-align: center; margin-top: 10px;">
-                                    Pay now • Collect tomorrow • Zero waste
-                                </p>
-                            </div>
+            <!-- Vehicle 4: Stage 3 Mercedes -->
+            <div class="vehicle-card" onclick="alert('Opening Mercedes C-Class...')">
+                <div class="vehicle-image">
+                    🚘
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£18,750 <span style="font-size: 0.6em; font-weight: 400;">or best offer</span></div>
+                    <h3 class="vehicle-name">2017 Mercedes C-Class</h3>
+                    <p class="vehicle-subtitle">C220d AMG Line Premium</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2017 (67 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 55,800 miles</div>
+                        <div class="spec-item">📍 5.2 miles</div>
+                    </div>
 
-                            <div class="app-section">
-                                <h3>📍 Service Area</h3>
-                                <p id="previewServiceArea" style="color: #666;">Your service area</p>
-                            </div>
-                        </div>
+                    <div class="link3-status">
+                        <div class="link3-status-title">💬 Public Sale - Best Offer (Day 7 of 28)</div>
+                        <div class="link3-status-desc">Accepting offers from all buyers.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Offer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 5: Stage 1 Porsche -->
+            <div class="vehicle-card" onclick="alert('Opening Porsche 718...')">
+                <div class="vehicle-image">
+                    🏎️
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-1">Stage 1: Trade</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£44,995</div>
+                    <h3 class="vehicle-name">2020 Porsche 718 Cayman</h3>
+                    <p class="vehicle-subtitle">2.0 T 300 PS PDK</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2020 (20 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 8,900 miles</div>
+                        <div class="spec-item">📍 12.3 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">⏰ Trade Priority (Day 1 of 3)</div>
+                        <div class="link3-status-desc">Exclusive to registered commercial buyers.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 6: Stage 2 Toyota -->
+            <div class="vehicle-card" onclick="alert('Opening Toyota RAV4...')">
+                <div class="vehicle-image">
+                    🚙
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-2">Stage 2: Extended</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£24,750</div>
+                    <h3 class="vehicle-name">2019 Toyota RAV4</h3>
+                    <p class="vehicle-subtitle">2.5 VVT-i Hybrid Excel</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2019 (69 plate)</div>
+                        <div class="spec-item">⚙️ Hybrid</div>
+                        <div class="spec-item">📏 31,200 miles</div>
+                        <div class="spec-item">📍 4.1 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">🎯 Extended Buyers (Day 2 of 3)</div>
+                        <div class="link3-status-desc">Multiple offers received. Final day tomorrow.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💰 Offer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 7: Stage 3 Ford Transit -->
+            <div class="vehicle-card" onclick="alert('Opening Ford Transit...')">
+                <div class="vehicle-image">
+                    🚐
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£14,995</div>
+                    <h3 class="vehicle-name">2018 Ford Transit Custom</h3>
+                    <p class="vehicle-subtitle">2.0 TDCi 300 L1H1 Limited</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2018 (68 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 68,500 miles</div>
+                        <div class="spec-item">📍 9.7 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">✅ Public Sale - Fixed Price (Day 3 of 28)</div>
+                        <div class="link3-status-desc">Freshly listed at public stage.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 8: Stage 1 Range Rover -->
+            <div class="vehicle-card" onclick="alert('Opening Range Rover...')">
+                <div class="vehicle-image">
+                    🚙
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-1">Stage 1: Trade</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£35,950</div>
+                    <h3 class="vehicle-name">2021 Range Rover Evoque</h3>
+                    <p class="vehicle-subtitle">2.0 D180 R-Dynamic S Auto</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2021 (71 plate)</div>
+                        <div class="spec-item">⚙️ Diesel</div>
+                        <div class="spec-item">📏 18,300 miles</div>
+                        <div class="spec-item">📍 6.8 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">⏰ Trade Priority (Day 3 of 3)</div>
+                        <div class="link3-status-desc">Final day for trade buyers. Moves to Extended tomorrow.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">💾 Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 9: Stage 3 Ford Fiesta -->
+            <div class="vehicle-card" onclick="alert('Opening Ford Fiesta...')">
+                <div class="vehicle-image">
+                    🚗
+                    <div class="link3-badge">🔗 Link3</div>
+                    <div class="stage-badge stage-3">Stage 3: Public</div>
+                </div>
+                <div class="vehicle-content">
+                    <div class="vehicle-price">£7,495</div>
+                    <h3 class="vehicle-name">2016 Ford Fiesta</h3>
+                    <p class="vehicle-subtitle">1.0 EcoBoost Zetec 5dr</p>
+                    
+                    <div class="vehicle-specs">
+                        <div class="spec-item">📅 2016 (66 plate)</div>
+                        <div class="spec-item">⚙️ Petrol</div>
+                        <div class="spec-item">📏 52,400 miles</div>
+                        <div class="spec-item">📍 3.2 miles</div>
+                    </div>
+
+                    <div class="link3-status">
+                        <div class="link3-status-title">✅ Public Sale - Fixed Price (Day 18 of 28)</div>
+                        <div class="link3-status-desc">Priced to sell. Full service history.</div>
+                    </div>
+
+                    <div class="vehicle-actions">
+                        <button class="action-btn action-btn-primary">View Seller IA</button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation()">📧 Contact</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        let selectedTrade = '';
-        let selectedTradeType = '';
-        let selectedColor = '#1976d2';
-
-        // Comprehensive trade database based on UK listing
-        const tradeDatabase = {
-            building: [
-                { id: 'plumber', name: 'Plumber', icon: '🔧', type: 'trade' },
-                { id: 'electrician', name: 'Electrician', icon: '⚡', type: 'trade' },
-                { id: 'gasengineer', name: 'Gas Engineer', icon: '🔥', type: 'trade' },
-                { id: 'builder', name: 'General Builder', icon: '🏗️', type: 'trade' },
-                { id: 'bricklayer', name: 'Bricklayer', icon: '🧱', type: 'trade' },
-                { id: 'carpenter', name: 'Carpenter/Joiner', icon: '🪵', type: 'trade' },
-                { id: 'plasterer', name: 'Plasterer', icon: '🎯', type: 'trade' },
-                { id: 'roofer', name: 'Roofer', icon: '🏠', type: 'trade' },
-                { id: 'locksmith', name: 'Locksmith', icon: '🔐', type: 'trade' },
-                { id: 'glazier', name: 'Glazier', icon: '🪟', type: 'trade' },
-                { id: 'dampproof', name: 'Damp Proofing', icon: '💧', type: 'trade' },
-                { id: 'drainage', name: 'Drainage Specialist', icon: '🚰', type: 'trade' }
-            ],
-            home: [
-                { id: 'painter', name: 'Painter & Decorator', icon: '🎨', type: 'trade' },
-                { id: 'tiler', name: 'Tiler', icon: '🔲', type: 'trade' },
-                { id: 'flooring', name: 'Flooring Specialist', icon: '🪜', type: 'trade' },
-                { id: 'kitchenfitter', name: 'Kitchen Fitter', icon: '🍳', type: 'trade' },
-                { id: 'bathroomfitter', name: 'Bathroom Fitter', icon: '🚿', type: 'trade' },
-                { id: 'landscaper', name: 'Landscaper', icon: '🌳', type: 'trade' },
-                { id: 'gardener', name: 'Gardener', icon: '🌱', type: 'trade' },
-                { id: 'treesurgeon', name: 'Tree Surgeon', icon: '🪓', type: 'trade' },
-                { id: 'fencing', name: 'Fencing Contractor', icon: '🪵', type: 'trade' },
-                { id: 'driveway', name: 'Driveway Specialist', icon: '🛣️', type: 'trade' },
-                { id: 'windowcleaner', name: 'Window Cleaner', icon: '🧽', type: 'trade' }
-            ],
-            automotive: [
-                { id: 'mobilemechanic', name: 'Mobile Mechanic', icon: '🚗', type: 'trade' },
-                { id: 'mobiletyres', name: 'Mobile Tyre Fitting', icon: '🛞', type: 'trade' },
-                { id: 'mobilevaleting', name: 'Mobile Valeting', icon: '🧼', type: 'trade' },
-                { id: 'windscreen', name: 'Windscreen Repair', icon: '🪟', type: 'trade' },
-                { id: 'garage', name: 'Independent Garage', icon: '🔧', type: 'trade' },
-                { id: 'autoelectrician', name: 'Auto Electrician', icon: '🔌', type: 'trade' },
-                { id: 'bodyshop', name: 'Body Shop', icon: '🎨', type: 'trade' }
-            ],
-            specialist: [
-                { id: 'security', name: 'Security/Alarm Installer', icon: '🔒', type: 'trade' },
-                { id: 'av', name: 'Audio/Visual Installer', icon: '📺', type: 'trade' },
-                { id: 'aerial', name: 'Aerial/Satellite Engineer', icon: '📡', type: 'trade' },
-                { id: 'appliance', name: 'Appliance Repair', icon: '🔧', type: 'trade' },
-                { id: 'cleaner', name: 'Domestic Cleaner', icon: '🧹', type: 'trade' },
-                { id: 'carpet', name: 'Carpet Cleaner', icon: '🧼', type: 'trade' },
-                { id: 'oven', name: 'Oven Cleaner', icon: '🍳', type: 'trade' },
-                { id: 'pest', name: 'Pest Control', icon: '🐀', type: 'trade' },
-                { id: 'handyman', name: 'Handyman', icon: '🔨', type: 'trade' },
-                { id: 'removals', name: 'Removals/Man & Van', icon: '🚚', type: 'trade' }
-            ],
-            fb: [
-                { id: 'cafe', name: 'Café', icon: '☕', type: 'fb' },
-                { id: 'restaurant', name: 'Restaurant', icon: '🍽️', type: 'fb' },
-                { id: 'takeaway', name: 'Takeaway', icon: '🥡', type: 'fb' },
-                { id: 'bakery', name: 'Bakery', icon: '🥖', type: 'fb' },
-                { id: 'deli', name: 'Delicatessen', icon: '🧀', type: 'fb' },
-                { id: 'butcher', name: 'Butcher', icon: '🥩', type: 'fb' },
-                { id: 'greengrocer', name: 'Greengrocer', icon: '🥬', type: 'fb' },
-                { id: 'foodtruck', name: 'Food Truck', icon: '🚚', type: 'fb' },
-                { id: 'caterer', name: 'Mobile Caterer', icon: '🍱', type: 'fb' },
-                { id: 'icecream', name: 'Ice Cream Van', icon: '🍦', type: 'fb' },
-                { id: 'popup', name: 'Pop-Up Restaurant', icon: '🎪', type: 'fb' },
-                { id: 'cakemaker', name: 'Cake Maker', icon: '🎂', type: 'fb' },
-                { id: 'pub', name: 'Independent Pub', icon: '🍺', type: 'fb' },
-                { id: 'winebar', name: 'Wine Bar', icon: '🍷', type: 'fb' },
-                { id: 'fishmonger', name: 'Fishmonger', icon: '🐟', type: 'fb' }
-            ]
-        };
-
-        // Category selection
-        document.getElementById('categorySelect').addEventListener('change', function() {
-            const category = this.value;
-            const tradeSelect = document.getElementById('tradeSelect');
-            const tradePreview = document.getElementById('tradePreview');
-            
-            tradeSelect.innerHTML = '<option value="">-- Select Trade --</option>';
-            tradePreview.style.display = 'none';
-            selectedTrade = '';
-            selectedTradeType = '';
-            
-            if (category && tradeDatabase[category]) {
-                tradeSelect.disabled = false;
-                tradeDatabase[category].forEach(trade => {
-                    const option = document.createElement('option');
-                    option.value = trade.id;
-                    option.textContent = `${trade.icon} ${trade.name}`;
-                    option.dataset.icon = trade.icon;
-                    option.dataset.name = trade.name;
-                    option.dataset.type = trade.type;
-                    tradeSelect.appendChild(option);
-                });
-            } else {
-                tradeSelect.disabled = true;
-            }
-            
-            // Hide F&B features if switching away from F&B
-            if (category !== 'fb') {
-                document.getElementById('tradeFeatures').style.display = 'block';
-                document.getElementById('fbFeatures').style.display = 'none';
-            }
-        });
-
-        // Trade selection
-        document.getElementById('tradeSelect').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            
-            if (this.value) {
-                selectedTrade = this.value;
-                selectedTradeType = selectedOption.dataset.type;
-                
-                // Show preview
-                document.getElementById('tradeIcon').textContent = selectedOption.dataset.icon;
-                document.getElementById('tradeName').textContent = selectedOption.dataset.name;
-                document.getElementById('tradePreview').style.display = 'block';
-                
-                // Auto-populate business name
-                const businessNameInput = document.getElementById('businessName');
-                if (!businessNameInput.value) {
-                    businessNameInput.value = `${selectedOption.dataset.name} Business`;
-                    updatePreview();
-                }
-                
-                // Show/hide feature sections
-                if (selectedTradeType === 'fb') {
-                    document.getElementById('tradeFeatures').style.display = 'none';
-                    document.getElementById('fbFeatures').style.display = 'block';
-                } else {
-                    document.getElementById('tradeFeatures').style.display = 'block';
-                    document.getElementById('fbFeatures').style.display = 'none';
-                }
-                
-                updatePricing();
-            } else {
-                document.getElementById('tradePreview').style.display = 'none';
-                selectedTrade = '';
-                selectedTradeType = '';
-            }
-        });
-
-        // Color selection
-        document.querySelectorAll('.color-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedColor = this.dataset.color;
-                document.getElementById('appHeader').style.background = selectedColor;
-            });
-        });
-
-        // Feature checkboxes
-        document.querySelectorAll('.feature-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function(e) {
-                if (e.target.type === 'checkbox') return;
-                const input = this.querySelector('input[type="checkbox"]');
-                input.checked = !input.checked;
-                updateFeatures();
-                updatePricing();
-            });
-        });
-
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                updateFeatures();
-                updatePricing();
-            });
-        });
-
-        // MenuLinx dependency
-        document.getElementById('feature-menulinx')?.addEventListener('change', function() {
-            const preorderCheckbox = document.getElementById('preorderCheckbox');
-            const preorderInput = document.getElementById('feature-preorder');
-            
-            if (!this.checked) {
-                preorderInput.checked = false;
-                preorderCheckbox.style.opacity = '0.5';
-                preorderCheckbox.style.pointerEvents = 'none';
-            } else {
-                preorderCheckbox.style.opacity = '1';
-                preorderCheckbox.style.pointerEvents = 'auto';
-            }
-        });
-
-        // Live updates
-        document.getElementById('businessName').addEventListener('input', updatePreview);
-        document.getElementById('tagline').addEventListener('input', updatePreview);
-        document.getElementById('serviceArea').addEventListener('input', updatePreview);
-
-        function updatePreview() {
-            const businessName = document.getElementById('businessName').value || 'Your Business Name';
-            const tagline = document.getElementById('tagline').value || 'Your tagline here';
-            const serviceArea = document.getElementById('serviceArea').value || 'Your service area';
-
-            document.getElementById('previewBusinessName').textContent = businessName;
-            document.getElementById('previewTagline').textContent = tagline;
-            document.getElementById('previewServiceArea').textContent = serviceArea;
-        }
-
-        function updateFeatures() {
-            // Trade features
-            document.getElementById('bookingSection').style.display = 
-                document.getElementById('feature-booking')?.checked ? 'block' : 'none';
-            document.getElementById('gallerySection').style.display = 
-                document.getElementById('feature-gallery')?.checked ? 'block' : 'none';
-            document.getElementById('testimonialsSection').style.display = 
-                document.getElementById('feature-testimonials')?.checked ? 'block' : 'none';
-            document.getElementById('emergencySection').style.display = 
-                document.getElementById('feature-emergency')?.checked ? 'block' : 'none';
-
-            // F&B features
-            const menulinxChecked = document.getElementById('feature-menulinx')?.checked || false;
-            const preorderChecked = document.getElementById('feature-preorder')?.checked || false;
-
-            document.getElementById('menulinxSection').style.display = menulinxChecked ? 'block' : 'none';
-            document.getElementById('preorderSection').style.display = (menulinxChecked && preorderChecked) ? 'block' : 'none';
-        }
-
-        function updatePricing() {
-            let total = 20;
-            let breakdown = ['✓ Basic Trade App: £20/month'];
-
-            const menulinxChecked = document.getElementById('feature-menulinx')?.checked || false;
-            const preorderChecked = document.getElementById('feature-preorder')?.checked || false;
-
-            if (menulinxChecked) {
-                total += 30;
-                breakdown.push('✓ MenuLinx Integration: £30/month');
-                if (preorderChecked) {
-                    breakdown.push('✓ Pre-Order Mode: Included');
-                }
-            }
-
-            document.getElementById('totalPrice').textContent = '£' + total;
-            document.getElementById('pricingBreakdown').innerHTML = breakdown.join('<br>');
-        }
-
-        function generateApp() {
-            if (!selectedTrade) {
-                alert('⚠️ Please select both category and trade type!');
-                return;
-            }
-
-            const businessName = document.getElementById('businessName').value;
-            if (!businessName) {
-                alert('⚠️ Please enter a business name!');
-                return;
-            }
-
-            const phone = document.getElementById('phone').value;
-            if (!phone) {
-                alert('⚠️ Please enter a phone number!');
-                return;
-            }
-
-            let features = [];
-            const menulinxChecked = document.getElementById('feature-menulinx')?.checked || false;
-            const preorderChecked = document.getElementById('feature-preorder')?.checked || false;
-
-            if (menulinxChecked) {
-                features.push('MenuLinx Ordering System');
-                if (preorderChecked) {
-                    features.push('Pre-Order Mode (Perishables)');
-                }
-            }
-
-            let monthlyCost = 20;
-            if (menulinxChecked) monthlyCost += 30;
-
-            document.getElementById('successMessage').classList.add('show');
-
-            const tradeSelect = document.getElementById('tradeSelect');
-            const selectedOption = tradeSelect.options[tradeSelect.selectedIndex];
-            const tradeName = selectedOption.dataset.name;
-
-            setTimeout(() => {
-                let message = '✅ INSTANT APP GENERATED!\n\n' +
-                      '📱 Trade: ' + tradeName + '\n' +
-                      '🏢 Business: ' + businessName + '\n' +
-                      '🎨 Color: ' + selectedColor + '\n' +
-                      '📞 Phone: ' + phone + '\n' +
-                      '💷 Subscription: £' + monthlyCost + '/month\n';
-
-                if (features.length > 0) {
-                    message += '\n🎯 Premium Features:\n';
-                    features.forEach(f => message += '  • ' + f + '\n');
-                }
-
-                message += '\n✨ Ready to publish to AppWow!\n' +
-                          '📱 QR code generated for instant install\n' +
-                          '🚀 Deploy to marketplace now';
-
-                alert(message);
-            }, 500);
-        }
-
-        // Initialize
-        document.querySelector('.color-option[data-color="#1976d2"]').classList.add('selected');
-        updateFeatures();
-        updatePricing();
-
-        // Embedded PWA Manifest for offline functionality
-        const manifestData = {
-            "name": "LinxLocal WhiteLabel Generator",
-            "short_name": "LinxLocal WL",
-            "description": "Generate professional trade apps for 60+ UK businesses in under 5 minutes",
-            "start_url": "./",
-            "display": "standalone",
-            "background_color": "#667eea",
-            "theme_color": "#667eea",
-            "orientation": "portrait",
-            "icons": [
-                {
-                    "src": "linxlocal-whitelabel-icon-192.png",
-                    "sizes": "192x192",
-                    "type": "image/png",
-                    "purpose": "any maskable"
-                },
-                {
-                    "src": "linxlocal-whitelabel-icon-512.png",
-                    "sizes": "512x512",
-                    "type": "image/png",
-                    "purpose": "any maskable"
-                }
-            ]
-        };
-
-        // Create and inject manifest
-        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        const manifestLink = document.createElement('link');
-        manifestLink.rel = 'manifest';
-        manifestLink.href = manifestURL;
-        document.head.appendChild(manifestLink);
-    </script>
+    <div class="powered-by">
+        Powered by <a href="#">AppWow</a> • Part of the VTL Evosystem • Using Link3 Staged Selling Protocol
+    </div>
 </body>
 </html>
-
