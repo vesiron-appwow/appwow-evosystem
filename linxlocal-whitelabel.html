@@ -592,6 +592,11 @@
                     🚀 Generate Instant App
                 </button>
 
+                <!-- RESET BUTTON -->
+                <button class="generate-button" onclick="resetDemo()" style="background: linear-gradient(135deg, #f44336 0%, #e91e63 100%); margin-top: 10px;">
+                    🔄 Reset Demo
+                </button>
+
                 <div class="success-message" id="successMessage">
                     <h3>✅ App Generated Successfully!</h3>
                     <p>Your Instant App is ready to deploy</p>
@@ -983,6 +988,77 @@
 
                 alert(message);
             }, 500);
+        }
+
+        function resetDemo() {
+            // Confirm reset
+            if (!confirm('🔄 Reset demo to fresh start?\n\nThis will clear all selections and inputs.')) {
+                return;
+            }
+
+            // Reset dropdowns
+            document.getElementById('categorySelect').value = '';
+            document.getElementById('tradeSelect').value = '';
+            document.getElementById('tradeSelect').disabled = true;
+            document.getElementById('tradePreview').style.display = 'none';
+
+            // Reset text inputs
+            document.getElementById('businessName').value = '';
+            document.getElementById('tagline').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('serviceArea').value = '';
+
+            // Reset color to default
+            document.querySelectorAll('.color-option').forEach(o => o.classList.remove('selected'));
+            document.querySelector('.color-option[data-color="#1976d2"]').classList.add('selected');
+            selectedColor = '#1976d2';
+            document.getElementById('appHeader').style.background = '#1976d2';
+
+            // Reset checkboxes to defaults
+            document.getElementById('feature-booking').checked = true;
+            document.getElementById('feature-gallery').checked = true;
+            document.getElementById('feature-testimonials').checked = true;
+            document.getElementById('feature-emergency').checked = false;
+            document.getElementById('feature-pricing').checked = false;
+
+            if (document.getElementById('feature-menuimport')) {
+                document.getElementById('feature-menuimport').checked = true;
+            }
+            if (document.getElementById('feature-menulinx')) {
+                document.getElementById('feature-menulinx').checked = false;
+            }
+            if (document.getElementById('feature-preorder')) {
+                document.getElementById('feature-preorder').checked = false;
+            }
+
+            // Reset menu upload
+            if (document.getElementById('menuUpload')) {
+                document.getElementById('menuUpload').value = '';
+            }
+
+            // Hide feature sections
+            document.getElementById('tradeFeatures').style.display = 'block';
+            document.getElementById('fbFeatures').style.display = 'none';
+
+            // Reset preview
+            document.getElementById('previewBusinessName').textContent = 'Your Business Name';
+            document.getElementById('previewTagline').textContent = 'Your tagline here';
+            document.getElementById('previewServiceArea').textContent = 'Your service area';
+
+            // Hide success message
+            document.getElementById('successMessage').classList.remove('show');
+
+            // Reset variables
+            selectedTrade = '';
+            selectedTradeType = '';
+
+            // Update displays
+            updateFeatures();
+            updatePricing();
+
+            // Success feedback
+            alert('✅ Demo Reset Complete!\n\nReady for next demonstration.');
         }
 
         // Initialize
