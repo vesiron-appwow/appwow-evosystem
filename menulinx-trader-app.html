@@ -199,30 +199,6 @@
             color: white;
         }
 
-        .specials-banner {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            margin: 1rem;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
-        }
-
-        .specials-banner h2 {
-            color: var(--dark);
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .specials-banner h2::before {
-            content: "⭐ ";
-        }
-
-        .specials-banner h2::after {
-            content: " ⭐";
-        }
-
         .menu-section {
             padding: 1rem;
         }
@@ -933,57 +909,6 @@
             margin: 1rem 0;
         }
 
-        .edit-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .edit-modal.show {
-            display: flex;
-        }
-
-        .edit-modal-content {
-            background: white;
-            border-radius: 16px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-
-        .edit-modal h3 {
-            margin-bottom: 1.5rem;
-            color: var(--admin-primary);
-        }
-
-        .checkbox-field {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .checkbox-field input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-
-        .checkbox-field label {
-            font-weight: 600;
-            cursor: pointer;
-        }
-
         @media (max-width: 768px) {
             .view-switcher {
                 top: 10px;
@@ -1181,10 +1106,8 @@
             <!-- Menu Tab -->
             <div id="menu" class="tab-content">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h2 class="card-title" style="margin: 0;">Menu Management</h2>
-                        <button class="btn btn-success" onclick="addNewItem()">+ Add New Item</button>
-                    </div>
+                    <h2 class="card-title">Menu Management</h2>
+                    <button class="btn btn-primary" onclick="addNewItem()" style="margin-bottom: 1.5rem;">+ Add New Item</button>
                     
                     <div class="menu-grid" id="adminMenuGrid">
                         <!-- Menu items will be rendered here -->
@@ -1199,7 +1122,7 @@
                     
                     <div class="form-group">
                         <label>Restaurant Name</label>
-                        <input type="text" id="restaurantName" value="The Cozy Corner Cafe">
+                        <input type="text" value="The Cozy Corner Cafe">
                     </div>
 
                     <div class="form-group">
@@ -1209,7 +1132,7 @@
 
                     <div class="form-group">
                         <label>Opening Hours</label>
-                        <input type="text" id="restaurantHours" value="Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm">
+                        <input type="text" value="Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm">
                     </div>
 
                     <div class="form-group">
@@ -1220,20 +1143,6 @@
                     <div class="form-group">
                         <label>Delivery Fee</label>
                         <input type="number" value="2.50" step="0.50">
-                    </div>
-
-                    <h3 style="margin: 2rem 0 1rem;">⭐ Specials Settings</h3>
-                    
-                    <div style="background: var(--light-grey); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
-                            <input type="checkbox" id="showSpecialsToggle" checked style="width: 24px; height: 24px;">
-                            <div>
-                                <strong>Show "Today's Specials" on customer menu</strong>
-                                <p style="color: var(--grey); font-size: 0.9em; margin-top: 0.25rem;">
-                                    When enabled, items marked as specials appear in a highlighted banner at the top of the menu
-                                </p>
-                            </div>
-                        </label>
                     </div>
 
                     <h3 style="margin: 2rem 0 1rem;">📱 Connect98 SMS Settings</h3>
@@ -1259,36 +1168,7 @@
                         </label>
                     </div>
 
-                    <h3 style="margin: 2rem 0 1rem;">💾 Data Management</h3>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                        <button class="btn btn-primary" onclick="saveToLocalStorage()">
-                            💾 Save Menu & Settings
-                        </button>
-                        <button class="btn btn-success" onclick="exportMenuJSON()">
-                            📥 Export Backup
-                        </button>
-                        <button class="btn btn-primary" onclick="importMenuJSON()">
-                            📤 Import Backup
-                        </button>
-                        <button class="btn btn-danger" onclick="resetDemo()">
-                            🔄 Reset Demo
-                        </button>
-                    </div>
-
-                    <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107; margin-bottom: 2rem;">
-                        <strong>💡 Data Management Tips:</strong>
-                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                            <li><strong>Save:</strong> Stores menu & settings in your browser (persists between sessions)</li>
-                            <li><strong>Export:</strong> Downloads a backup file you can keep safe</li>
-                            <li><strong>Import:</strong> Restores menu from a backup file</li>
-                            <li><strong>Reset:</strong> Clears everything back to demo defaults</li>
-                        </ul>
-                    </div>
-
-                    <button class="btn btn-success" onclick="saveSettings()" style="font-size: 1.1em; padding: 1rem 2rem;">
-                        ✅ Save Settings
-                    </button>
+                    <button class="btn btn-success" onclick="saveSettings()">💾 Save Settings</button>
                 </div>
             </div>
         </div>
@@ -1397,54 +1277,6 @@
         </div>
     </div>
 
-    <!-- Edit Menu Item Modal -->
-    <div id="editModal" class="edit-modal">
-        <div class="edit-modal-content">
-            <h3>Edit Menu Item</h3>
-            
-            <div class="form-group">
-                <label>Emoji</label>
-                <input type="text" id="editEmoji" maxlength="2" placeholder="🍽️">
-            </div>
-
-            <div class="form-group">
-                <label>Item Name *</label>
-                <input type="text" id="editName" placeholder="e.g., Caesar Salad">
-            </div>
-
-            <div class="form-group">
-                <label>Description</label>
-                <textarea id="editDescription" placeholder="Brief description"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Price (£) *</label>
-                <input type="number" id="editPrice" step="0.01" min="0" placeholder="9.95">
-            </div>
-
-            <div class="form-group">
-                <label>Category *</label>
-                <select id="editCategory">
-                    <option value="breakfast">Breakfast</option>
-                    <option value="lunch">Lunch</option>
-                    <option value="drinks">Drinks</option>
-                    <option value="desserts">Desserts</option>
-                </select>
-            </div>
-
-            <div class="checkbox-field">
-                <input type="checkbox" id="editIsSpecial">
-                <label for="editIsSpecial">⭐ Mark as Today's Special</label>
-            </div>
-
-            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                <button class="btn btn-success" onclick="saveEditedItem()" style="flex: 1;">Save Changes</button>
-                <button class="btn btn-danger" onclick="deleteCurrentItem()" style="flex: 1;">Delete Item</button>
-                <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Tesseract.js CDN -->
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
 
@@ -1457,8 +1289,7 @@
                 description: "Eggs, bacon, sausage, beans, toast, tomato, mushrooms",
                 price: 8.95,
                 category: "breakfast",
-                emoji: "🍳",
-                isSpecial: false
+                emoji: "🍳"
             },
             {
                 id: 2,
@@ -1466,8 +1297,7 @@
                 description: "Smashed avocado on sourdough with poached eggs",
                 price: 7.50,
                 category: "breakfast",
-                emoji: "🥑",
-                isSpecial: false
+                emoji: "🥑"
             },
             {
                 id: 3,
@@ -1475,8 +1305,7 @@
                 description: "Triple-decker with chicken, bacon, lettuce, tomato",
                 price: 9.95,
                 category: "lunch",
-                emoji: "🥪",
-                isSpecial: false
+                emoji: "🥪"
             },
             {
                 id: 4,
@@ -1484,8 +1313,7 @@
                 description: "Crisp romaine, parmesan, croutons, caesar dressing",
                 price: 8.50,
                 category: "lunch",
-                emoji: "🥗",
-                isSpecial: false
+                emoji: "🥗"
             },
             {
                 id: 5,
@@ -1493,8 +1321,7 @@
                 description: "Rich espresso with steamed milk and foam",
                 price: 3.50,
                 category: "drinks",
-                emoji: "☕",
-                isSpecial: false
+                emoji: "☕"
             },
             {
                 id: 6,
@@ -1502,8 +1329,7 @@
                 description: "Freshly squeezed oranges",
                 price: 3.95,
                 category: "drinks",
-                emoji: "🍊",
-                isSpecial: false
+                emoji: "🍊"
             },
             {
                 id: 7,
@@ -1511,8 +1337,7 @@
                 description: "Warm chocolate brownie with vanilla ice cream",
                 price: 5.95,
                 category: "desserts",
-                emoji: "🍫",
-                isSpecial: false
+                emoji: "🍫"
             },
             {
                 id: 8,
@@ -1520,18 +1345,9 @@
                 description: "Homemade carrot cake with cream cheese frosting",
                 price: 4.95,
                 category: "desserts",
-                emoji: "🥕",
-                isSpecial: false
+                emoji: "🥕"
             }
         ];
-
-        const defaultMenuData = JSON.parse(JSON.stringify(menuData)); // Deep copy for reset
-
-        let restaurantSettings = {
-            name: "The Cozy Corner Cafe",
-            hours: "Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm",
-            showSpecials: true
-        };
 
         let cart = [];
         let deliveryType = 'delivery';
@@ -1540,13 +1356,11 @@
         let orderCounter = 10234;
         let extractedMenuItems = [];
         let nextItemId = 100;
-        let currentEditingItemId = null;
 
         // Initialize
         renderMenu();
         renderAdminMenu();
         updateAdminStats();
-        loadFromLocalStorage();
 
         // View Switching
         function switchView(view) {
@@ -1568,30 +1382,6 @@
             const categories = [...new Set(menuData.map(item => item.category))];
             
             let html = '';
-
-            // Show specials banner if enabled and there are specials
-            const specials = menuData.filter(item => item.isSpecial);
-            if (restaurantSettings.showSpecials && specials.length > 0 && currentCategory === 'all') {
-                html += `
-                    <div class="specials-banner">
-                        <h2>Today's Specials</h2>
-                        ${specials.map(item => `
-                            <div class="menu-item">
-                                <div class="item-image">${item.emoji}</div>
-                                <div class="item-content">
-                                    <div class="item-name">${item.name}</div>
-                                    <div class="item-description">${item.description}</div>
-                                    <div class="item-footer">
-                                        <div class="item-price">£${item.price.toFixed(2)}</div>
-                                        <button class="add-btn" onclick="addToCart(${item.id})">Add +</button>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            }
-            
             categories.forEach(cat => {
                 if (currentCategory !== 'all' && cat !== currentCategory) return;
                 
@@ -1603,7 +1393,7 @@
                             <div class="menu-item">
                                 <div class="item-image">${item.emoji}</div>
                                 <div class="item-content">
-                                    <div class="item-name">${item.name}${item.isSpecial ? ' ⭐' : ''}</div>
+                                    <div class="item-name">${item.name}</div>
                                     <div class="item-description">${item.description}</div>
                                     <div class="item-footer">
                                         <div class="item-price">£${item.price.toFixed(2)}</div>
@@ -1624,7 +1414,7 @@
             grid.innerHTML = menuData.map(item => `
                 <div class="menu-item-row">
                     <div class="item-emoji">${item.emoji}</div>
-                    <div>${item.name}${item.isSpecial ? ' ⭐' : ''}</div>
+                    <div>${item.name}</div>
                     <div>${item.category.charAt(0).toUpperCase() + item.category.slice(1)}</div>
                     <div><strong>£${item.price.toFixed(2)}</strong></div>
                     <button class="btn btn-primary" onclick="editMenuItem(${item.id})">Edit</button>
@@ -1894,224 +1684,16 @@
             alert(`Order #${orderNum} marked as delivered!\n\n📱 SMS Sent via Connect98:\n"Your order has been delivered. Enjoy your meal!"`);
         }
 
-        function editMenuItem(itemId) {
-            const item = menuData.find(i => i.id === itemId);
-            if (!item) return;
-
-            currentEditingItemId = itemId;
-            
-            document.getElementById('editEmoji').value = item.emoji;
-            document.getElementById('editName').value = item.name;
-            document.getElementById('editDescription').value = item.description;
-            document.getElementById('editPrice').value = item.price.toFixed(2);
-            document.getElementById('editCategory').value = item.category;
-            document.getElementById('editIsSpecial').checked = item.isSpecial || false;
-
-            document.getElementById('editModal').classList.add('show');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('show');
-            currentEditingItemId = null;
-        }
-
-        function saveEditedItem() {
-            if (!currentEditingItemId) return;
-
-            const item = menuData.find(i => i.id === currentEditingItemId);
-            if (!item) return;
-
-            const name = document.getElementById('editName').value.trim();
-            const price = parseFloat(document.getElementById('editPrice').value);
-
-            if (!name || isNaN(price) || price < 0) {
-                alert('Please provide a valid name and price');
-                return;
-            }
-
-            item.emoji = document.getElementById('editEmoji').value || '🍽️';
-            item.name = name;
-            item.description = document.getElementById('editDescription').value.trim();
-            item.price = price;
-            item.category = document.getElementById('editCategory').value;
-            item.isSpecial = document.getElementById('editIsSpecial').checked;
-
-            renderMenu();
-            renderAdminMenu();
-            closeEditModal();
-            
-            alert('✅ Menu item updated successfully!');
-        }
-
-        function deleteCurrentItem() {
-            if (!currentEditingItemId) return;
-
-            if (!confirm('Are you sure you want to delete this item?')) return;
-
-            menuData = menuData.filter(i => i.id !== currentEditingItemId);
-            
-            renderMenu();
-            renderAdminMenu();
-            closeEditModal();
-            
-            alert('✅ Menu item deleted successfully!');
-        }
-
         function addNewItem() {
-            const newItem = {
-                id: nextItemId++,
-                name: '',
-                description: '',
-                price: 0,
-                category: 'lunch',
-                emoji: '🍽️',
-                isSpecial: false
-            };
-
-            menuData.push(newItem);
-            editMenuItem(newItem.id);
+            alert('Add New Item form would appear here');
         }
 
-        function resetDemo() {
-            if (!confirm('Reset to demo defaults?\n\nThis will:\n• Clear all imported menu items\n• Reset to original 8 demo items\n• Clear all orders\n• Reset restaurant settings\n\nThis cannot be undone!')) {
-                return;
-            }
-
-            menuData = JSON.parse(JSON.stringify(defaultMenuData));
-            adminOrders = [];
-            cart = [];
-            extractedMenuItems = [];
-            restaurantSettings = {
-                name: "The Cozy Corner Cafe",
-                hours: "Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm",
-                showSpecials: true
-            };
-
-            renderMenu();
-            renderAdminMenu();
-            updateAdminStats();
-            updateCart();
-            
-            document.getElementById('restaurantName').value = restaurantSettings.name;
-            document.getElementById('restaurantHours').value = restaurantSettings.hours;
-            document.getElementById('showSpecialsToggle').checked = restaurantSettings.showSpecials;
-
-            alert('✅ Demo reset to defaults!');
-        }
-
-        function saveToLocalStorage() {
-            try {
-                const data = {
-                    menuData: menuData,
-                    restaurantSettings: restaurantSettings,
-                    timestamp: new Date().toISOString()
-                };
-                localStorage.setItem('menulinx_data', JSON.stringify(data));
-                alert('✅ Menu and settings saved!\n\nYour data is stored in your browser and will persist between sessions.');
-            } catch (e) {
-                alert('❌ Error saving data: ' + e.message);
-            }
-        }
-
-        function loadFromLocalStorage() {
-            try {
-                const saved = localStorage.getItem('menulinx_data');
-                if (saved) {
-                    const data = JSON.parse(saved);
-                    if (data.menuData && data.restaurantSettings) {
-                        menuData = data.menuData;
-                        restaurantSettings = data.restaurantSettings;
-                        
-                        renderMenu();
-                        renderAdminMenu();
-                        
-                        // Update settings form if exists
-                        const nameInput = document.getElementById('restaurantName');
-                        const hoursInput = document.getElementById('restaurantHours');
-                        const specialsToggle = document.getElementById('showSpecialsToggle');
-                        
-                        if (nameInput) nameInput.value = restaurantSettings.name;
-                        if (hoursInput) hoursInput.value = restaurantSettings.hours;
-                        if (specialsToggle) specialsToggle.checked = restaurantSettings.showSpecials;
-                    }
-                }
-            } catch (e) {
-                console.error('Error loading saved data:', e);
-            }
-        }
-
-        function exportMenuJSON() {
-            const data = {
-                menuData: menuData,
-                restaurantSettings: restaurantSettings,
-                exported: new Date().toISOString()
-            };
-
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `menulinx-backup-${Date.now()}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-
-            alert('✅ Menu backup downloaded!\n\nYou can import this file later to restore your menu and settings.');
-        }
-
-        function importMenuJSON() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = e => {
-                const file = e.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = event => {
-                    try {
-                        const data = JSON.parse(event.target.result);
-                        
-                        if (!data.menuData || !data.restaurantSettings) {
-                            alert('❌ Invalid backup file format');
-                            return;
-                        }
-
-                        if (confirm('Import this menu backup?\n\nThis will replace your current menu and settings.')) {
-                            menuData = data.menuData;
-                            restaurantSettings = data.restaurantSettings;
-                            
-                            renderMenu();
-                            renderAdminMenu();
-                            
-                            document.getElementById('restaurantName').value = restaurantSettings.name;
-                            document.getElementById('restaurantHours').value = restaurantSettings.hours;
-                            document.getElementById('showSpecialsToggle').checked = restaurantSettings.showSpecials;
-                            
-                            saveToLocalStorage();
-                            
-                            alert('✅ Menu imported successfully!');
-                        }
-                    } catch (err) {
-                        alert('❌ Error reading backup file: ' + err.message);
-                    }
-                };
-                reader.readAsText(file);
-            };
-            
-            input.click();
+        function editMenuItem(itemId) {
+            alert(`Edit menu item ${itemId}`);
         }
 
         function saveSettings() {
-            restaurantSettings.name = document.getElementById('restaurantName').value;
-            restaurantSettings.hours = document.getElementById('restaurantHours').value;
-            restaurantSettings.showSpecials = document.getElementById('showSpecialsToggle').checked;
-            
-            renderMenu(); // Re-render to apply specials visibility
-            
-            saveToLocalStorage();
-            
-            alert('✅ Settings saved successfully!\n\n✓ Restaurant details updated\n✓ Specials visibility set\n✓ Data saved to browser storage');
+            alert('Settings saved successfully!\n\n✓ Restaurant details updated\n✓ Connect98 SMS configured\n✓ White label settings applied');
         }
 
         // OCR IMPORT FUNCTIONS
@@ -2212,24 +1794,7 @@
                             category: category,
                             emoji: '🍽️',
                             confidence: confidence,
-                            approved: confidence >= 75,
-                            isSpecial: false
-                        });
-                    }
-                }
-            }
-
-  me.length >= 2) {
-                        items.push({
-                            tempId: nextItemId++,
-                            name: name,
-                            description: description,
-                            price: parseFloat(price.replace(/[£$€]/g, '').trim()),
-                            category: category,
-                            emoji: '🍽️',
-                            confidence: confidence,
-                            approved: confidence >= 75,
-                            isSpecial: false
+                            approved: confidence >= 75
                         });
                     }
                 }
@@ -2289,7 +1854,17 @@
                                     <option value="lunch" ${item.category === 'lunch' ? 'selected' : ''}>Lunch</option>
                                     <option value="drinks" ${item.category === 'drinks' ? 'selected' : ''}>Drinks</option>
                                     <option value="desserts" ${item.category === 'desserts' ? 'selected' : ''}>Desserts</option>
-                                    <option value="uncategorized" ${                 </div>
+                                    <option value="uncategorized" ${item.category === 'uncategorized' ? 'selected' : ''}>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="item-actions-ocr">
+                            <button class="btn-approve" onclick="approveExtractedItem(${item.tempId})">
+                                ${item.approved ? '✓ Approved' : '✓ Approve'}
+                            </button>
+                            <button class="btn-delete-item" onclick="deleteExtractedItem(${item.tempId})">🗑️ Delete</button>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -2333,8 +1908,7 @@
                     description: item.description,
                     price: item.price,
                     category: item.category,
-                    emoji: item.emoji,
-                    isSpecial: item.isSpecial || false
+                    emoji: item.emoji
                 });
             });
 
